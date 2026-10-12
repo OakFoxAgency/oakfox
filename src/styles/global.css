@@ -1,6 +1,39 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Fallbacks sized to the web fonts, so nothing moves when Work Sans and
+   Playfair swap in. The homepage hero is vertically centred and its headline
+   words are inline-blocks, so a narrower fallback re-wrapped the lines and the
+   whole block jumped: CLS 0.27 on mobile (Lighthouse, 12 Oct 2026).
+   size-adjust is measured on the headline's own words (Work Sans at 500 against
+   Arial and Android's Roboto; Playfair italic against Georgia italic); the
+   overrides are the web fonts' ascent and descent divided by it. */
+@font-face {
+  font-family: 'Work Sans Fallback';
+  src: local('Arial'), local('ArialMT');
+  size-adjust: 113.95%;
+  ascent-override: 81.61%;
+  descent-override: 21.33%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Work Sans Fallback Android';
+  src: local('Roboto'), local('Roboto-Regular');
+  size-adjust: 113.07%;
+  ascent-override: 82.25%;
+  descent-override: 21.49%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Playfair Display Fallback';
+  font-style: italic;
+  src: local('Georgia Italic'), local('Georgia-Italic');
+  size-adjust: 90.11%;
+  ascent-override: 120.07%;
+  descent-override: 27.85%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-cream: #F5F0E8;
   --color-cream-light: #FAF7F2;
@@ -14,8 +47,8 @@
      .label and caption on the site, so it failed AA almost everywhere. */
   --color-gray: #6B6760;
 
-  --font-sans: 'Work Sans', system-ui, sans-serif;
-  --font-display: 'Playfair Display', 'PT Serif', Georgia, serif;
+  --font-sans: 'Work Sans', 'Work Sans Fallback', 'Work Sans Fallback Android', system-ui, sans-serif;
+  --font-display: 'Playfair Display', 'Playfair Display Fallback', 'PT Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
