@@ -12,6 +12,8 @@ export interface Location {
   nearby: string[];
   /** Portfolio case studies from the sectors that lead this location's economy. */
   relatedWork?: { slug: string; title: string; note: string }[];
+  /** Checkable local detail (places, transport, events) shown on the page. Facts only. */
+  localNotes?: string[];
 }
 
 export const locations: Location[] = [
@@ -23,7 +25,7 @@ export const locations: Location[] = [
     distance: '10 minutes south of the studio',
     geo: { lat: 53.5686, lng: -2.8869 },
     description:
-      "Ormskirk is our closest town — a ten-minute drive from the studio. A market town with a strong independent retail scene along Burscough Street and Moor Street, a university population, a long Wednesday/Saturday market tradition, and a growing cluster of independent hospitality. We have worked with businesses in Ormskirk on brand identity, website design, and marketing since launching.",
+      "Ormskirk is our closest town — a ten-minute drive from the studio. A market town with a strong independent retail scene along Burscough Street and Moor Street, a university population, a long market tradition, and a growing cluster of independent hospitality. We have worked with businesses in Ormskirk on brand identity, website design, and marketing since launching.",
     strengths: [
       'Walk-in reachable for on-site brand discovery and photography',
       'Strong independent retail and market economy',
@@ -37,6 +39,11 @@ export const locations: Location[] = [
       'Food and drink producers',
     ],
     nearby: ['Burscough', 'Aughton', 'Skelmersdale', 'Rufford', 'Southport'],
+    localNotes: [
+      "The market runs every Thursday and Saturday, 8am to 4.30pm, across Moor Street, Aughton Street and Church Street (West Lancashire Borough Council).",
+      "Ormskirk station is a cross-platform interchange between Merseyrail services to Liverpool Central and Northern services to Preston, so meeting in town without a car is easy.",
+      "Edge Hill University sits on the edge of town, about a 15 to 20 minute walk from the station.",
+    ],
   },
   {
     slug: 'burscough',
@@ -60,6 +67,10 @@ export const locations: Location[] = [
       'Canal and outdoor recreation',
     ],
     nearby: ['Ormskirk', 'Parbold', 'Rufford', 'Mere Brow', 'Croston'],
+    localNotes: [
+      "The studio is at Martland Mill, Mart Lane, Burscough, L40 0SD. Phone 01704 773233, Monday to Friday 08:00 to 16:30.",
+      "The Leeds and Liverpool Canal runs through the village, and Burscough Bridge station is on the Southport to Wigan and Manchester Victoria line.",
+    ],
   },
   {
     slug: 'southport',
@@ -83,6 +94,11 @@ export const locations: Location[] = [
       'Leisure and tourism businesses',
     ],
     nearby: ['Birkdale', 'Ainsdale', 'Formby', 'Churchtown', 'Banks'],
+    localNotes: [
+      "Lord Street is the main shopping and dining boulevard, and the town's pier and promenade are the usual backdrop for local photography.",
+      "The Southport Flower Show is held every August.",
+      "Southport is on Merseyrail's Northern line, with direct trains to Liverpool Central, and sits in the Metropolitan Borough of Sefton (Merseyside) rather than Lancashire.",
+    ],
     relatedWork: [
       {
         slug: 'trailfox',
@@ -118,6 +134,10 @@ export const locations: Location[] = [
       'Creative and cultural organisations',
     ],
     nearby: ['Fulwood', 'Penwortham', 'Leyland', 'Longridge', 'Chorley'],
+    localNotes: [
+      "Preston station is on the West Coast Main Line, and the Ormskirk to Preston line runs through Burscough Junction, close to the studio.",
+      "The University of Central Lancashire (UCLan) is in the city centre, and Preston Guild, held every 20 years, was last celebrated in 2012.",
+    ],
   },
   {
     slug: 'manchester',
@@ -141,6 +161,10 @@ export const locations: Location[] = [
       'Professional services and consultancy',
     ],
     nearby: ['Salford', 'Stockport', 'Altrincham', 'Bolton', 'Wigan'],
+    localNotes: [
+      "Trains run from Burscough Bridge to Manchester Victoria via Wigan Wallgate on the Southport to Manchester line.",
+      "The Northern Quarter and Ancoats are in the city centre; MediaCityUK is across the border in Salford.",
+    ],
   },
   {
     slug: 'lancashire',

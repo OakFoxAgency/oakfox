@@ -85,7 +85,7 @@ const organization = {
 };
 
 const localBusiness = {
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'ProfessionalService'],
   '@id': 'https://oakfox.co.uk/#localbusiness',
   name: 'OakFox',
   url: 'https://oakfox.co.uk',
@@ -93,7 +93,8 @@ const localBusiness = {
   telephone: '+44 1704 773233',
   priceRange: '££',
   address: postalAddress,
-  areaServed: 'United Kingdom',
+  parentOrganization: { '@id': 'https://oakfox.co.uk/#organization' },
+  areaServed: ['West Lancashire', 'Lancashire', 'Merseyside', 'Greater Manchester', 'United Kingdom'],
   // Exact studio pin from the OakFox Google Business Profile listing.
   geo: {
     '@type': 'GeoCoordinates',
