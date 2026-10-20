@@ -1,0 +1,56 @@
+---
+// The closing call to action: the page's one forest block, before the footer.
+const locations = [
+  { name: 'Ormskirk', href: '/locations/ormskirk/' },
+  { name: 'Burscough', href: '/locations/burscough/' },
+  { name: 'Southport', href: '/locations/southport/' },
+  { name: 'Preston', href: '/locations/preston/' },
+  { name: 'Manchester', href: '/locations/manchester/' },
+];
+
+interface Action {
+  label: string;
+  href: string;
+}
+interface Props {
+  title?: string;
+  text?: string;
+  showLocations?: boolean;
+  primary?: Action;
+  secondary?: Action | null;
+}
+const {
+  title = 'Have a project in mind?',
+  text = 'Tell us a little about it. We reply within 24 hours.',
+  showLocations = true,
+  primary = { label: 'Start a project', href: '/contact/' },
+  secondary = { label: 'Book a call', href: '/book/' },
+} = Astro.props;
+// Long titles step down a size so they stay at two or three lines.
+const size = title.length > 28 ? 'text-[length:clamp(2.75rem,5.6vw,5.25rem)] max-w-[18ch]' : 'text-[length:clamp(3rem,8vw,7.5rem)] max-w-[12ch]';
+const link = 'underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream';
+---
+
+<section class="bg-forest text-cream">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-36">
+    <h2 class={`headline text-cream ${size}`}>{title}</h2>
+    <div class="mt-10 grid lg:grid-cols-12 gap-10 items-end">
+      <div class="lg:col-span-6">
+        <p class="text-xl text-cream/80 leading-relaxed">{text}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href={primary.href} class="btn-light">{primary.label}</a>
+          {secondary && <a href={secondary.href} class="link-line text-[15px] font-medium text-cream">{secondary.label}</a>}
+        </div>
+      </div>
+      {showLocations && (
+        <p class="lg:col-span-5 lg:col-start-8 text-[15px] text-cream/70 leading-relaxed">
+          We work with businesses in
+          {locations.map((l, i) => (
+            <><a href={l.href} class={link}>{l.name}</a>{i < locations.length - 2 ? ', ' : i === locations.length - 2 ? ' and ' : ''}</>
+          ))}, across <a href="/locations/lancashire/" class={link}>Lancashire</a>
+          and <a href="/locations/" class={link}>elsewhere in the UK</a>.
+        </p>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,140 +1,160 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
 
 const serviceSchema = {
   '@type': 'Reservation',
   name: 'Book a free initial call with OakFox',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
 };
+
+// The calendar's own rules (script below): weekdays only, from 24 hours ahead,
+// up to 30 days out, 30 minutes per call.
+const howItWorks = [
+  { title: 'Pick a time', body: 'Any weekday slot from a day ahead to a month out, shown in UK time.' },
+  { title: 'Get the confirmation', body: 'An email confirms the time, with a link to cancel if your plans change.' },
+  { title: 'Talk it through', body: "Thirty minutes on your project and whether we're a good fit. No pitch and no obligation." },
+];
 ---
 
 <BaseLayout
   title="Book a call"
-  description="Book a free 30-minute initial call with OakFox. We're open Monday to Friday, 9am to 5pm UK time."
+  description="Book a free 30-minute initial call with OakFox. Calls run Monday to Friday, with times from 9am UK time."
   schema={serviceSchema}
 >
-  <section class="pt-32 pb-12">
-    <div class="max-w-3xl mx-auto px-6">
-      <p class="label text-forest mb-6">Book a call</p>
-      <h1 class="headline text-ink" style="font-size: clamp(2rem, 5vw, 3.5rem);">
-        A free <em class="text-forest">thirty minutes</em>.
-      </h1>
-      <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-xl">
-        Pick a time that works. No pitch, no obligation — just a chance to talk
-        through your project and see if we're a good fit. Open Mon–Fri, 9am–5pm UK time.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Book a free thirty-minute call."
+    accent="free"
+    intro="Pick a time that suits you. No pitch and no obligation, just a chance to talk through your project and see if we're a good fit. Calls run Monday to Friday, UK time."
+    primary={null}
+    secondary={{ label: 'Rather write? Send a message', href: '/contact/' }}
+  >
+    <div slot="aside" id="book-app" class="rounded-2xl border border-stone bg-cream-light p-6 md:p-8">
+      <!-- Step 1: Pick a day -->
+      <div id="book-step-day">
+        <p class="step-title">Pick a day</p>
+        <div id="calendar" class="booking-calendar"></div>
+      </div>
 
-  <section class="pb-24">
-    <div class="max-w-3xl mx-auto px-6">
-      <div id="book-app" class="bg-cream-light border border-stone/60 rounded-2xl p-6 md:p-8">
-        <!-- Step 1: Pick a day -->
-        <div id="book-step-day">
-          <p class="label text-forest mb-4">Step 1 · Pick a day</p>
-          <div id="calendar" class="booking-calendar"></div>
+      <!-- Step 2: Pick a time -->
+      <div id="book-step-time" class="hidden mt-8 pt-7 border-t border-stone">
+        <div class="flex items-baseline justify-between gap-4 mb-3">
+          <p class="step-title !mb-0">Pick a time</p>
+          <button type="button" id="back-to-day" class="step-back">&larr; Change day</button>
         </div>
+        <p id="selected-day-label" class="text-[15px] text-ink/70 mb-5"></p>
+        <div id="slots" class="grid grid-cols-3 sm:grid-cols-4 gap-2"></div>
+        <p id="slots-status" class="text-[14px] text-ink/65 mt-4"></p>
+      </div>
 
-        <!-- Step 2: Pick a time -->
-        <div id="book-step-time" class="hidden mt-8">
-          <div class="flex items-baseline justify-between mb-4">
-            <p class="label text-forest">Step 2 · Pick a time</p>
-            <button type="button" id="back-to-day" class="text-[12px] font-mono uppercase tracking-widest text-ink/65 hover:text-forest transition-colors">&larr; Change day</button>
-          </div>
-          <p id="selected-day-label" class="text-[15px] text-ink/70 mb-5"></p>
-          <div id="slots" class="grid grid-cols-3 sm:grid-cols-4 gap-2"></div>
-          <p id="slots-status" class="text-[13px] text-ink/65 mt-4"></p>
+      <!-- Step 3: Details -->
+      <form id="book-step-form" class="hidden mt-8 pt-7 border-t border-stone space-y-5" novalidate>
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="step-title !mb-0">Your details</p>
+          <button type="button" id="back-to-time" class="step-back">&larr; Change time</button>
         </div>
-
-        <!-- Step 3: Details -->
-        <form id="book-step-form" class="hidden mt-8 space-y-5" novalidate>
-          <div class="flex items-baseline justify-between mb-4">
-            <p class="label text-forest">Step 3 · Your details</p>
-            <button type="button" id="back-to-time" class="text-[12px] font-mono uppercase tracking-widest text-ink/65 hover:text-forest transition-colors">&larr; Change time</button>
-          </div>
-          <p id="picked-slot-label" class="text-[15px] text-ink/70 mb-5"></p>
-          <div class="grid md:grid-cols-2 gap-4">
-            <label class="block">
-              <span class="block text-[13px] font-medium text-ink mb-2">Your name</span>
-              <input name="name" required type="text" autocomplete="name" class="booking-input" placeholder="Alex Smith" />
-            </label>
-            <label class="block">
-              <span class="block text-[13px] font-medium text-ink mb-2">Email</span>
-              <input name="email" required type="email" autocomplete="email" class="booking-input" placeholder="you@example.com" />
-            </label>
-          </div>
+        <p id="picked-slot-label" class="text-[15px] text-ink/70"></p>
+        <div class="grid md:grid-cols-2 gap-4">
           <label class="block">
-            <span class="block text-[13px] font-medium text-ink mb-2">Phone <span class="text-ink/65 font-normal">(optional, best for calls)</span></span>
-            <input name="phone" type="tel" autocomplete="tel" class="booking-input" placeholder="07700 900000" />
+            <span class="block text-[15px] font-semibold text-ink mb-2">Your name</span>
+            <input name="name" required type="text" autocomplete="name" class="booking-input" placeholder="Alex Smith" />
           </label>
           <label class="block">
-            <span class="block text-[13px] font-medium text-ink mb-2">What shall we talk about? <span class="text-ink/65 font-normal">(optional)</span></span>
-            <textarea name="notes" rows="4" class="booking-input resize-none" placeholder="A few lines on your project and what you're hoping to do"></textarea>
+            <span class="block text-[15px] font-semibold text-ink mb-2">Email</span>
+            <input name="email" required type="email" autocomplete="email" class="booking-input" placeholder="you@example.com" />
           </label>
-          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="booking-hp" />
-          <button type="submit" id="book-submit" class="booking-submit">Confirm booking</button>
-          <p id="book-status" class="text-[13px] font-mono" role="status" aria-live="polite"></p>
-        </form>
-
-        <!-- Confirmation -->
-        <div id="book-step-done" class="hidden py-4">
-          <p class="label text-forest mb-4">Confirmed</p>
-          <h2 class="headline text-2xl md:text-3xl mb-4">
-            You're in the diary.
-          </h2>
-          <p id="done-details" class="text-[15px] text-ink/70 leading-relaxed mb-6"></p>
-          <p class="text-[13px] text-ink/65">A confirmation email (with a cancel link) is on its way. Speak soon.</p>
         </div>
+        <label class="block">
+          <span class="block text-[15px] font-semibold text-ink mb-2">Phone <span class="text-ink/55 font-normal">(optional, best for calls)</span></span>
+          <input name="phone" type="tel" autocomplete="tel" class="booking-input" placeholder="07700 900000" />
+        </label>
+        <label class="block">
+          <span class="block text-[15px] font-semibold text-ink mb-2">What shall we talk about? <span class="text-ink/55 font-normal">(optional)</span></span>
+          <textarea name="notes" rows="4" class="booking-input booking-textarea resize-none" placeholder="A few lines on your project and what you're hoping to do"></textarea>
+        </label>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="booking-hp" />
+        <button type="submit" id="book-submit" class="booking-submit">Confirm booking</button>
+        <p id="book-status" class="text-[14px]" role="status" aria-live="polite"></p>
+      </form>
+
+      <!-- Confirmation -->
+      <div id="book-step-done" class="hidden py-4">
+        <p class="text-[15px] font-semibold text-forest mb-3">Confirmed</p>
+        <h2 class="headline text-3xl md:text-4xl mb-4">You're in the diary.</h2>
+        <p id="done-details" class="text-[17px] text-ink/75 leading-relaxed mb-6"></p>
+        <p class="text-[14px] text-ink/65">A confirmation email, with a link to cancel, is on its way. Speak soon.</p>
       </div>
     </div>
-  </section>
+  </PageHero>
+
+  <ProcessSteps title="How it works" steps={howItWorks} />
 </BaseLayout>
 
 <style is:global>
+  .step-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+  .step-back {
+    font-size: 14px;
+    font-weight: 500;
+    color: color-mix(in oklab, var(--color-ink) 65%, transparent);
+    transition: color 0.2s;
+  }
+  .step-back:hover { color: var(--color-forest); }
+
   .booking-input {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--color-stone);
-    border-radius: 0.75rem;
+    padding: 0.8rem 1.25rem;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 15%, transparent);
+    border-radius: 9999px;
     background: var(--color-white);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 15px;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
+  .booking-textarea { border-radius: 1rem; }
+  .booking-input::placeholder { color: color-mix(in oklab, var(--color-ink) 45%, transparent); }
   .booking-input:focus {
     outline: none;
     border-color: var(--color-forest);
-    box-shadow: 0 0 0 3px rgba(26, 92, 18, 0.12);
+    box-shadow: 0 0 0 3px rgba(26, 92, 18, 0.15);
   }
   .booking-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
   .booking-submit {
-    padding: 0.75rem 1.5rem;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
     background: var(--color-forest);
     color: var(--color-cream);
     border: none;
     border-radius: 9999px;
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.25s, transform 0.25s;
+    transition: background-color 0.2s, transform 0.15s;
   }
-  .booking-submit:hover:not(:disabled) { background: var(--color-forest-dark); transform: translateY(-1px); }
+  .booking-submit:hover:not(:disabled) { background: var(--color-forest-dark); }
+  .booking-submit:active:not(:disabled) { transform: translateY(1px); }
   .booking-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .booking-calendar {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 0.5rem;
-    font-family: var(--font-mono);
+    gap: 0.375rem;
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
   }
   .booking-calendar .cal-head {
     text-align: center;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--color-gray);
     padding: 0.5rem 0;
   }
@@ -146,14 +166,13 @@ const serviceSchema = {
     margin-bottom: 0.5rem;
   }
   .booking-calendar .cal-nav-btn {
-    padding: 0.5rem 0.875rem;
-    background: transparent;
+    padding: 0.45rem 0.95rem;
+    background: var(--color-white);
     border: 1px solid var(--color-stone);
     border-radius: 9999px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
     color: var(--color-ink);
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s;
@@ -162,8 +181,8 @@ const serviceSchema = {
   .booking-calendar .cal-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
   .booking-calendar .cal-month {
     font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--color-ink);
   }
@@ -173,11 +192,12 @@ const serviceSchema = {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
+    border-radius: 9999px;
     border: 1px solid transparent;
     background: transparent;
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     color: var(--color-ink);
     cursor: pointer;
     transition: border-color 0.2s, background-color 0.2s, color 0.2s;
@@ -187,11 +207,12 @@ const serviceSchema = {
     color: var(--color-forest);
   }
   .booking-calendar .cal-day:disabled {
-    color: rgba(26,29,23,0.25);
+    color: color-mix(in oklab, var(--color-ink) 25%, transparent);
+    font-weight: 400;
     cursor: not-allowed;
   }
   .booking-calendar .cal-day.cal-today {
-    background: rgba(26,92,18,0.08);
+    background: var(--color-moss);
   }
   .booking-calendar .cal-day.cal-selected {
     background: var(--color-forest);
@@ -204,8 +225,10 @@ const serviceSchema = {
     border-radius: 9999px;
     border: 1px solid var(--color-stone);
     background: var(--color-white);
-    font-family: var(--font-mono);
-    font-size: 13px;
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--color-ink);
     cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background-color 0.2s;
@@ -397,7 +420,7 @@ const serviceSchema = {
           stepTime.classList.add('hidden');
           stepDay.classList.add('hidden');
           stepDone.classList.remove('hidden');
-          doneDetails.textContent = data.booking.label + ' — 30 minutes.';
+          doneDetails.textContent = data.booking.label + ', 30 minutes.';
           if (window.gtag && window.__awConversionIds && window.__awConversionIds.booking) {
             window.gtag('event', 'conversion', {
               send_to: window.__awConversionIds.booking,

@@ -1,0 +1,27 @@
+---
+// Development demo: this page's real numbers, measured in the visitor's own
+// browser by scripts/page-weight.ts. Placeholders until the page has loaded.
+interface Props {
+  tone?: 'dark' | 'light';
+  class?: string;
+}
+const { tone = 'dark', class: className = '' } = Astro.props;
+const muted = tone === 'dark' ? 'text-cream/55' : 'text-ink/55';
+const metrics = [
+  { key: 'lcp', label: 'Largest paint' },
+  { key: 'js', label: 'JavaScript' },
+  { key: 'requests', label: 'Requests' },
+];
+---
+
+<div class={className}>
+  <dl class="grid grid-cols-3 gap-3">
+    {metrics.map((m) => (
+      <div>
+        <dt class={`text-[12px] ${muted}`}>{m.label}</dt>
+        <dd class="figures text-2xl font-semibold" data-dev={m.key}>…</dd>
+      </div>
+    ))}
+  </dl>
+  <p class={`mt-2 text-[12px] ${muted}`}>This page, measured on your device.</p>
+</div>

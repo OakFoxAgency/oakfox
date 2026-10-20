@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import Img from '../../components/Img.astro';
 import { getCollection } from 'astro:content';
 
@@ -10,7 +12,16 @@ const allWork = (await getCollection('portfolio'))
       b.data.date.valueOf() - a.data.date.valueOf()
   );
 
+const categoryNames: Record<string, string> = {
+  branding: 'Branding',
+  design: 'Brand and web design',
+  development: 'Design and development',
+  marketing: 'Marketing',
+  consultancy: 'Research',
+};
 const categories = ['all', ...new Set(allWork.map((item) => item.data.category))];
+
+const year = (d: Date) => d.getFullYear();
 
 const pageUrl = 'https://oakfox.co.uk/portfolio';
 
@@ -18,9 +29,9 @@ const collectionSchema = {
   '@type': 'CollectionPage',
   '@id': `${pageUrl}#webpage`,
   url: pageUrl,
-  name: 'OakFox Portfolio — Selected Branding, Web Design & Development Work',
+  name: 'OakFox work: branding, web design and development',
   description:
-    'Selected case studies from OakFox — in-house apps designed, built, and shipped end-to-end, client web design and development, free sustainability tools, and original research.',
+    'Selected case studies from OakFox: apps designed, built and shipped in-house, client web design and development, free sustainability tools, and original research.',
   inLanguage: 'en-GB',
   isPartOf: { '@id': 'https://oakfox.co.uk/#website' },
   hasPart: allWork.map((item) => ({
@@ -42,93 +53,87 @@ const breadcrumbs = {
 ---
 
 <BaseLayout
-  title="Portfolio — Branding, Web Design & Development Case Studies"
-  description="Selected case studies from OakFox — shipped iOS and Android apps, sustainable web design and development for UK independents, free tools, and original research."
+  title="Work: Branding, Web Design and Development Case Studies"
+  description="Selected case studies from OakFox: shipped iOS and Android apps, sustainable web design and development for UK independents, free tools and original research."
   schema={[collectionSchema, breadcrumbs]}
 >
-  <section class="pt-32 pb-8">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="text-forest font-medium text-sm uppercase tracking-widest mb-4">Our Work</p>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-3xl">Portfolio</h1>
-      <p class="mt-6 text-lg text-gray max-w-2xl">
-        Apps we've designed, built, and shipped ourselves, websites for real
-        clients, free tools, and original research published in the open.
-        Everything here is live — you can try most of it right now.
-      </p>
+  <PageHero
+    title="Selected work"
+    intro="Apps we've designed, built and shipped ourselves, websites for real clients, free tools, and original research published in the open. Almost all of it is live, so you can try it now."
+    primary={null}
+    secondary={null}
+  >
+    <div class="mt-10 flex flex-wrap gap-2" id="portfolio-filters" role="group" aria-label="Filter work by type">
+      {categories.map((cat) => (
+        <button type="button" data-filter={cat} aria-pressed={cat === 'all' ? 'true' : 'false'} class="filter-pill">
+          {cat === 'all' ? 'All work' : categoryNames[cat] ?? cat}
+        </button>
+      ))}
     </div>
-  </section>
+  </PageHero>
 
-  <!-- Filter -->
-  <section class="py-8">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-wrap gap-2" id="portfolio-filters">
-        {categories.map((cat) => (
-          <button
-            data-filter={cat}
-            class:list={[
-              'px-5 py-2 text-sm font-medium rounded-full border transition-all duration-300 capitalize',
-              cat === 'all'
-                ? 'bg-forest text-cream border-forest'
-                : 'border-gray-light text-gray hover:border-forest hover:text-forest',
-            ]}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Grid -->
-  <section class="py-8 pb-24">
-    <div class="max-w-7xl mx-auto px-6">
+  <section class="pb-20 md:pb-28">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
       {allWork.length > 0 ? (
-        <div class="grid md:grid-cols-2 gap-8" id="portfolio-grid">
-          {allWork.map((item) => (
-            <a
-              href={`/portfolio/${item.id}/`}
-              class="group flex flex-col rounded-2xl overflow-hidden border border-gray-light transition-all duration-300 hover:border-forest hover:shadow-xl"
-              data-category={item.data.category}
-            >
-              <div class="aspect-[16/10] bg-forest/5 overflow-hidden">
-                <Img src={item.data.thumbnail} alt={item.data.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div class="p-6 flex-1 flex flex-col">
-                <span class="text-xs font-medium text-forest uppercase tracking-widest">
-                  {item.data.category}
-                </span>
-                <h2 class="text-xl font-semibold mt-2 group-hover:text-forest transition-colors duration-300">
-                  {item.data.title}
-                </h2>
-                <p class="text-gray text-sm mt-2 line-clamp-2">{item.data.description}</p>
-              </div>
-            </a>
+        <!-- One system: the lead project as a full-width feature, then an even
+             two-column grid. Every image sits in the same 16:10 frame, so rows
+             line up, and filtering just reflows the grid. -->
+        <div class="grid md:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-14 md:gap-y-16" id="portfolio-grid">
+          {allWork.map((item, i) => (
+            i === 0 ? (
+              <a href={`/portfolio/${item.id}/`} class="group md:col-span-2 grid lg:grid-cols-12 gap-6 lg:gap-10 items-end" data-category={item.data.category}>
+                <div class="lg:col-span-8 img-wrap rounded-2xl bg-moss aspect-[16/10]">
+                  <Img src={item.data.thumbnail} alt={item.data.title} loading="eager" class="w-full h-full object-cover object-top" />
+                </div>
+                <div class="lg:col-span-4 lg:pb-2">
+                  <p class="label text-ink/60">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
+                  <h2 class="mt-3 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05] group-hover:text-forest transition-colors">{item.data.title}</h2>
+                  <p class="mt-4 text-lg text-ink/70 leading-relaxed">{item.data.description}</p>
+                  <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
+                    Read the case study
+                    <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                </div>
+              </a>
+            ) : (
+              <a href={`/portfolio/${item.id}/`} class="group flex flex-col" data-category={item.data.category}>
+                <div class="img-wrap rounded-2xl bg-moss aspect-[16/10]">
+                  <Img src={item.data.thumbnail} alt={item.data.title} class="w-full h-full object-cover object-top" />
+                </div>
+                <p class="mt-5 label text-ink/60">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
+                <h2 class="mt-2 text-2xl md:text-3xl font-semibold tracking-tight group-hover:text-forest transition-colors">{item.data.title}</h2>
+                <p class="mt-2 text-base md:text-lg text-ink/70 leading-relaxed line-clamp-2">{item.data.description}</p>
+              </a>
+            )
           ))}
         </div>
       ) : (
-        <p class="text-gray text-center py-12">Portfolio items coming soon.</p>
+        <p class="text-ink/65 py-12">New case studies are on the way.</p>
       )}
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-forest text-cream py-24">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-cream">
-        Like what you see?
-      </h2>
-      <p class="mt-4 text-cream-dark/80 max-w-xl mx-auto">
-        We'd love to work with you on your next project.
-      </p>
-      <a
-        href="/contact/"
-        class="inline-block mt-8 border border-cream text-cream px-8 py-3 font-medium rounded-full transition-all duration-300 hover:bg-cream hover:text-forest"
-      >
-        Start a Project
-      </a>
-    </div>
-  </section>
+  <CtaBlock title="Like what you see?" text="Tell us about your project. We reply within 24 hours." />
 </BaseLayout>
+
+<style>
+  .filter-pill {
+    padding: 0.6rem 1.15rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-stone);
+    background: var(--color-cream-light);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .filter-pill:hover { border-color: var(--color-forest); color: var(--color-forest); }
+  .filter-pill[aria-pressed='true'] {
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-cream);
+  }
+</style>
 
 <script>
   function initPortfolioFilters() {
@@ -139,14 +144,7 @@ const breadcrumbs = {
     filters.forEach((btn) => {
       btn.addEventListener('click', () => {
         const filter = btn.getAttribute('data-filter');
-
-        filters.forEach((b) => {
-          b.classList.remove('bg-forest', 'text-cream', 'border-forest');
-          b.classList.add('border-gray-light', 'text-gray');
-        });
-        btn.classList.add('bg-forest', 'text-cream', 'border-forest');
-        btn.classList.remove('border-gray-light', 'text-gray');
-
+        filters.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
         items.forEach((item) => {
           const cat = item.getAttribute('data-category');
           item.style.display = filter === 'all' || cat === filter ? '' : 'none';

@@ -1,0 +1,39 @@
+---
+// Web design demo: one page layout reflowing from desktop to phone and back.
+// An abstract wireframe of structure, not a mock screenshot.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div data-demo class={`reflow ${className}`} aria-hidden="true">
+  <div class="wire">
+    <span class="wire-nav"></span>
+    <span class="wire-hero"></span>
+    <span class="wire-card"></span><span class="wire-card"></span><span class="wire-card"></span>
+  </div>
+</div>
+
+<style>
+  .wire {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+  .wire > span { border-radius: 0.375rem; background: var(--color-moss); }
+  .wire-nav { grid-column: 1 / -1; height: 0.75rem; background: var(--color-stone) !important; }
+  .wire-hero { grid-column: 1 / -1; height: 4.5rem; background: var(--color-forest) !important; opacity: 0.85; }
+  .wire-card { height: 3rem; }
+  .reflow:global(.is-in) .wire { animation: reflow 7s ease-in-out infinite; }
+  @keyframes reflow {
+    0%, 35%, 100% { grid-template-columns: 1fr 1fr 1fr; max-width: 30rem; }
+    50%, 85% { grid-template-columns: 1fr 0fr 0fr; max-width: 9rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reflow:global(.is-in) .wire { animation: none; }
+  }
+</style>

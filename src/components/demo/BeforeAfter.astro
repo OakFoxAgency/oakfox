@@ -1,0 +1,42 @@
+---
+// Environmental demo: a measured before and after, the bars growing to their
+// real lengths. Default figures: The Magpie's Tale, OakFox rater, 6 Oct 2026.
+interface Reading {
+  kb: number;
+  grade: string;
+}
+interface Props {
+  before?: Reading;
+  after?: Reading;
+  beforeLabel?: string;
+  afterLabel?: string;
+  class?: string;
+}
+const {
+  before = { kb: 422, grade: 'A' },
+  after = { kb: 272, grade: 'A+' },
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  class: className = '',
+} = Astro.props;
+const afterWidth = `${Math.round((after.kb / before.kb) * 100)}%`;
+---
+
+<div data-demo class={`before-after space-y-4 ${className}`} aria-hidden="true">
+  <div>
+    <div class="flex justify-between text-[13px] text-ink/65"><span>{beforeLabel}</span><span class="figures">{before.kb} KB, grade {before.grade}</span></div>
+    <div class="mt-1.5 h-3 rounded-full bg-stone/60"><span class="bar block h-full rounded-full bg-[#2E6B1E]" style="--w: 100%"></span></div>
+  </div>
+  <div>
+    <div class="flex justify-between text-[13px] text-ink/65"><span>{afterLabel}</span><span class="figures">{after.kb} KB, grade {after.grade}</span></div>
+    <div class="mt-1.5 h-3 rounded-full bg-stone/60"><span class="bar block h-full rounded-full bg-forest" style={`--w: ${afterWidth}`}></span></div>
+  </div>
+</div>
+
+<style>
+  .bar { width: 0; transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .before-after:global(.is-in) .bar { width: var(--w); }
+  @media (prefers-reduced-motion: reduce) {
+    .bar { width: var(--w); transition: none; }
+  }
+</style>

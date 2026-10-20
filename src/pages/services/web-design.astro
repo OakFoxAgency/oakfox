@@ -1,19 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AuditCta from '../../components/AuditCta.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
 import LocationSignpost from '../../components/LocationSignpost.astro';
 import JournalLinks from '../../components/JournalLinks.astro';
+import AuditCta from '../../components/AuditCta.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Reflow from '../../components/demo/Reflow.astro';
 
 const journalPosts = [
   {
     href: '/blog/sustainable-web-design-practical-guide/',
-    title: 'Sustainable web design — a practical guide',
-    note: 'The techniques we use on every build: page-weight budgets, system fonts, efficient images, static-first architecture, and how to measure a page’s carbon cost.',
+    title: 'Sustainable web design: a practical guide',
+    note: 'The techniques we use on every build: page-weight budgets, system fonts, efficient images, static-first architecture, and how to measure what a page costs in carbon.',
   },
   {
     href: '/blog/is-your-web-host-actually-green/',
     title: 'Is your web host actually green?',
-    note: 'How to check a hosting provider’s renewable claims in about 30 seconds — and the difference between offsetting and genuinely green infrastructure.',
+    note: "How to check a host's renewable claims in about 30 seconds, and the difference between offsetting and genuinely green infrastructure.",
   },
 ];
 
@@ -23,7 +30,7 @@ const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
   name: 'Web Design',
-  description: 'Considered website design for independent brands. Information architecture, user experience, visual design, and design systems — built around how your audience actually uses the site.',
+  description: 'Website design for independent brands: information architecture, user experience, visual design and design systems, built around how your audience actually uses the site.',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   areaServed: ['United Kingdom', 'Ireland', 'Europe'],
   serviceType: 'Website design',
@@ -41,64 +48,61 @@ const breadcrumbs = {
 
 const offerings = [
   {
-    label: 'Architecture',
     title: 'Structure before surface',
     description:
-      'Sitemap, page templates, and the decisions about what lives where. We do this first because the best visual design will not save a site your users cannot navigate.',
+      "Sitemap, page templates and the decisions about what lives where. We do this first, because the best visual design won't save a site people can't find their way around.",
   },
   {
-    label: 'Design',
     title: 'Considered visual design',
     description:
-      'Typography, layout, colour, imagery, motion — tuned to the brand and to the content. Accessibility built in from the start, not bolted on after sign-off.',
+      'Typography, layout, colour, imagery and motion, tuned to the brand and the content. Accessibility is built in from the start, not added after sign-off.',
   },
   {
-    label: 'System',
     title: 'A design system that scales',
     description:
-      'Components, patterns, and tokens handed over as a working Figma file. Your future pages get built faster and stay visually consistent — no drift across the site as content grows.',
+      'Components, patterns and tokens handed over as a working Figma file, so new pages are quicker to build and stay consistent as the site grows.',
   },
 ];
 
 const process = [
-  { step: '01', title: 'Listen', body: 'A proper conversation about what the site needs to do — for the business, for the user, and for the team maintaining it afterwards.' },
-  { step: '02', title: 'Architect', body: 'Sitemap, user journeys, page templates. Agreed before a pixel is designed. If the information architecture is wrong, everything downstream is broken.' },
-  { step: '03', title: 'Design', body: 'One focused direction developed in detail, rather than three shallow options. You get design decisions with reasoning, not a deck of lookbooks.' },
-  { step: '04', title: 'Refine', body: 'Two rounds of revisions included. Tested on real content, real screen sizes, and against the accessibility standard you actually need to meet.' },
-  { step: '05', title: 'Handover', body: 'Design system file, asset library, and a walk-through with your developers. Or straight into our build hands if we are doing the development too.' },
+  { title: 'Listen', body: "A proper conversation about what the site needs to do for the business, its visitors and the people who'll look after it." },
+  { title: 'Architect', body: 'Sitemap, user journeys and page templates, agreed before anything is designed.' },
+  { title: 'Design', body: 'One direction developed in detail, rather than three shallow options, with the reasoning behind each decision.' },
+  { title: 'Refine', body: 'Two rounds of revisions, tested on real content, real screens and the accessibility standard you need to meet.' },
+  { title: 'Hand over', body: "The design system, assets and a walk-through with your developers, or straight into our build if we're developing it too." },
 ];
 
 const forWho = [
   'Independent businesses launching or rebuilding their site',
-  'Brands whose current site no longer matches how far they have come',
-  'Founders who want considered, accessible, sustainable web design rather than template-reskin work',
-  'Teams buying design separately from development and wanting a rigorous handover',
+  "Brands whose website no longer matches how far they've come",
+  'Founders who want accessible, low-carbon design rather than a reskinned template',
+  'Teams buying design separately from development who need a clean handover',
 ];
 
 const faqs = [
   {
     q: 'How much does a website design project cost?',
-    a: 'Web design engagements at OakFox typically range from £3,500 for a focused landing-page design to £15,000+ for a full multi-page site with a design system, research, and accessibility auditing. Every quote is case-by-case. We send a detailed written proposal after a free initial call.',
+    a: 'Web design at OakFox typically ranges from £3,500 for a focused landing page to £15,000 or more for a full multi-page site with a design system, research and accessibility auditing. Every quote is worked out case by case, and we send a detailed written proposal after a free first call.',
   },
   {
     q: 'How long does it take to design a website?',
-    a: 'A focused marketing site typically takes four to eight weeks from kick-off to design sign-off. A larger content-led site with research, design system, and multiple stakeholder reviews usually runs ten to fourteen weeks. We agree the timeline during scoping and protect it with weekly milestone reviews.',
+    a: 'A focused marketing site usually takes four to eight weeks from kick-off to design sign-off. A larger, content-led site with research, a design system and several rounds of stakeholder review runs ten to fourteen weeks. We agree the timeline while scoping and protect it with weekly milestone reviews.',
   },
   {
     q: 'What does "sustainable web design" actually mean?',
-    a: 'Sustainable web design reduces the energy required to serve and use a website: smaller page weights, fewer requests, efficient images, minimal JavaScript, clean semantic markup, and hosting on verified renewable-powered infrastructure. It also means designing for longevity — sites that do not need rebuilding in two years because the framework fell out of fashion.',
+    a: "It means reducing the energy needed to serve and use a website: lighter pages, fewer requests, efficient images, minimal JavaScript, clean semantic markup, and hosting on verified renewable-powered infrastructure. It also means designing for longevity, so the site doesn't need rebuilding in two years because a framework fell out of fashion.",
   },
   {
     q: 'Do you design accessible websites?',
-    a: 'Yes, accessibility is baked in from the start rather than retrofitted. We design against WCAG 2.2 AA as a minimum — colour contrast, focus states, semantic structure, keyboard navigation, screen-reader labelling, and real content testing. Accessibility audits happen at each sprint, not at the end.',
+    a: 'Yes. Accessibility is part of the design from the start rather than retrofitted. We design to WCAG 2.2 AA as a minimum: colour contrast, focus states, semantic structure, keyboard navigation, screen reader labels and testing with real content. We check accessibility at every stage, not just at the end.',
   },
   {
     q: 'Do you hand over a design system or just final files?',
-    a: 'A design system is the default deliverable — components, tokens, typography scales, spacing rules, and usage guidelines in a working Figma file. Your future pages build faster and stay visually consistent. Static PDFs are available on request, but they rot quickly and we do not recommend them.',
+    a: "A design system is the default: components, tokens, type scales, spacing rules and usage guidelines in a working Figma file, so future pages are quicker to build and stay consistent. Static PDFs are available if you need them, but they go out of date quickly and we don't recommend them.",
   },
   {
     q: 'Can OakFox build the website too, or do I need a separate developer?',
-    a: 'Either works. Many clients take design and development as a single engagement with us — fewer handoffs, faster delivery. If you have a developer already, we deliver a rigorous handover package so they can build confidently from the system. We also do design-only work for agencies.',
+    a: 'Either works. Many clients take design and development together with us, which means fewer handoffs and faster delivery. If you already have a developer, we hand over a thorough package so they can build from the system with confidence. We also do design-only work for agencies.',
   },
 ];
 
@@ -114,183 +118,44 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Web Design Studio — Accessible, Low-Carbon Websites"
-  description="OakFox is a sustainable web design agency in West Lancashire, UK. Accessible website design, information architecture, and design systems for independent brands — built to last, not to trend."
+  title="Web Design Studio: Accessible, Low-Carbon Websites"
+  description="OakFox is a sustainable web design studio in West Lancashire, UK. Accessible website design, information architecture and design systems for independent brands, built to last rather than to follow trends."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Service · Web Design</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Websites designed around <em class="text-forest">the people</em> who have to use them.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
-        <p class="md:col-span-6 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          Information architecture, user experience, and visual design for brands
-          who know a good-looking homepage is not enough. Considered decisions,
-          accessible from the start, delivered as a proper design system your
-          developers (or ours) can actually build from.
-        </p>
-        <div class="md:col-span-3 md:col-start-10 flex items-center justify-start md:justify-end">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a project
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-        </div>
-      </div>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Websites designed around the people who use them."
+    accent="people"
+    intro="Information architecture, user experience and visual design for businesses who know a good-looking homepage isn't enough. Accessible from the start, and handed over as a design system your developers (or ours) can build from."
+  >
+    <div slot="aside" class="rounded-2xl border border-stone bg-cream-light p-8 md:p-10">
+      <Reflow />
+      <p class="mt-8 text-[15px] text-ink/65 text-center">The same structure, reflowing from desktop to phone.</p>
     </div>
-  </section>
+  </PageHero>
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <h2 class="headline text-xl md:text-2xl mb-10 md:mb-14">What's included</h2>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        {offerings.map((o) => (
-          <div class="reveal">
-            <p class="label text-forest mb-4">{o.label}</p>
-            <h3 class="headline text-xl md:text-2xl mb-4">{o.title}</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed">{o.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <Pillars items={offerings} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">How we work</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Five stages. Architecture&nbsp;first.
-          </h2>
-        </div>
-        <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {process.map((p) => (
-            <li class="reveal border-b border-stone py-6 grid grid-cols-[auto,1fr] gap-6 md:gap-10">
-              <span class="label text-gray pt-1">{p.step}</span>
-              <div>
-                <h3 class="text-base md:text-lg font-medium text-ink">{p.title}</h3>
-                <p class="mt-2 text-[14px] text-ink/65 leading-relaxed">{p.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <ProcessSteps title="How a web design project runs" steps={process} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Who it's for</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Good fits look&nbsp;like…
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {forWho.map((line) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {line}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <FitList title="A good fit if you're" items={forWho} />
+
+  <FaqList title="Web design questions we hear a lot" items={faqs}>
+    Typical prices, from DIY builders to agencies:
+    <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
+  </FaqList>
 
   <LocationSignpost service="Web design" keyword="sustainable web design" />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Web design questions we hear a lot.
-          </h2>
-          <p class="mt-6 text-[14px] text-ink/65 leading-relaxed">
-            Typical prices, from DIY builders to agencies:
-            <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
-          </p>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Where we work</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Web design across Lancashire and the wider UK.
-          </h2>
-          <p class="mt-6 text-[14px] md:text-[15px] text-ink/65 leading-relaxed">
-            Our studio is in Burscough — a few minutes from Ormskirk and the
-            wider West Lancashire coast. Most engagements run remotely, with
-            in-person workshops in your nearest town when they help.
-          </p>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 grid sm:grid-cols-2 gap-x-8 gap-y-3 border-t border-stone pt-6">
-          <li><a href="/locations/ormskirk/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Ormskirk</a></li>
-          <li><a href="/locations/burscough/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Burscough</a></li>
-          <li><a href="/locations/southport/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Southport</a></li>
-          <li><a href="/locations/preston/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Preston</a></li>
-          <li><a href="/locations/manchester/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Manchester</a></li>
-          <li><a href="/locations/lancashire/" class="text-[14px] md:text-[15px] text-ink hover:text-forest transition-colors">Web design in Lancashire</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <JournalLinks
-    intro="How we actually build low-carbon, fast, accessible sites — the practical detail behind the service."
+    intro="How we build fast, accessible, low-carbon sites: the practical detail behind the service."
     posts={journalPosts}
   />
 
   <AuditCta />
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Tell us about the <em class="text-forest">site</em>. And the <em class="text-forest">goal</em>.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Drop the current URL if there is one, plus a line or two about what you
-          are trying to achieve. We reply within 24 hours with a first read.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a conversation
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-          <a href="/book/" class="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300">
-            Or book a free call
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title="Tell us about the site, and the goal."
+    text="Send the current URL if there is one, and a line or two about what you want the site to do. We reply within 24 hours with a first read."
+  />
 </BaseLayout>

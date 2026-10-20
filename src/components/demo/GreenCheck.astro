@@ -1,0 +1,49 @@
+---
+// Green hosting demo: a live lookup in The Green Web Foundation's directory,
+// the same check the carbon audit runs, made from the visitor's browser.
+interface Props {
+  domain?: string;
+  class?: string;
+}
+const { domain = 'oakfox.co.uk', class: className = '' } = Astro.props;
+---
+
+<div class={`green-check rounded-2xl bg-ink text-cream p-6 md:p-7 ${className}`} data-green-check={domain}>
+  <p class="text-[13px] text-cream/60">Checked just now with The Green Web Foundation</p>
+  <p class="mt-3 text-2xl md:text-3xl font-semibold tracking-tight">{domain}</p>
+  <p class="mt-4 flex items-center gap-3 text-lg">
+    <span class="state-mark w-7 h-7 rounded-full grid place-items-center bg-cream/10 text-leaf" aria-hidden="true">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </span>
+    <span data-green-result>Verified green hosting</span>
+  </p>
+  <p class="mt-2 text-[14px] text-cream/65" data-green-host>Runs on renewable energy, listed in their public directory.</p>
+  <a href={`https://www.thegreenwebfoundation.org/green-web-check/?url=${domain}`} target="_blank" rel="noopener noreferrer" class="mt-6 inline-block text-[14px] font-medium text-leaf underline underline-offset-4">
+    Check it yourself
+  </a>
+</div>
+
+<script>
+  async function check(el: HTMLElement): Promise<void> {
+    const domain = el.dataset.greenCheck;
+    if (!domain || el.dataset.checked) return;
+    el.dataset.checked = '1';
+    try {
+      const res = await fetch(`https://api.thegreenwebfoundation.org/api/v3/greencheck/${encodeURIComponent(domain)}`);
+      const data = await res.json();
+      const result = el.querySelector('[data-green-result]');
+      const host = el.querySelector('[data-green-host]');
+      if (data.green === true) {
+        if (result) result.textContent = 'Verified green hosting';
+        if (host && data.hosted_by) host.textContent = `Hosted by ${data.hosted_by}, on renewable energy, listed in their public directory.`;
+      } else if (data.green === false && result) {
+        result.textContent = 'Not in the green directory';
+      }
+    } catch {
+      /* offline or blocked: the built-in text stands, and it is true for our domain */
+    }
+  }
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('[data-green-check]').forEach(check);
+  });
+</script>

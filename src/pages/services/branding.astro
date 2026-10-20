@@ -1,24 +1,31 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AuditCta from '../../components/AuditCta.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
 import LocationSignpost from '../../components/LocationSignpost.astro';
 import JournalLinks from '../../components/JournalLinks.astro';
+import AuditCta from '../../components/AuditCta.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Specimen from '../../components/demo/Specimen.astro';
 
 const journalPosts = [
   {
     href: '/blog/choosing-a-brand-name/',
-    title: 'Choosing a brand name — the process behind the shortlist',
-    note: 'How we take a business from a blank page to a defensible name: research, candidate generation, availability checks, and a shortlist with reasoning.',
+    title: 'Choosing a brand name: the process behind the shortlist',
+    note: 'How we take a business from a blank page to a defensible name: research, candidate names, availability checks, and a shortlist with reasoning.',
   },
   {
     href: '/blog/how-to-brief-a-branding-agency/',
     title: 'How to brief a branding agency',
-    note: 'What a useful brief contains, what to leave out, and the questions a good agency should ask you back — worth reading before you approach anyone, including us.',
+    note: 'What a useful brief contains, what to leave out, and the questions a good agency should ask you back. Worth reading before you approach anyone, including us.',
   },
   {
     href: '/blog/what-makes-a-brand-sustainable/',
     title: 'What makes a brand sustainable?',
-    note: 'Beyond the green logo — the operational, supply-chain, and messaging decisions that separate a genuinely sustainable brand from a greenwashed one.',
+    note: 'Beyond the green logo: the operational, supply chain and messaging decisions that separate a genuinely sustainable brand from a greenwashed one.',
   },
 ];
 
@@ -28,7 +35,7 @@ const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
   name: 'Sustainable Brand Identity',
-  description: 'Brand identity systems for businesses that want to grow without the environmental cost. Naming, visual language, typography, messaging, and guidelines — built to last.',
+  description: 'Brand identity systems for businesses that want to grow without the environmental cost. Naming, visual language, typography, messaging and guidelines, built to last.',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   areaServed: ['United Kingdom', 'Ireland', 'Europe'],
   serviceType: 'Brand identity design',
@@ -46,63 +53,60 @@ const breadcrumbs = {
 
 const offerings = [
   {
-    label: 'Identity',
-    title: 'Logo, wordmark, and visual system',
+    title: 'Logo, wordmark and visual system',
     description:
-      'Marks that work at every size, on every surface — from a shop sign to a 12×12mm favicon. Built with restraint so they outlast trends.',
+      'Marks that work at every size and on every surface, from a shop sign to a 12×12mm favicon. Built with restraint so they outlast trends.',
   },
   {
-    label: 'Voice',
-    title: 'Naming, messaging, and tone of voice',
+    title: 'Naming, messaging and tone of voice',
     description:
-      'How your brand sounds — the language you use across site, packaging, and socials. Clear, confident, and honest about what you do.',
+      'How your brand sounds across your site, packaging and social: clear, confident and honest about what you do.',
   },
   {
-    label: 'Guidelines',
     title: 'Brand guidelines and asset library',
     description:
-      'Everything your team (and future suppliers) need to keep the brand consistent — delivered as a living document rather than a 40-page PDF nobody reads.',
+      'Everything your team and future suppliers need to keep the brand consistent, delivered as a living document rather than a 40-page PDF nobody reads.',
   },
 ];
 
 const process = [
-  { step: '01', title: 'Listen', body: 'A proper conversation about what your business actually does, who it serves, and what makes it worth keeping around.' },
-  { step: '02', title: 'Audit', body: "A look at where you are now — existing brand, competitors, the audience's current perception." },
-  { step: '03', title: 'Direction', body: 'One or two focused directions with reasoning — not ten options designed to make you choose for us.' },
-  { step: '04', title: 'Build', body: 'Identity system, typography, photography direction, guidelines, and all the moving parts.' },
-  { step: '05', title: 'Handover', body: 'Guidelines, working files, and a walk-through so you can use the brand confidently from day one.' },
+  { title: 'Listen', body: 'A proper conversation about what your business actually does, who it serves and what makes it worth keeping around.' },
+  { title: 'Audit', body: 'Where you are now: your existing brand, your competitors, and how your audience sees you today.' },
+  { title: 'Direction', body: 'One or two focused directions with the reasoning behind them, not ten options that leave you to choose for us.' },
+  { title: 'Build', body: 'The identity system, typography, photography direction, guidelines and all the moving parts.' },
+  { title: 'Hand over', body: 'Guidelines, working files and a walk-through, so you can use the brand confidently from day one.' },
 ];
 
 const forWho = [
-  'Independent businesses launching or relaunching with sustainability at the core',
-  'Established brands whose identity no longer reflects how far they have come',
-  'Founders who want considered creative direction, not a deck of stock mood boards',
+  'An independent business launching or relaunching with sustainability at its core',
+  "An established brand whose identity no longer reflects how far you've come",
+  'A founder who wants considered creative direction, not a deck of stock mood boards',
 ];
 
 const faqs = [
   {
     q: 'How much does a brand identity cost?',
-    a: 'Brand identity projects at OakFox typically range from £4,500 for a focused visual refresh to £18,000+ for a full identity system with naming, messaging, guidelines, and launch assets. Every quote is shaped around the specific project rather than a fixed tier. We send a detailed written proposal after a free initial call.',
+    a: 'Brand identity projects at OakFox typically range from £4,500 for a focused visual refresh to £18,000 or more for a full identity system with naming, messaging, guidelines and launch assets. Every quote is shaped around the project rather than a fixed tier, and we send a detailed written proposal after a free first call.',
   },
   {
     q: 'How long does a branding project take?',
-    a: 'A focused brand refresh typically takes four to six weeks. A full brand identity system — naming, visual language, messaging, guidelines, and launch assets — usually runs eight to twelve weeks from kick-off to handover. We agree the timeline during scoping and protect it with weekly milestone reviews.',
+    a: 'A focused brand refresh usually takes four to six weeks. A full identity system, with naming, visual language, messaging, guidelines and launch assets, usually runs eight to twelve weeks from kick-off to handover. We agree the timeline while scoping and protect it with weekly milestone reviews.',
   },
   {
     q: 'What makes OakFox a sustainable branding agency?',
-    a: 'Sustainability runs through every decision: we work only with collaborators we can verify, recommend print partners on renewable-powered presses, deliver digital assets in formats optimised for energy-efficient delivery, and challenge clients when they propose greenwashing. We also decline projects we cannot support in good faith.',
+    a: "Sustainability runs through every decision. We only work with collaborators we can verify, recommend print partners on renewable-powered presses, deliver digital assets in formats that are efficient to serve, and challenge clients when they propose greenwashing. We also turn down projects we can't support in good faith.",
   },
   {
     q: 'Do you offer naming as part of a brand identity project?',
-    a: 'Yes. Naming is included as a scoped module for any full identity project and can be delivered as a standalone engagement. We research the competitive landscape, generate candidate names with rationale, check availability at Companies House and at common domain registrars, and deliver a shortlist with reasoning rather than a longlist that makes you guess.',
+    a: 'Yes. Naming is a scoped module in any full identity project, and can also be a project on its own. We research the competitive landscape, generate candidate names with a rationale, check availability at Companies House and common domain registrars, and deliver a shortlist with our reasoning rather than a long list that leaves you guessing.',
   },
   {
     q: 'Where are you based, and do you work in person?',
-    a: 'Our studio is at Martland Mill, Burscough, in rural West Lancashire — between Ormskirk and Southport, and roughly 45 minutes from central Manchester or Liverpool. Most collaboration happens remotely. We visit in person for brand discovery workshops, shoots, and launches when they matter.',
+    a: 'Our studio is at Martland Mill in Burscough, rural West Lancashire, between Ormskirk and Southport and about 45 minutes from central Manchester or Liverpool. Most collaboration happens remotely, and we visit in person for brand discovery workshops, shoots and launches when they matter.',
   },
   {
-    q: 'Can you handle the website, marketing, and environmental consultancy too?',
-    a: 'Yes — it is how we work best. Branding often leads into web design, development, marketing, or environmental consultancy within the same engagement. Working in combination gives a far more coherent result than stitching together three agencies.',
+    q: 'Can you handle the website, marketing and environmental consultancy too?',
+    a: "Yes, and it's how we work best. Branding often leads into web design, development, marketing or environmental consultancy within the same project, and working together gives a far more coherent result than stitching three agencies together.",
   },
 ];
 
@@ -118,154 +122,47 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Sustainable Branding Agency — Brand Identity Design UK"
-  description="OakFox is a sustainable branding agency in West Lancashire, UK. Brand identity, naming, voice, and guidelines for independent businesses and established brands — built to last, without greenwashing."
+  title="Sustainable Branding Agency: Brand Identity Design UK"
+  description="OakFox is a sustainable branding agency in West Lancashire, UK. Brand identity, naming, voice and guidelines for independent businesses and established brands, built to last and free of greenwashing."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Service · Branding</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Brands built to <em class="text-forest">last</em>,
-        not to <em class="text-forest">trend</em>.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
-        <p class="md:col-span-6 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          We build brand identities for independent businesses and established brands
-          who want to grow without the environmental cost. Naming, visual language,
-          messaging, and guidelines — considered, honest, and designed to outlive the
-          next rebrand cycle.
-        </p>
-        <div class="md:col-span-3 md:col-start-10 flex items-center justify-start md:justify-end">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a project
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-        </div>
-      </div>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Brands built to last, not to trend."
+    accent="last trend"
+    intro="Brand identities for independent businesses and established brands that want to grow without the environmental cost. Naming, visual language, messaging and guidelines, designed to outlive the next rebrand."
+  >
+    <div slot="aside" class="rounded-2xl bg-forest text-cream p-8 md:p-10 overflow-hidden">
+      <Specimen />
+      <p class="mt-8 text-[15px] text-cream/75 leading-relaxed max-w-[34ch]">
+        One typeface, every weight from 400 to 900, in a single 46 KB file.
+        It's the one this site uses.
+      </p>
     </div>
-  </section>
+  </PageHero>
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <h2 class="headline text-xl md:text-2xl mb-10 md:mb-14">What's included</h2>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        {offerings.map((o) => (
-          <div class="reveal">
-            <p class="label text-forest mb-4">{o.label}</p>
-            <h3 class="headline text-xl md:text-2xl mb-4">{o.title}</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed">{o.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <Pillars items={offerings} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">How we work</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Five stages. No&nbsp;surprises.
-          </h2>
-        </div>
-        <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {process.map((p) => (
-            <li class="reveal border-b border-stone py-6 grid grid-cols-[auto,1fr] gap-6 md:gap-10">
-              <span class="label text-gray pt-1">{p.step}</span>
-              <div>
-                <h3 class="text-base md:text-lg font-medium text-ink">{p.title}</h3>
-                <p class="mt-2 text-[14px] text-ink/65 leading-relaxed">{p.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <ProcessSteps title="How a branding project runs" steps={process} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Who it's for</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Good fits look&nbsp;like…
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {forWho.map((line) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {line}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <FitList title="A good fit if you're" items={forWho} />
+
+  <FaqList title="Branding questions we hear a lot" items={faqs}>
+    What a brand identity costs in practice:
+    <a href="/blog/how-much-does-branding-cost-uk/" class="text-forest underline underline-offset-4">how much branding costs in the UK</a>.
+  </FaqList>
 
   <LocationSignpost service="Branding" keyword="sustainable branding" />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Branding questions we hear a lot.
-          </h2>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
-
   <JournalLinks
-    intro="Longer-form thinking on naming, briefing, and what sustainable branding actually involves — from the studio journal."
+    intro="Longer reads on naming, briefing, and what sustainable branding involves."
     posts={journalPosts}
   />
 
   <AuditCta />
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Ready for a brand that <em class="text-forest">means something</em>?
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Send a few lines about your business — we reply within 24 hours to set up
-          a free initial call.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a conversation
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-          <a href="/book/" class="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300">
-            Or book a free call
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title="Ready for a brand that means something?"
+    text="Send a few lines about your business and we'll reply within 24 hours to set up a free first call."
+  />
 </BaseLayout>

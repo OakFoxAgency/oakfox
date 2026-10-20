@@ -1,43 +1,46 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AuditCta from '../components/AuditCta.astro';
 import Img from '../components/Img.astro';
 import { getCollection } from 'astro:content';
 import { isPublished } from '../lib/posts';
+import CarbonMeter from '../components/CarbonMeter.astro';
+import CarbonWaffle from '../components/CarbonWaffle.astro';
+import ServicesBento from '../components/ServicesBento.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import study from '../../public/data/oakfox-uk-sme-carbon-study-2026-07-aggregates.json';
 
-const portfolioItems = (await getCollection('portfolio'))
+const workItems = (await getCollection('portfolio'))
   .sort(
     (a, b) =>
       (a.data.order ?? Infinity) - (b.data.order ?? Infinity) ||
       b.data.date.valueOf() - a.data.date.valueOf()
   )
-  .slice(0, 3);
-
-const workItems = portfolioItems;
+  .slice(0, 5);
 
 const blogPosts = (await getCollection('blog', isPublished))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 1);
+  .slice(0, 3);
 
-const services = [
-  { name: 'Branding', description: 'Identity systems that communicate your values.', href: '/services/branding/' },
-  { name: 'Environmental', description: 'Sustainability built into every project.', href: '/services/environmental/' },
-  { name: 'Web Design', description: 'Considered sites, accessible from the start.', href: '/services/web-design/' },
-  { name: 'Development', description: 'Fast, green, modern builds.', href: '/services/development/' },
-  { name: 'Copywriting', description: 'Words that mean something.', href: '/services/copywriting/' },
-  { name: 'Marketing', description: 'Strategy that respects the audience.', href: '/services/marketing/' },
-];
+const categoryNames: Record<string, string> = {
+  development: 'Design and development',
+  design: 'Brand and web design',
+  consultancy: 'Research',
+};
+
+const ratings = study.ratings as Record<string, number>;
+const aOrBetter = (ratings['A+'] ?? 0) + (ratings.A ?? 0);
+const medianMB = (study.weight.medKB / 1000).toFixed(1);
 
 const testimonials = [
   {
     quote:
-      "They completely blew past our expectations. The design is beautifully polished, the development is seamless, and their communication throughout the project was first-class. Highly recommend them if you want a premium digital presence.",
+      'They completely blew past our expectations. The design is beautifully polished, the development is seamless, and their communication throughout the project was first-class.',
     name: 'Wesley Boyce',
-    org: 'Brand identity & website',
+    org: 'brand identity and website',
   },
   {
     quote:
-      "I absolutely love the look and feel of my new author website — isn't it so beautiful? They are so easy to work with and accommodating. I can recommend OakFox 100%.",
+      'I absolutely love the look and feel of my new author website. They are so easy to work with and accommodating. I can recommend OakFox 100%.',
     name: 'Jennifer Lane',
     org: 'Jennifer Lane Writes',
   },
@@ -47,7 +50,7 @@ const homeSchema = {
   '@type': 'WebPage',
   '@id': 'https://oakfox.co.uk/#webpage',
   url: 'https://oakfox.co.uk/',
-  name: 'OakFox — Sustainable Design Studio, West Lancashire UK',
+  name: 'OakFox, sustainable web design and branding in Ormskirk, West Lancashire',
   description:
     'OakFox is a sustainable design studio based in Ormskirk, West Lancashire, UK, offering branding, web design, development, marketing, and environmental consultancy for independent businesses and established brands.',
   inLanguage: 'en-GB',
@@ -61,322 +64,240 @@ const homeSchema = {
     ],
   },
 };
+
+const splitWords = (text: string) => text.split(' ');
+const quoteWords = splitWords(`“${testimonials[0].quote}”`);
 ---
 
 <BaseLayout
-  title="Sustainable Design Studio, West Lancashire"
-  description="OakFox is a sustainable design studio based in Ormskirk, West Lancashire, UK. Branding, web design, web development, marketing, and environmental consultancy for independent businesses and established brands — 15+ years of experience, no greenwashing."
+  title="Sustainable Web Design & Branding in Ormskirk"
+  description="OakFox is a sustainable web design and branding studio in Ormskirk, West Lancashire. Websites, brands, copy and marketing for independent businesses, with the carbon of every site measured."
   schema={homeSchema}
 >
-  <!-- ========== HERO ========== -->
-  <section data-scene="hero" class="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden">
-    <div class="hero-glow"></div>
-
-    <div class="max-w-[1400px] mx-auto w-full px-6 md:px-10 relative z-10 pt-32 pb-20 md:pt-40 md:pb-28">
-      <p class="label text-forest mb-10 md:mb-14">
-        Sustainable design studio · West Lancashire
-      </p>
-
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        <span class="block">
-          <span class="split-word"><span>We</span></span> <span class="split-word"><span>build</span></span> <span class="split-word"><span>brands</span></span> <span class="split-word"><span>that</span></span> <em class="text-forest"><span class="split-word"><span>grow</span></span></em>
-        </span>
-        <span class="block">
-          <span class="split-word"><span>without</span></span> <span class="split-word"><span>costing</span></span> <span class="split-word"><span>the</span></span> <em class="text-forest"><span class="split-word"><span>earth</span></span></em><span class="split-word"><span>.</span></span>
-        </span>
-      </h1>
-
-      <div class="mt-12 md:mt-16 grid md:grid-cols-12 gap-8">
-        <div class="md:col-span-6 flex flex-col items-start gap-8 md:gap-10">
-          <p data-hero-paragraph class="text-[15px] text-ink/65 leading-relaxed">
-            Design, development, marketing and environmental consultancy,
-            from a small studio with 15+ years of experience across local
-            independents and international brands.
-          </p>
-
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
-            <a
-              href="/contact/"
-              data-magnetic
-              class="inline-flex items-center gap-3 bg-forest text-cream text-[15px] font-medium pl-6 pr-2 py-2 rounded-full hover:bg-forest-dark transition-all duration-300 group"
-            >
-              Start a project
-              <span class="w-9 h-9 rounded-full bg-cream/15 flex items-center justify-center transition-transform duration-500 group-hover:translate-x-0.5">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </a>
-            <a
-              href="/book/"
-              class="inline-flex items-center gap-2 text-[14px] font-medium text-ink/70 hover:text-forest transition-colors duration-300"
-            >
-              Book a free call
-            </a>
-          </div>
-        </div>
-
-        <!-- The free carbon audit, where visitors land: most never scroll to the band further down. -->
-        <div data-hero-aside class="md:col-span-5 md:col-start-8 md:self-end">
-          <div class="border border-stone rounded-2xl bg-white/60 p-6 md:p-8">
-            <p class="label text-forest mb-4">Free tool · Website carbon audit</p>
-            <p class="headline text-xl md:text-2xl text-ink">How green is <em class="text-forest">your</em> website?</p>
-            <p class="mt-3 text-[14px] text-ink/65 leading-relaxed">
-              An A+ to F grade in seconds, with CO₂ per visit, page weight and a
-              verified green hosting check.
-            </p>
-            <form action="/website-carbon-audit/" method="get" class="mt-5 flex flex-col sm:flex-row gap-3">
-              <label for="hero-audit-url" class="sr-only">Your website address</label>
-              <input
-                id="hero-audit-url"
-                name="url"
-                type="text"
-                inputmode="url"
-                autocomplete="url"
-                spellcheck="false"
-                placeholder="yourwebsite.co.uk"
-                required
-                class="flex-1 min-w-0 bg-white border border-stone rounded-full px-5 py-3 text-[15px] text-ink placeholder:text-gray focus:outline-none focus:border-forest transition-colors duration-300"
-              />
-              <button
-                type="submit"
-                class="inline-flex items-center justify-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-6 py-3 rounded-full text-[14px] font-medium whitespace-nowrap"
-              >
-                Get my grade
-              </button>
-            </form>
-            <p class="mt-3 text-[12px] text-ink/55">Free, and no email needed.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll hint -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-      <svg class="w-4 h-4 text-ink/30 nudge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ========== SELECTED WORK ========== -->
-  <section data-scene="work" class="py-20 md:py-32">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="reveal flex items-baseline justify-between mb-12 md:mb-16">
-        <h2 class="headline text-xl md:text-2xl">Selected work</h2>
-        <a href="/portfolio/" class="link-line text-[13px] font-medium text-ink/65 hover:text-forest transition-colors">
-          View all
-        </a>
-      </div>
-
-      {workItems.length > 0 ? (
-        <div class="space-y-16 md:space-y-24 reveal-stagger">
-          {/* Featured item — large */}
-          {workItems[0] && (
-            <a href={`/portfolio/${workItems[0].id}/`} class="reveal group block">
-              <div class="img-wrap bg-stone/30 min-h-48 max-h-[500px] overflow-hidden">
-                <Img
-                  src={workItems[0].data.thumbnail}
-                  alt={workItems[0].data.title}
-                  loading="eager"
-                  class="w-full h-auto"
-                />
-              </div>
-              <div class="mt-5 flex items-baseline justify-between gap-4">
-                <div>
-                  <h3 class="headline text-xl md:text-2xl">{workItems[0].data.title}</h3>
-                  <p class="text-[13px] text-ink/65 mt-1">{workItems[0].data.description}</p>
-                </div>
-                <span class="label text-gray shrink-0">{workItems[0].data.category}</span>
-              </div>
-            </a>
-          )}
-
-          {/* Remaining items — two-up grid */}
-          {workItems.length > 1 && (
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-              {workItems.slice(1).map((item) => (
-                <a href={`/portfolio/${item.id}/`} class="reveal group block">
-                  <div class="img-wrap bg-stone/30 min-h-40 max-h-80 overflow-hidden">
-                    <Img
-                      src={item.data.thumbnail}
-                      alt={item.data.title}
-                      class="w-full h-auto"
-                    />
-                  </div>
-                  <div class="mt-4 flex items-baseline justify-between gap-4">
-                    <h3 class="headline text-lg md:text-xl">{item.data.title}</h3>
-                    <span class="label text-gray shrink-0">{item.data.category}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          )}
-        </div>
-      ) : (
-        <p class="text-ink/65 text-center py-12">Work coming soon.</p>
-      )}
-    </div>
-  </section>
-
-  <!-- ========== APPROACH ========== -->
-  <section data-scene="approach" class="py-20 md:py-32 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-12 md:gap-16">
-        <div class="reveal md:col-span-5">
-          <p class="label text-gray mb-6">Our approach</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Good design and good ethics aren't at&nbsp;odds.
-          </h2>
-          <p class="mt-6 text-[15px] text-ink/65 leading-relaxed">
-            Most studios say they're sustainable. We can prove it. Our hosting is
-            independently verified by the Green Web Foundation, auditable in
-            thirty seconds via their public registry, and our work is informed
-            by our own original research into UK woodlands and biodiversity. So
-            sustainability arrives as evidence, not as a tagline.
-          </p>
-          <a
-            href="https://www.thegreenwebfoundation.org/green-web-check/?url=oakfox.co.uk"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="link-line inline-flex items-center gap-2 mt-6 text-[13px] font-medium text-forest"
-          >
-            Verify our green hosting
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
-
-        <div class="reveal md:col-span-6 md:col-start-7">
-          <h2 class="headline text-lg md:text-xl mb-6">Services</h2>
-          <ul class="border-t border-stone">
-            {services.map((service) => (
-              <li class="border-b border-stone">
-                <a href={service.href} class="group flex items-baseline justify-between py-4 md:py-5 gap-4">
-                  <span class="text-[15px] md:text-base font-medium text-ink group-hover:text-forest transition-colors duration-300">
-                    {service.name}
-                  </span>
-                  <span class="text-[13px] text-ink/65 hidden sm:block">
-                    {service.description}
-                  </span>
-                </a>
-              </li>
+  <!-- ========== HERO ==========
+       The keyword-led headline, and beside it a live breakdown of what this
+       page weighed as it loaded: the claim and the evidence in one view. -->
+  <section data-scene="hero" class="relative lg:min-h-[min(100dvh,58rem)] lg:flex lg:items-center">
+    <div class="w-full max-w-[1400px] mx-auto px-6 md:px-10 pt-28 md:pt-36 lg:pt-28 pb-16 md:pb-24 lg:pb-12 grid lg:grid-cols-12 gap-y-12 lg:gap-x-12 xl:gap-x-16 items-center">
+      <div class="lg:col-span-7">
+        <h1 class="headline hero-title text-ink">
+          <span class="block whitespace-nowrap">
+            {splitWords('Sustainable web design').map((w, i, a) => (
+              <><span class="split-word"><span>{w}</span></span>{i < a.length - 1 && ' '}</>
             ))}
-          </ul>
+          </span>
+          <span class="block">
+            {splitWords('& branding').map((w, i, a) => (
+              <><span class="split-word"><span>{w}</span></span>{i < a.length - 1 && ' '}</>
+            ))}
+          </span>
+          <span class="hero-place"><span class="split-word"><span>in Ormskirk, West Lancashire</span></span></span>
+        </h1>
+        <p data-hero-paragraph class="mt-8 text-lg md:text-xl text-ink/70 leading-relaxed max-w-[42ch]">
+          We design and build brands and websites for independent businesses,
+          and measure the carbon of every one.
+        </p>
+        <div data-hero-cta class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="/contact/" class="btn-primary">Start a project</a>
+          <a href="/book/" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">Book a call</a>
         </div>
       </div>
 
-      <!-- Stats -->
-      <div data-scene="stats" class="reveal mt-20 md:mt-28 border-t border-stone pt-10">
-        <p class="label text-gray mb-8">The studio is new. The experience isn't.</p>
-        <p class="text-[15px] text-ink/65 mb-8">The studio is new. The experience isn't.</p>
-        <div class="grid grid-cols-3 gap-6 md:gap-12">
-          <div>
-            <div class="headline text-2xl md:text-3xl" data-count-to="15" data-count-suffix="+">15+</div>
-            <div class="label text-gray mt-2">Years in practice</div>
-          </div>
-          <div>
-            <div class="headline text-2xl md:text-3xl" data-count-to="120" data-count-suffix="+">120+</div>
-            <div class="label text-gray mt-2">Projects delivered</div>
-          </div>
-          <div>
-            <div class="headline text-2xl md:text-3xl">2025</div>
-            <div class="label text-gray mt-2">OakFox founded</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Locations signpost -->
-      <div data-locations class="reveal mt-16 md:mt-20 border-t border-stone pt-10 flex flex-wrap items-baseline gap-x-6 gap-y-3">
-        <p class="label text-gray">Serving</p>
-        <a href="/locations/ormskirk/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Ormskirk</a>
-        <a href="/locations/burscough/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Burscough</a>
-        <a href="/locations/southport/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Southport</a>
-        <a href="/locations/preston/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Preston</a>
-        <a href="/locations/manchester/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Manchester</a>
-        <a href="/locations/lancashire/" class="text-[13px] text-ink/65 hover:text-forest transition-colors">Lancashire</a>
-        <a href="/locations/" class="text-[13px] font-medium text-forest hover:underline underline-offset-4 ml-auto">All UK locations →</a>
+      <!-- Live meter: this page's own first view, by type of file. -->
+      <div data-hero-aside class="lg:col-span-5 max-w-xl lg:max-w-none">
+        <CarbonMeter />
       </div>
     </div>
   </section>
 
-  <AuditCta />
+  <!-- ========== WORK ==========
+       Pinned on desktop and panned sideways as you scroll; a swipeable row on
+       phones (motion.ts adds hwork--static there). -->
+  <section data-scene="hwork" class="hwork relative overflow-hidden border-t border-stone">
+    <div data-h-track class="hwork-track">
+      <div class="hwork-intro">
+        <h2 class="headline text-5xl md:text-7xl">Selected work</h2>
+        <p class="mt-6 text-lg text-ink/70 leading-relaxed max-w-[30ch]">
+          Apps, a game, websites and original research, for clients and for ourselves.
+        </p>
+        <a href="/portfolio/" class="mt-8 inline-block link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">All work</a>
+      </div>
+      {workItems.map((item) => (
+        <a href={`/portfolio/${item.id}/`} class="hwork-card group" data-h-card>
+          <div class="img-wrap rounded-2xl bg-moss aspect-[16/10]">
+            <Img src={item.data.thumbnail} alt={item.data.title} class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="mt-5 flex items-baseline justify-between gap-6">
+            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight group-hover:text-forest transition-colors">{item.data.title}</h3>
+            <span class="label text-ink/60 shrink-0">{categoryNames[item.data.category] ?? item.data.category}</span>
+          </div>
+          <p class="mt-2 text-base text-ink/70 leading-relaxed line-clamp-2 max-w-[60ch]">{item.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 
-  <!-- ========== TESTIMONIALS ========== -->
+  <!-- ========== WHAT WE DO ==========
+       Six tiles, each showing the craft rather than describing it. -->
   <section class="py-20 md:py-32 border-t border-stone">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <h2 class="headline text-xl md:text-2xl mb-12 md:mb-16 reveal">What clients say</h2>
-      <div class="grid md:grid-cols-2 gap-10 md:gap-12 reveal-stagger max-w-4xl">
-        {testimonials.map((t) => (
-          <figure class="reveal border-t border-stone pt-6">
-            <blockquote class="text-[15px] text-ink/75 leading-relaxed">
-              “{t.quote}”
-            </blockquote>
-            <figcaption class="mt-6">
-              <span class="block text-[14px] font-medium text-ink">{t.name}</span>
-              <span class="block label text-gray mt-1">{t.org}</span>
-            </figcaption>
-          </figure>
-        ))}
+      <h2 class="headline text-4xl md:text-6xl max-w-[16ch]">What we do, shown rather than told.</h2>
+
+      <div class="mt-12 md:mt-16"><ServicesBento /></div>
+    </div>
+  </section>
+
+  <!-- ========== THE STUDY ==========
+       One dot per homepage we audited, coloured by grade; ours is ringed. -->
+  <section class="py-20 md:py-32 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-5">
+        <h2 class="headline text-4xl md:text-5xl">We audited 100 UK small business websites. {aOrBetter} earned an A.</h2>
+        <p class="mt-6 text-lg text-ink/70 leading-relaxed max-w-[42ch]">
+          The median homepage weighed {medianMB} MB, and images made up {Math.round(study.assetShares.images)}% of every
+          byte. Each dot is one site. The ringed one is ours.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="/website-carbon-audit/" class="btn-primary">Check your website</a>
+          <a href="/blog/we-audited-100-uk-small-business-websites/" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">Read the study</a>
+        </div>
       </div>
+      <CarbonWaffle class="lg:col-span-7" />
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS ==========
+       The lead quote lights up word by word as it scrolls through. -->
+  <section data-scene="quote" class="py-20 md:py-32 border-t border-stone">
+    <h2 class="sr-only">What clients say</h2>
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <figure class="lg:col-span-9">
+        <blockquote class="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.15] text-ink">
+          {quoteWords.map((w, i) => (<><span data-word>{w}</span>{i < quoteWords.length - 1 && ' '}</>))}
+        </blockquote>
+        <figcaption class="mt-8 text-[15px]">
+          <span class="font-semibold text-ink">{testimonials[0].name}</span><span class="text-ink/65">, {testimonials[0].org}</span>
+        </figcaption>
+      </figure>
+      <figure class="lg:col-span-3 lg:self-end">
+        <blockquote class="text-lg text-ink/80 leading-relaxed">“{testimonials[1].quote}”</blockquote>
+        <figcaption class="mt-4 text-[15px]">
+          <span class="font-semibold text-ink">{testimonials[1].name}</span><span class="text-ink/65">, {testimonials[1].org}</span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
   <!-- ========== JOURNAL ========== -->
   {blogPosts.length > 0 && (
-    <section data-scene="journal" class="py-16 md:py-20 border-t border-stone">
+    <section class="py-16 md:py-24 border-t border-stone">
       <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-        <div class="reveal flex items-center justify-between gap-6">
-          <div class="flex items-baseline gap-6 md:gap-10 min-w-0">
-            <h2 class="label text-gray shrink-0">Latest</h2>
-            <a href={`/blog/${blogPosts[0].id}/`} class="group flex items-baseline gap-4 min-w-0">
-              <h3 class="text-[15px] md:text-base font-medium text-ink group-hover:text-forest transition-colors truncate">
-                {blogPosts[0].data.title}
-              </h3>
-              <time class="label text-gray shrink-0 hidden sm:block">
-                {blogPosts[0].data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
-              </time>
-            </a>
-          </div>
-          <a href="/blog/" class="link-line text-[13px] font-medium text-ink/65 hover:text-forest transition-colors shrink-0">
-            All posts
-          </a>
+        <div class="flex items-end justify-between gap-6 mb-6 md:mb-8">
+          <h2 class="headline text-4xl md:text-5xl">Journal</h2>
+          <a href="/blog/" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">All posts</a>
         </div>
+        <ul class="border-t border-stone">
+          {blogPosts.map((post) => (
+            <li class="border-b border-stone">
+              <a href={`/blog/${post.id}/`} class="post-row group grid md:grid-cols-12 gap-2 md:gap-8 py-6 md:py-8 items-baseline">
+                <time class="md:col-span-2 text-[15px] text-ink/60 figures" datetime={post.data.date.toISOString().slice(0, 10)}>
+                  {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </time>
+                <span class="md:col-span-6 text-xl md:text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">
+                  {post.data.title}
+                </span>
+                <span class="md:col-span-4 flex items-baseline justify-between gap-6 text-[15px] text-ink/65 leading-relaxed">
+                  <span class="line-clamp-2">{post.data.description}</span>
+                  <svg class="post-arrow w-5 h-5 shrink-0 text-forest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )}
 
-  <!-- ========== CTA ========== -->
-  <section data-scene="cta" class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="max-w-2xl">
-        <p class="label text-gray mb-6">Ready when you are</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Let's build something<br/>that <em class="text-forest">lasts</em>.
-        </h2>
-        <div class="flex flex-wrap gap-4 mt-10">
-          <a
-            href="/book/"
-            data-magnetic
-            class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group"
-          >
-            Book a free call
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-          <a
-            href="/contact/"
-            class="inline-flex items-center gap-3 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300"
-          >
-            Start a project
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaBlock />
 </BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  /* Two lines at any desktop width: "Sustainable web design" measures about
+     10.4em, so the size tracks the 7-column width and caps where that column
+     stops growing (the 1400px container). */
+  .hero-title {
+    font-size: clamp(2.6rem, 4.6vw, 4.375rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .hero-place {
+    display: block;
+    margin-top: 1.1rem;
+    font-size: clamp(1.125rem, 1.6vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: color-mix(in oklab, var(--color-ink) 58%, transparent);
+  }
+  @media (max-width: 1023px) {
+    .hero-title .whitespace-nowrap { white-space: normal; }
+  }
+
+  /* ---------- Work (horizontal) ---------- */
+  .hwork-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    width: max-content;
+    min-height: 100dvh;
+    padding: 6rem max(1.5rem, calc((100vw - 1400px) / 2 + 2.5rem));
+  }
+  .hwork-intro { width: min(30vw, 26rem); flex-shrink: 0; }
+  .hwork-card {
+    display: block;
+    width: min(58vw, 54rem);
+    flex-shrink: 0;
+    transform: scale(var(--s, 1));
+    opacity: var(--o, 1);
+    transform-origin: center;
+  }
+  /* Phones and tablets: a swipeable row. */
+  :global(.hwork--static) .hwork-track {
+    width: auto;
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    padding: 4rem 1.5rem;
+    align-items: start;
+  }
+  :global(.hwork--static) .hwork-intro { width: 78vw; scroll-snap-align: start; }
+  :global(.hwork--static) .hwork-card { width: 84vw; scroll-snap-align: start; transform: none; opacity: 1; }
+  @media (min-width: 768px) {
+    :global(.hwork--static) .hwork-intro { width: 40vw; }
+    :global(.hwork--static) .hwork-card { width: 64vw; }
+  }
+  /* Large screens with reduced motion: no pin, a plain two-column grid. */
+  @media (min-width: 1024px) {
+    :global(.hwork--static) .hwork-track {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4rem 3rem;
+      max-width: 1400px;
+      margin-inline: auto;
+      padding: 6rem 2.5rem;
+      overflow: visible;
+    }
+    :global(.hwork--static) .hwork-intro,
+    :global(.hwork--static) .hwork-card { width: auto; }
+  }
+
+  /* ---------- Journal ---------- */
+  .post-arrow { opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.3s; }
+  .post-row:hover .post-arrow { opacity: 1; transform: none; }
+
+</style>

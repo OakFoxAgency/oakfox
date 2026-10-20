@@ -1,46 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
+const link = 'class="text-forest underline underline-offset-4"';
+
+// Answers carry links, so they render as HTML; the schema gets them stripped.
 const faqs = [
   {
     q: 'What does OakFox do?',
-    a: 'OakFox is a sustainable design studio based in West Lancashire. We offer <a href="/services/branding/" class="text-forest underline underline-offset-4">branding</a>, <a href="/services/web-design/" class="text-forest underline underline-offset-4">web design</a>, <a href="/services/development/" class="text-forest underline underline-offset-4">web development</a>, <a href="/services/copywriting/" class="text-forest underline underline-offset-4">copywriting</a>, <a href="/services/marketing/" class="text-forest underline underline-offset-4">marketing</a>, and <a href="/services/green-web-hosting/" class="text-forest underline underline-offset-4">green web hosting</a> — often in combination — for businesses that want to grow without the environmental cost. Dedicated ecology reporting and automation (PEA, BNG, SFI) is handled by our venture, <a href="https://ecoscribe.co.uk" class="text-forest underline underline-offset-4">EcoScribe</a>.',
+    a: `OakFox is a sustainable design studio based in West Lancashire. We offer <a href="/services/branding/" ${link}>branding</a>, <a href="/services/web-design/" ${link}>web design</a>, <a href="/services/development/" ${link}>web development</a>, <a href="/services/copywriting/" ${link}>copywriting</a>, <a href="/services/marketing/" ${link}>marketing</a> and <a href="/services/green-web-hosting/" ${link}>green web hosting</a>, often in combination, for businesses that want to grow without the environmental cost. Dedicated ecology reporting and automation (PEA, BNG, SFI) is handled by our venture, <a href="https://ecoscribe.co.uk" ${link}>EcoScribe</a>.`,
   },
   {
     q: 'Where is OakFox based? Do you work with clients outside the UK?',
-    a: "We're based in rural West Lancashire and registered as a company in England. Our studio is in <a href=\"/locations/burscough/\" class=\"text-forest underline underline-offset-4\">Burscough</a>, between <a href=\"/locations/ormskirk/\" class=\"text-forest underline underline-offset-4\">Ormskirk</a> and <a href=\"/locations/southport/\" class=\"text-forest underline underline-offset-4\">Southport</a>. We work with clients across the UK, Ireland, and mainland Europe — see our <a href=\"/locations/\" class=\"text-forest underline underline-offset-4\">locations page</a> for where we know the ground best. Most collaboration happens remotely, with occasional visits for brand discovery, shoots, or installations.",
+    a: `We're based in rural West Lancashire and registered as a company in England. Our studio is in <a href="/locations/burscough/" ${link}>Burscough</a>, between <a href="/locations/ormskirk/" ${link}>Ormskirk</a> and <a href="/locations/southport/" ${link}>Southport</a>. We work with clients across the UK, Ireland and mainland Europe; see our <a href="/locations/" ${link}>locations page</a> for where we know the ground best. Most collaboration happens remotely, with occasional visits for brand discovery, shoots or installations.`,
   },
   {
     q: 'What does a typical OakFox project look like?',
-    a: 'Most engagements start with a discovery conversation, followed by a proposal, a defined scope, and a phased delivery — usually over six to fourteen weeks depending on complexity. We take on a small number of projects each quarter so every client gets considered attention.',
+    a: 'Most projects start with a discovery conversation, followed by a proposal, a defined scope and delivery in phases, usually over six to fourteen weeks depending on complexity. We take on a small number of projects each quarter so every client gets proper attention.',
   },
   {
     q: 'How much does it cost to work with OakFox?',
-    a: "Every project is priced case-by-case. We work with a range of businesses — from independent start-ups to established brands — and shape each quote around what your project actually needs, rather than slotting you into a tier. We'll talk through specifics on a free initial call and send a detailed written quote before you commit to anything. For typical UK ranges and what drives them, see <a href=\"/blog/how-much-does-a-website-cost-uk/\" class=\"text-forest underline underline-offset-4\">how much a website costs in the UK</a>.",
+    a: `Every project is priced case by case. We work with a range of businesses, from independent start-ups to established brands, and shape each quote around what your project actually needs rather than slotting you into a tier. We'll talk through the specifics on a free first call and send a detailed written quote before you commit to anything. For typical UK ranges and what drives them, see <a href="/blog/how-much-does-a-website-cost-uk/" ${link}>how much a website costs in the UK</a>.`,
   },
   {
     q: 'How long does a project take?',
-    a: 'Most projects take six to fourteen weeks. A focused brand refresh can be faster; a full brand-plus-website build with multiple stakeholders takes longer. We set a realistic timeline during scoping and protect it with milestone reviews.',
+    a: 'Most projects take six to fourteen weeks. A focused brand refresh can be quicker; a full brand and website build with several stakeholders takes longer. We set a realistic timeline while scoping and protect it with milestone reviews.',
   },
   {
-    q: 'What makes OakFox "sustainable" — is it just greenwashing?',
-    a: "Sustainability runs through every decision we make — from the client work we take on, to the hosting and code we deliver, to the supply chain advice we give. We consult on sourcing, packaging, and waste for client operations; specify efficient hosting and lightweight builds on web projects; and we're honest about the limits. A website alone isn't going to save the planet, but every considered choice compounds.",
+    q: 'What makes OakFox "sustainable"? Is it just greenwashing?',
+    a: "Sustainability runs through every decision we make: the client work we take on, the hosting and code we deliver, and the supply chain advice we give. We consult on sourcing, packaging and waste for client operations, specify efficient hosting and lightweight builds on web projects, and we're honest about the limits. A website alone isn't going to save the planet, but every considered choice adds up.",
   },
   {
     q: 'Do you only work with sustainable or ethical brands?',
-    a: "No — but we reserve the right to decline projects we can't get behind. We'd rather help a business we believe in improve its impact than polish the image of one that won't change its practices.",
+    a: "No, but we reserve the right to decline projects we can't get behind. We'd rather help a business we believe in improve its impact than polish the image of one that won't change its practices.",
   },
   {
-    q: 'Who will I actually work with day-to-day?',
-    a: "Nathan James Entwistle, OakFox's founder, leads every project directly. We bring in trusted collaborators — photographers, illustrators, specialist developers — when the work calls for it, but your main point of contact stays consistent throughout.",
+    q: 'Who will I actually work with day to day?',
+    a: "Nathan James Entwistle, OakFox's founder, leads every project directly. We bring in trusted collaborators (photographers, illustrators, specialist developers) when the work calls for it, but your main point of contact stays the same throughout.",
   },
   {
     q: 'Do you do ongoing work like marketing retainers?',
-    a: 'Yes. After the initial delivery, many clients continue with us on monthly retainers for marketing, website upkeep, sustainability reporting, or creative support. Retainers are scoped to the hours and services you actually need, so they fit the rhythm of your business rather than a fixed package.',
+    a: 'Yes. After the first delivery, many clients carry on with us on monthly retainers for marketing, website upkeep, sustainability reporting or creative support. Retainers are scoped to the hours and services you actually need, so they fit the rhythm of your business rather than a fixed package.',
   },
   {
     q: 'How do I start a project with you?',
-    a: 'Send a note through our contact page with a few lines about your business and what you are hoping to do. We reply within 24 hours to set up a free initial call — no pitch, no obligation.',
+    a: 'Send a note through our contact page with a few lines about your business and what you are hoping to do. We reply within 24 hours to set up a free first call, with no pitch and no obligation.',
   },
 ];
 
@@ -69,56 +74,68 @@ const breadcrumbs = {
 ---
 
 <BaseLayout
-  title="FAQ — OakFox Sustainable Design Studio"
-  description="Common questions about working with OakFox — pricing, timelines, sustainability credentials, retainers, and how to start a project with our West Lancashire studio."
+  title="FAQ: OakFox Sustainable Design Studio"
+  description="Common questions about working with OakFox: pricing, timelines, sustainability credentials, retainers, and how to start a project with our West Lancashire studio."
   schema={[faqSchema, breadcrumbs]}
 >
-  <section class="pt-32 pb-16">
-    <div class="max-w-3xl mx-auto px-6">
-      <p class="label text-forest mb-6">Frequently asked</p>
-      <h1 class="headline text-ink" style="font-size: clamp(2rem, 5vw, 3.5rem);">
-        Questions we hear <em class="text-forest">most often</em>.
-      </h1>
-      <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-xl">
-        If what you're looking for isn't here, send us a note — we reply within 24 hours.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    title="Questions we hear most often."
+    accent="often"
+    intro="Pricing, timelines, who you'll work with and what sustainable actually means here. If your question isn't covered, send us a note: we reply within 24 hours."
+  />
 
-  <section class="pb-24">
-    <div class="max-w-3xl mx-auto px-6">
-      <dl class="border-t border-stone">
-        {faqs.map((item) => (
-          <div class="border-b border-stone py-8 md:py-10 reveal">
-            <dt>
-              <h2 class="headline text-xl md:text-2xl text-ink mb-4">
-                {item.q}
-              </h2>
-            </dt>
-            <dd class="text-[15px] text-ink/70 leading-relaxed" set:html={item.a}></dd>
-          </div>
+  <section class="pb-16 md:pb-24">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-8 lg:order-2 border-t border-stone">
+        {faqs.map((f, i) => (
+          <details class="faq border-b border-stone" open={i === 0}>
+            <summary class="flex items-start justify-between gap-6 py-6 md:py-7 cursor-pointer list-none">
+              <h2 class="text-xl md:text-2xl font-semibold tracking-tight text-ink">{f.q}</h2>
+              <span class="plus shrink-0 mt-2 w-5 h-5 relative" aria-hidden="true"></span>
+            </summary>
+            <div class="pb-8 -mt-1 text-base md:text-lg text-ink/75 leading-relaxed max-w-[68ch]" set:html={f.a} />
+          </details>
         ))}
-      </dl>
+      </div>
+      <aside class="lg:col-span-4 lg:order-1 lg:sticky lg:top-28 rounded-2xl bg-ink text-cream p-7 md:p-9">
+        <p class="text-2xl font-semibold tracking-tight">Not covered here?</p>
+        <p class="mt-3 text-base text-cream/70 leading-relaxed">Ask us directly. We reply within 24 hours.</p>
+        <div class="mt-7 flex flex-col gap-3">
+          <a href="/contact/" class="btn-light">Send a message</a>
+          <a href="/book/" class="text-center text-[15px] font-medium text-cream underline underline-offset-4 py-2">Book a call</a>
+        </div>
+        <dl class="mt-7 pt-6 border-t border-cream/10 space-y-4 text-[15px]">
+          <div>
+            <dt class="text-[13px] text-cream/55">Phone</dt>
+            <dd><a href="tel:+441704773233" class="hover:text-leaf transition-colors">01704 773233</a></dd>
+          </div>
+          <div>
+            <dt class="text-[13px] text-cream/55">Email</dt>
+            <dd><a href="mailto:nathan@oakfox.co.uk" class="hover:text-leaf transition-colors">nathan@oakfox.co.uk</a></dd>
+          </div>
+        </dl>
+      </aside>
     </div>
   </section>
 
-  <section class="py-20 md:py-28 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-3xl mx-auto px-6 relative z-10">
-      <div class="reveal">
-        <p class="label text-gray mb-6">Still curious?</p>
-        <h2 class="headline text-2xl md:text-3xl">
-          Let's talk it through.
-        </h2>
-        <a href="/contact/" class="inline-flex items-center gap-3 mt-8 text-[13px] font-medium text-forest group">
-          Start a conversation
-          <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CtaBlock title="Still curious? Let's talk it through." showLocations={false} />
 </BaseLayout>
+
+<style>
+  summary::-webkit-details-marker { display: none; }
+  summary:hover h2 { color: var(--color-forest); }
+  .plus::before,
+  .plus::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--color-forest);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .plus::after { transform: rotate(90deg); }
+  .faq[open] .plus::after { transform: rotate(0deg); }
+</style>

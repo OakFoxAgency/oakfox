@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuditCta from '../../components/AuditCta.astro';
+import FaqList from '../../components/FaqList.astro';
+import JournalLinks from '../../components/JournalLinks.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import { getCollection, render } from 'astro:content';
 import { isPublished } from '../../lib/posts';
 
@@ -25,7 +29,11 @@ export async function getStaticPaths() {
 }
 
 const { post, related } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+// The contents list: the article's own H2s, when there are enough to need one.
+const contents = headings.filter((h) => h.depth === 2);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const relatedLinks = related.map((r) => ({ href: `/blog/${r.id}/`, title: r.data.title, note: r.data.description }));
 
 const articleUrl = `https://oakfox.co.uk/blog/${post.id}`;
 const articleSchema = {
@@ -110,128 +118,145 @@ if (post.data.howto) {
   type="article"
   schema={pageSchemas}
 >
-  <article class="pt-32 pb-24">
-    <div class="max-w-3xl mx-auto px-6">
-      <a href="/blog/" class="text-forest text-sm font-medium hover:underline underline-offset-4 mb-8 inline-block">
-        &larr; Back to Blog
+  <article>
+    <header data-scene="hero" class="max-w-[1400px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14">
+      <a href="/blog/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/60 hover:text-forest transition-colors">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        Journal
       </a>
-      <span class="text-xs font-medium text-forest uppercase tracking-widest block mb-3">
-        {post.data.category}
-      </span>
-      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
-        {post.data.title}
+      <h1 class="headline article-title text-ink max-w-[22ch]">
+        {post.data.title.split(' ').map((w, i, a) => (
+          <><span class="split-word"><span>{w}</span></span>{i < a.length - 1 && ' '}</>
+        ))}
       </h1>
-      <div class="flex items-center gap-4 mt-6 text-sm text-gray">
-        <a href="/about/" class="hover:text-forest transition-colors duration-300">
-          {post.data.author}
-        </a>
-        <span>&middot;</span>
-        <time datetime={post.data.date.toISOString()}>
-          {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </time>
-        {post.data.updated && (
-          <>
-            <span>&middot;</span>
-            <span>
-              Updated{' '}
-              <time datetime={post.data.updated.toISOString()}>
-                {post.data.updated.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </time>
-            </span>
-          </>
-        )}
+      <div class="mt-8 grid lg:grid-cols-12 gap-y-6 lg:gap-x-16 items-start">
+        <p data-hero-paragraph class="lg:col-span-7 text-xl md:text-2xl text-ink/70 leading-relaxed">{post.data.description}</p>
+        <dl class="lg:col-span-5 grid grid-cols-2 gap-x-8 gap-y-4 text-[15px]">
+          <div>
+            <dt class="text-[13px] text-ink/55">Published</dt>
+            <dd class="mt-0.5 font-medium text-ink"><time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time></dd>
+          </div>
+          {post.data.updated ? (
+            <div>
+              <dt class="text-[13px] text-ink/55">Updated</dt>
+              <dd class="mt-0.5 font-medium text-ink"><time datetime={post.data.updated.toISOString()}>{fmt(post.data.updated)}</time></dd>
+            </div>
+          ) : (
+            <div>
+              <dt class="text-[13px] text-ink/55">Topic</dt>
+              <dd class="mt-0.5 font-medium text-ink">{post.data.category}</dd>
+            </div>
+          )}
+          <div>
+            <dt class="text-[13px] text-ink/55">Written by</dt>
+            <dd class="mt-0.5 font-medium text-ink"><a href="/about/" class="hover:text-forest underline decoration-ink/20 underline-offset-4">{post.data.author}</a></dd>
+          </div>
+          {post.data.tags.length > 0 && (
+            <div class="col-span-2">
+              <dt class="sr-only">Tags</dt>
+              <dd class="flex flex-wrap gap-1.5">
+                {post.data.tags.map((tag: string) => (
+                  <a href={`/blog/tags/${tag}/`} class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors">{tag}</a>
+                ))}
+              </dd>
+            </div>
+          )}
+        </dl>
       </div>
+    </header>
 
-      {post.data.tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-4">
-          {post.data.tags.map((tag: string) => (
-            <a
-              href={`/blog/tags/${tag}/`}
-              class="px-3 py-1 bg-forest/5 text-forest text-xs font-medium rounded-full hover:bg-forest hover:text-cream transition-colors duration-300"
-            >
-              {tag}
-            </a>
-          ))}
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 pb-16 md:pb-24">
+    <div class="border-t border-stone pt-12 md:pt-16 grid lg:grid-cols-12 gap-12 lg:gap-16">
+      {contents.length >= 3 && (
+        <nav class="hidden lg:block lg:col-span-3" aria-label="In this article">
+          <div class="sticky top-28">
+            <p class="text-[14px] font-semibold text-ink">In this article</p>
+            <ol class="mt-4 space-y-2.5 border-l border-stone">
+              {contents.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors">{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </nav>
+      )}
+      <div class={`min-w-0 ${contents.length >= 3 ? 'lg:col-span-8 lg:col-start-5' : 'lg:col-span-8 lg:col-start-3'}`}>
+        <div class="prose-oak prose prose-lg max-w-[68ch]">
+          <Content />
         </div>
-      )}
-
-      <div class="prose prose-lg max-w-none mt-12
-        prose-headings:font-bold prose-headings:tracking-tight
-        prose-a:text-forest prose-a:underline-offset-4
-        prose-img:rounded-2xl">
-        <Content />
       </div>
-
-      {post.data.faq && post.data.faq.length > 0 && (
-        <section class="mt-16 pt-12 border-t border-stone">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8">Common questions</h2>
-          <dl class="border-t border-stone">
-            {post.data.faq.map((f) => (
-              <div class="border-b border-stone py-6">
-                <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-                <dd class="text-[14px] md:text-[15px] text-ink/70 leading-relaxed">{f.a}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
+    </div>
     </div>
   </article>
 
-  <AuditCta />
-
-  {related.length > 0 && (
-    <section class="py-16 md:py-20 border-t border-stone">
-      <div class="max-w-4xl mx-auto px-6">
-        <p class="label text-gray mb-10">Related reading</p>
-        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-          {related.map((r) => (
-            <a
-              href={`/blog/${r.id}/`}
-              class="group block rounded-2xl border border-stone p-6 transition-all duration-300 hover:border-forest"
-            >
-              <span class="text-xs font-medium text-forest uppercase tracking-widest">
-                {r.data.category}
-              </span>
-              <h3 class="text-base md:text-lg font-semibold mt-3 group-hover:text-forest transition-colors duration-300">
-                {r.data.title}
-              </h3>
-              <p class="text-[13px] text-ink/65 mt-2 line-clamp-3">{r.data.description}</p>
-              <time datetime={r.data.date.toISOString()} class="mt-4 block text-[11px] text-ink/65">
-                {r.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-              </time>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+  {post.data.faq && post.data.faq.length > 0 && (
+    <FaqList title="Common questions" items={post.data.faq} />
   )}
 
-  <!-- CTA -->
-  <section class="py-20 md:py-28 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-3xl mx-auto px-6 relative z-10">
-      <p class="label text-gray mb-6">Working on something similar?</p>
-      <h2 class="headline text-2xl md:text-3xl lg:text-4xl">
-        Tell us about your project.
-      </h2>
-      <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-xl">
-        We work with independent businesses and established brands across the UK,
-        Ireland, and Europe — branding, web, marketing, and environmental
-        consultancy. Send a few lines and we'll reply within 24 hours.
-      </p>
-      <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-5 py-3 rounded-full">
-          Start a conversation
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        <a href="/book/" class="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300">
-          Or book a free call
-        </a>
-      </div>
+  <AuditCta />
+
+  {relatedLinks.length > 0 && (
+    <JournalLinks
+      title="Related reading"
+      intro="More from the journal on the same subjects."
+      posts={relatedLinks}
+    />
+  )}
+
+  <section class="pb-16 md:pb-24 pt-4">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <NewsletterSignup />
     </div>
   </section>
+
+  <CtaBlock
+    title="Working on something similar?"
+    text="We work with independent businesses and established brands across the UK, Ireland and Europe, on branding, web, marketing and environmental consultancy. Send a few lines and we'll reply within 24 hours."
+  />
 </BaseLayout>
+
+<style>
+  .article-title {
+    font-size: clamp(2.4rem, 5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.03;
+  }
+
+  /* MDX content in the new type: a larger body, firm headings, tables and
+     quotes that belong to the site rather than to the typography plugin. */
+  .prose-oak {
+    --tw-prose-body: color-mix(in oklab, var(--color-ink) 82%, transparent);
+    --tw-prose-headings: var(--color-ink);
+    --tw-prose-links: var(--color-forest);
+    --tw-prose-bold: var(--color-ink);
+    --tw-prose-bullets: var(--color-forest);
+    --tw-prose-counters: var(--color-forest);
+    --tw-prose-quotes: var(--color-ink);
+    --tw-prose-quote-borders: var(--color-forest);
+    --tw-prose-hr: var(--color-stone);
+    --tw-prose-th-borders: var(--color-stone);
+    --tw-prose-td-borders: var(--color-stone);
+    font-size: 1.1875rem;
+    line-height: 1.7;
+  }
+  .prose-oak :global(h2) { font-size: 2rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; margin-top: 2.4em; scroll-margin-top: 7rem; }
+  .prose-oak :global(h3) { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.015em; scroll-margin-top: 7rem; }
+  .prose-oak :global(h4) { font-weight: 600; }
+  .prose-oak :global(a) { text-underline-offset: 4px; text-decoration-thickness: 1px; }
+  .prose-oak :global(a:hover) { color: var(--color-forest-dark); }
+  .prose-oak :global(blockquote) {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.3em;
+    line-height: 1.45;
+    padding-left: 1.25em;
+  }
+  .prose-oak :global(blockquote p::before),
+  .prose-oak :global(blockquote p::after) { content: none; }
+  .prose-oak :global(img) { border-radius: 1rem; }
+  .prose-oak :global(table) { font-size: 0.875em; display: block; max-width: 100%; overflow-x: auto; }
+  .prose-oak :global(thead th) { font-weight: 600; }
+  .prose-oak :global(code) { font-weight: 500; }
+</style>

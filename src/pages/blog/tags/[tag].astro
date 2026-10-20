@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CtaBlock from '../../../components/CtaBlock.astro';
 import { getCollection } from 'astro:content';
 import { isPublished } from '../../../lib/posts';
 
@@ -25,13 +27,15 @@ export async function getStaticPaths() {
 const { tag, posts } = Astro.props;
 const pageUrl = `https://oakfox.co.uk/blog/tags/${tag}`;
 const displayTag = tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, ' ');
+const count = `${posts.length} post${posts.length === 1 ? '' : 's'}`;
+const date = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
 const collectionSchema = {
   '@type': 'CollectionPage',
   '@id': `${pageUrl}#webpage`,
   url: pageUrl,
-  name: `OakFox Journal — ${displayTag}`,
-  description: `Articles from the OakFox journal tagged "${displayTag}" — ${posts.length} post${posts.length === 1 ? '' : 's'}.`,
+  name: `OakFox Journal: ${displayTag}`,
+  description: `Articles from the OakFox journal tagged "${displayTag}": ${posts.length} post${posts.length === 1 ? '' : 's'}.`,
   inLanguage: 'en-GB',
   isPartOf: { '@id': 'https://oakfox.co.uk/#website' },
 };
@@ -47,48 +51,45 @@ const breadcrumbs = {
 ---
 
 <BaseLayout
-  title={`${displayTag} — OakFox Journal`}
-  description={`Articles from the OakFox journal tagged "${displayTag}". ${posts.length} post${posts.length === 1 ? '' : 's'} on sustainable design, development, marketing, and environmental practice.`}
+  title={`${displayTag}: OakFox Journal`}
+  description={`Articles from the OakFox journal tagged "${displayTag}". ${count} on sustainable design, development, marketing and environmental practice.`}
   schema={[collectionSchema, breadcrumbs]}
   noIndex
 >
-  <section class="pt-32 pb-8">
-    <div class="max-w-7xl mx-auto px-6">
-      <a href="/blog/" class="text-forest text-sm font-medium hover:underline underline-offset-4 mb-8 inline-block">
-        &larr; All posts
-      </a>
-      <p class="text-forest font-medium text-sm uppercase tracking-widest mb-4">Tag</p>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-3xl">{displayTag}</h1>
-      <p class="mt-6 text-lg text-gray max-w-2xl">
-        {posts.length} post{posts.length === 1 ? '' : 's'} tagged "{displayTag}" — from the OakFox journal.
-      </p>
+  <PageHero
+    back={{ label: 'All posts', href: '/blog/' }}
+    title={displayTag}
+    intro={`${count} from the journal tagged "${displayTag}".`}
+    primary={null}
+    secondary={null}
+  />
+
+  <section class="pb-20 md:pb-28">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <ul class="border-t border-stone">
+        {posts.map((post) => (
+          <li class="border-b border-stone">
+            <a href={`/blog/${post.id}/`} class="post-row group grid md:grid-cols-12 gap-2 md:gap-8 py-6 md:py-8 items-baseline">
+              <time class="md:col-span-2 text-[15px] text-ink/60 figures" datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>
+              <span class="md:col-span-6">
+                <span class="block text-xl md:text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">{post.data.title}</span>
+                <span class="mt-1 block text-[14px] text-ink/55">{post.data.category}</span>
+              </span>
+              <span class="md:col-span-4 flex items-baseline justify-between gap-6 text-[15px] text-ink/65 leading-relaxed">
+                <span class="line-clamp-2">{post.data.description}</span>
+                <svg class="post-arrow w-5 h-5 shrink-0 text-forest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="py-8 pb-24">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <a
-            href={`/blog/${post.id}/`}
-            class="group block rounded-2xl border border-gray-light p-6 transition-all duration-300 hover:border-forest hover:shadow-lg"
-          >
-            <span class="text-xs font-medium text-forest uppercase tracking-widest">
-              {post.data.category}
-            </span>
-            <h2 class="text-xl font-semibold mt-3 group-hover:text-forest transition-colors duration-300">
-              {post.data.title}
-            </h2>
-            <p class="text-gray text-sm mt-2 line-clamp-3">{post.data.description}</p>
-            <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-light">
-              <span class="text-xs text-gray">{post.data.author}</span>
-              <time class="text-xs text-gray">
-                {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </time>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <CtaBlock />
 </BaseLayout>
+
+<style>
+  .post-arrow { opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.3s; }
+  .post-row:hover .post-arrow { opacity: 1; transform: none; }
+</style>

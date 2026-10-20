@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FaqList from '../../components/FaqList.astro';
+import JournalLinks from '../../components/JournalLinks.astro';
 import AuditCta from '../../components/AuditCta.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
 import { locations, type Location } from '../../data/locations';
 
 export async function getStaticPaths() {
@@ -16,28 +20,40 @@ interface Props {
 
 const { location } = Astro.props;
 const pageUrl = `https://oakfox.co.uk/locations/${location.slug}`;
+const isBase = location.slug === 'burscough';
+const isCounty = location.slug === 'lancashire';
+
+// The description's first sentence leads the hero; the rest opens the local section.
+const description = location.description;
+const splitAt = description.search(/\.\s/);
+const lead = splitAt > 0 ? description.slice(0, splitAt + 1) : description;
+const rest = splitAt > 0 ? description.slice(splitAt + 2) : '';
+
+const distanceLabel = isBase ? 'Home of the studio' : isCounty ? 'Our home county' : location.distance.replace(/ of the studio$/, '');
+const distanceCaption = isBase ? 'Martland Mill, Mart Lane, Burscough' : isCounty ? 'From the Ribble Valley to the West Lancashire coast' : 'from the studio at Martland Mill, Burscough';
+const place = location.region.replace(' / ', ' and the ');
 
 const services = [
-  { label: 'Branding', href: '/services/branding/', keyword: `branding agency ${location.name}` },
-  { label: 'Web Design', href: '/services/web-design/', keyword: `web design ${location.name}` },
-  { label: 'Development', href: '/services/development/', keyword: `web developer ${location.name}` },
-  { label: 'Marketing', href: '/services/marketing/', keyword: `marketing agency ${location.name}` },
-  { label: 'Copywriting', href: '/services/copywriting/', keyword: `copywriter ${location.name}` },
-  { label: 'Green Web Hosting', href: '/services/green-web-hosting/', keyword: `green web hosting ${location.name}` },
+  { label: 'Branding', href: '/services/branding/' },
+  { label: 'Web design', href: '/services/web-design/' },
+  { label: 'Web development', href: '/services/development/' },
+  { label: 'Marketing', href: '/services/marketing/' },
+  { label: 'Copywriting', href: '/services/copywriting/' },
+  { label: 'Green web hosting', href: '/services/green-web-hosting/' },
 ];
 
 const webPage = {
   '@type': 'WebPage',
   '@id': `${pageUrl}#webpage`,
   url: pageUrl,
-  name: `Design Studio Serving ${location.name} — OakFox`,
-  description: `Branding, web design, development, marketing, copywriting, and green web hosting for businesses in ${location.name}, ${location.region}.`,
+  name: `Design studio serving ${location.name}, OakFox`,
+  description: `Branding, web design, development, marketing, copywriting and green web hosting for businesses in ${location.name}, ${location.region}.`,
   inLanguage: 'en-GB',
   isPartOf: { '@id': 'https://oakfox.co.uk/#website' },
   about: { '@id': 'https://oakfox.co.uk/#organization' },
 };
 
-const place = {
+const placeSchema = {
   '@type': 'Place',
   '@id': `${pageUrl}#place`,
   name: location.name,
@@ -58,11 +74,11 @@ const place = {
 const serviceArea = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
-  name: `OakFox — Design, Development & Marketing Services in ${location.name}`,
+  name: `OakFox design, development and marketing services in ${location.name}`,
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   serviceType: 'Branding, web design, web development, marketing, copywriting, and green web hosting',
   areaServed: { '@id': `${pageUrl}#place` },
-  description: `OakFox provides sustainable branding, web design, development, marketing, copywriting, and green web hosting for businesses in ${location.name} and the surrounding ${location.region} area.`,
+  description: `OakFox provides sustainable branding, web design, development, marketing, copywriting and green web hosting for businesses in ${location.name} and the surrounding ${location.region} area.`,
   url: pageUrl,
 };
 
@@ -78,19 +94,21 @@ const breadcrumbs = {
 const faqs = [
   {
     q: `Do you work with businesses in ${location.name}?`,
-    a: `Yes. ${location.name} is ${location.distance}, and we work with clients there on brand identity, website design, development, marketing, copywriting, and green web hosting.`,
+    a: isBase
+      ? `Yes. ${location.name} is where the studio is, and we work with clients here on brand identity, website design, development, marketing, copywriting and green web hosting.`
+      : `Yes. ${location.name} is ${location.distance.toLowerCase()}, and we work with clients there on brand identity, website design, development, marketing, copywriting and green web hosting.`,
   },
   {
     q: `How does working with a ${location.name} design studio compare to a London or Manchester agency?`,
-    a: `You get the principal on the work, not an account manager routing briefs to a pool of juniors. Costs are typically 30–50% lower than equivalent London agencies for equivalent quality, turnaround is faster because decisions are not staged through multiple layers, and the person who quoted you is the person you work with from start to finish.`,
+    a: `You get the principal on the work, not an account manager passing briefs to a pool of juniors. Costs are typically 30 to 50% lower than equivalent London agencies for the same quality, turnaround is faster because decisions don't pass through several layers, and the person who quoted you is the person you work with from start to finish.`,
   },
   {
     q: `Can we meet in person in ${location.name}?`,
-    a: `Yes. ${location.distance === '0 minutes — our base' ? 'We are based in Burscough itself — studio visits take minutes.' : `${location.name} is ${location.distance}. We visit in person for brand discovery workshops, photography and shoots, milestone reviews, and launches.`} Day-to-day delivery happens remotely so timelines are not held up by travel.`,
+    a: `Yes. ${isBase ? 'We are based in Burscough itself, so studio visits take minutes.' : `${location.name} is ${location.distance.toLowerCase()}. We visit in person for brand discovery workshops, photography and shoots, milestone reviews and launches.`} Day-to-day delivery happens remotely, so timelines aren't held up by travel.`,
   },
   {
     q: `Which sectors do you know best in ${location.name}?`,
-    a: `We have worked most with ${location.sectors.slice(0, 3).join(', ').toLowerCase()} in and around ${location.name}. That said, the principles — considered branding, accessible web design, honest marketing — travel well across sectors.`,
+    a: `We have worked most with ${location.sectors.slice(0, 3).join(', ').toLowerCase()} in and around ${location.name}. The principles of considered branding, accessible web design and honest marketing travel well across sectors, though.`,
   },
 ];
 
@@ -103,220 +121,138 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 };
+
+const relatedWork = (location.relatedWork ?? []).map((w) => ({
+  href: `/portfolio/${w.slug}/`,
+  title: w.title,
+  note: w.note,
+}));
 ---
 
 <BaseLayout
-  title={`Web Design in ${location.name} — Independent Studio`}
-  description={`Website design, branding and development for ${location.name} businesses from an independent studio in Burscough${['burscough','lancashire'].includes(location.slug) ? '' : `, ${location.distance.toLowerCase()}`}. You work with the designer, not an account manager.`}
-  schema={[webPage, place, serviceArea, breadcrumbs, faqSchema]}
+  title={`Web Design in ${location.name}: Independent Studio`}
+  description={`Website design, branding and development for ${location.name} businesses from an independent studio in Burscough${isBase || isCounty ? '' : `, ${location.distance.toLowerCase()}`}. You work with the designer, not an account manager.`}
+  schema={[webPage, placeSchema, serviceArea, breadcrumbs, faqSchema]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">
-        <a href="/locations/" class="hover:text-ink transition-colors duration-300">Locations</a>
-        <span class="text-ink/65 mx-2">·</span>
-        {location.name}
-      </p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Web design &amp; branding for <em class="text-forest">{location.name}</em> businesses.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8">
-        <p class="md:col-span-7 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          {location.description}
-        </p>
-      </div>
-      <dl class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 border-t border-stone pt-8">
+  <PageHero
+    back={{ label: 'All locations', href: '/locations/' }}
+    title={`Web design and branding for ${location.name} businesses.`}
+    accent={location.name}
+    place={place}
+    intro={lead}
+  >
+    <!-- Real data only: drive time, region, postcode area and nearby towns. -->
+    <div slot="aside" class="rounded-2xl bg-ink text-cream p-7 md:p-9">
+      <p class="text-[13px] text-cream/60">{isBase || isCounty ? 'Where we are' : 'Drive time'}</p>
+      <p class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight leading-[1.05]">{distanceLabel}</p>
+      <p class="mt-2 text-[15px] text-cream/70">{distanceCaption}</p>
+      <dl class="mt-8 pt-6 border-t border-cream/10 grid grid-cols-2 gap-6">
         <div>
-          <dt class="label text-gray mb-2">Region</dt>
-          <dd class="text-[15px] text-ink/85">{location.region}</dd>
+          <dt class="text-[13px] text-cream/55">Region</dt>
+          <dd class="mt-1 text-[15px]">{location.region.replace(' / ', ' and ')}</dd>
         </div>
         <div>
-          <dt class="label text-gray mb-2">Postcode area</dt>
-          <dd class="text-[15px] text-ink/85">{location.postcode}</dd>
-        </div>
-        <div>
-          <dt class="label text-gray mb-2">From studio</dt>
-          <dd class="text-[15px] text-ink/85">{location.distance}</dd>
-        </div>
-        <div>
-          <dt class="label text-gray mb-2">Nearby</dt>
-          <dd class="text-[14px] text-ink/75">{location.nearby.slice(0, 3).join(', ')}</dd>
+          <dt class="text-[13px] text-cream/55">Postcode area</dt>
+          <dd class="mt-1 text-[15px] figures">{location.postcode}</dd>
         </div>
       </dl>
+      <p class="mt-6 text-[13px] text-cream/55">Nearby</p>
+      <ul class="mt-2 flex flex-wrap gap-2">
+        {location.nearby.map((n) => (
+          <li class="rounded-full border border-cream/20 px-3.5 py-1.5 text-[14px] text-cream/85">{n}</li>
+        ))}
+      </ul>
     </div>
-  </section>
+  </PageHero>
 
-  {location.localNotes && (
-    <section class="py-20 md:py-28 border-t border-stone">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-        <div class="grid md:grid-cols-12 gap-10">
-          <div class="md:col-span-4">
-            <p class="label text-gray mb-6">Local detail</p>
-            <h2 class="headline text-2xl md:text-3xl">
-              Getting to and around {location.name}.
-            </h2>
-          </div>
-          <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-            {location.localNotes.map((n) => (
-              <li class="border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">{n}</li>
-            ))}
-          </ul>
+  <!-- Local knowledge: the rest of the description, then the checkable notes. -->
+  {(rest || location.localNotes) && (
+    <section class="py-16 md:py-24 border-t border-stone">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div class="lg:col-span-5">
+          <h2 class="headline text-4xl md:text-5xl">{isCounty ? 'Across the county' : `Getting to know ${location.name}`}</h2>
+          {rest && <p class="mt-6 text-lg text-ink/75 leading-relaxed max-w-[52ch]">{rest}</p>}
         </div>
+        {location.localNotes && (
+          <div class="lg:col-span-7 rounded-2xl bg-moss p-7 md:p-10">
+            <p class="text-[15px] font-semibold text-ink">Local detail</p>
+            <ul class="mt-4 divide-y divide-ink/10">
+              {location.localNotes.map((n) => (
+                <li class="py-4 first:pt-2 last:pb-0 text-base md:text-[17px] text-ink/80 leading-relaxed">{n}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   )}
 
-  <section class="py-20 md:py-28 border-t border-stone">
+  <!-- Services, linked with local anchor text. -->
+  <section class="py-16 md:py-24 border-t border-stone">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">What we offer</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Services in {location.name}.
-          </h2>
-          <p class="mt-6 text-[14px] md:text-[15px] text-ink/65 leading-relaxed">
-            The full OakFox offer is available to {location.name} clients — often
-            combined within a single engagement for a more coherent result.
-          </p>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {services.map((s) => (
-            <li class="border-b border-stone">
-              <a href={s.href} class="group flex items-baseline justify-between py-4 md:py-5 gap-4">
-                <span class="text-[15px] md:text-base font-medium text-ink group-hover:text-forest transition-colors duration-300">
-                  {s.label}
-                </span>
-                <span class="text-[13px] text-ink/65 hidden sm:block">
-                  {s.keyword}
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h2 class="headline text-4xl md:text-5xl max-w-[22ch]">What we offer in {location.name}</h2>
+      <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[56ch]">
+        The full OakFox offer is available to {location.name} clients, often combined in a single project for a more joined-up result.
+      </p>
+      <ul class="mt-10 md:mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        {services.map((s) => (
+          <li class="reveal">
+            <a href={s.href} class="group flex items-center justify-between gap-6 rounded-2xl border border-stone bg-cream-light px-6 py-6 md:px-7 hover:border-forest transition-colors">
+              <span class="text-xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">{s.label} in {location.name}</span>
+              <svg class="w-5 h-5 shrink-0 text-forest transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Why here</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            What we know about {location.name}.
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
+  <!-- What we know about the place, and who we tend to work with there. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <h2 class="headline text-4xl md:text-5xl">What we know about {location.name}</h2>
+        <ul class="mt-10 space-y-6">
           {location.strengths.map((s) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {s}
+            <li class="reveal flex gap-4 text-lg md:text-xl text-ink/85 leading-snug">
+              <span class="mt-0.5 shrink-0 w-7 h-7 rounded-full bg-moss text-forest grid place-items-center" aria-hidden="true">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+              <span>{s}</span>
             </li>
           ))}
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Sectors</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Who we tend to work with in {location.name}.
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {location.sectors.map((s) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {s}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  {location.relatedWork && (
-    <section class="py-20 md:py-28 border-t border-stone">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-        <div class="grid md:grid-cols-12 gap-10">
-          <div class="md:col-span-4">
-            <p class="label text-gray mb-6">Relevant work</p>
-            <h2 class="headline text-2xl md:text-3xl">
-              Branding for businesses like {location.name}'s.
-            </h2>
-            <p class="mt-6 text-[14px] md:text-[15px] text-ink/65 leading-relaxed">
-              Case studies from the sectors that lead {location.name}'s independent
-              scene — the closest match to the work we would do here.
-            </p>
-          </div>
-          <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-            {location.relatedWork.map((w) => (
-              <li class="border-b border-stone">
-                <a href={`/portfolio/${w.slug}/`} class="group block py-5 md:py-6">
-                  <span class="text-[15px] md:text-base font-medium text-ink group-hover:text-forest transition-colors duration-300">
-                    {w.title}
-                  </span>
-                  <span class="block mt-2 text-[13px] md:text-[14px] text-ink/65 leading-relaxed">{w.note}</span>
-                </a>
-              </li>
+      <div class="lg:col-span-5">
+        <div class="rounded-2xl border border-stone bg-cream-light p-7 md:p-9">
+          <h3 class="text-2xl font-semibold tracking-tight">Who we tend to work with</h3>
+          <ul class="mt-6 flex flex-wrap gap-2.5">
+            {location.sectors.map((s) => (
+              <li class="rounded-full bg-moss px-4 py-2 text-[15px] text-ink">{s}</li>
             ))}
           </ul>
         </div>
       </div>
-    </section>
-  )}
-
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            About working with us in {location.name}.
-          </h2>
-          <p class="mt-6 text-[14px] text-ink/65 leading-relaxed">
-            Typical prices, from DIY builders to agencies:
-            <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
-          </p>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
     </div>
   </section>
+
+  {relatedWork.length > 0 && (
+    <JournalLinks
+      title={`Work that fits ${location.name}`}
+      intro={`Case studies from the sectors that lead ${location.name}'s independent scene: the closest match to the work we'd do here.`}
+      posts={relatedWork}
+    />
+  )}
+
+  <FaqList title={`Working with us in ${location.name}`} items={faqs}>
+    Typical prices, from DIY builders to agencies:
+    <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
+  </FaqList>
 
   <AuditCta />
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Start a project in <em class="text-forest">{location.name}</em>.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Send a few lines about your business and what you are trying to do.
-          We reply within 24 hours — no pitch deck, no obligation.
-        </p>
-        <a href="/contact/" class="inline-flex items-center gap-3 mt-10 text-[13px] font-medium text-forest group">
-          Start a conversation
-          <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title={`Start a project in ${location.name}.`}
+    text="Send a few lines about your business and what you're trying to do. We reply within 24 hours, with no pitch deck and no obligation."
+  />
 </BaseLayout>

@@ -1,0 +1,38 @@
+---
+// Marketing demo: a lead-in, then the channels one at a time (up to 4 words).
+interface Props {
+  lead?: string;
+  words?: string[];
+  class?: string;
+}
+const {
+  lead = 'Found through',
+  words = ['search.', 'email.', 'social.', 'word of mouth.'],
+  class: className = '',
+} = Astro.props;
+---
+
+<p data-demo class={`rotating ${className}`} aria-hidden="true">
+  {lead}
+  <span class="rotator">{words.slice(0, 4).map((w) => <span>{w}</span>)}</span>
+</p>
+
+<style>
+  .rotating { font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+  .rotator { display: inline-grid; vertical-align: top; color: var(--color-forest); }
+  .rotator > span { grid-area: 1 / 1; opacity: 0; transform: translateY(0.4em); }
+  .rotator > span:first-child { opacity: 1; transform: none; }
+  .rotating:global(.is-in) .rotator > span { animation: rotate-word 8s infinite; }
+  .rotating:global(.is-in) .rotator > span:nth-child(2) { animation-delay: 2s; }
+  .rotating:global(.is-in) .rotator > span:nth-child(3) { animation-delay: 4s; }
+  .rotating:global(.is-in) .rotator > span:nth-child(4) { animation-delay: 6s; }
+  @keyframes rotate-word {
+    0% { opacity: 0; transform: translateY(0.4em); }
+    5%, 22% { opacity: 1; transform: none; }
+    27%, 100% { opacity: 0; transform: translateY(-0.4em); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rotating:global(.is-in) .rotator > span { animation: none; }
+    .rotator > span:not(:first-child) { display: none; }
+  }
+</style>

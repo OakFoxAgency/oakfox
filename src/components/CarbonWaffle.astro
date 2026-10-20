@@ -1,0 +1,54 @@
+---
+// The study as one dot per homepage, coloured by grade, ours ringed: the 99
+// sites measured in July 2026 plus oakfox.co.uk (A+).
+import study from '../../public/data/oakfox-uk-sme-carbon-study-2026-07-aggregates.json';
+import { GRADE_COLORS } from '../lib/carbon.mjs';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const GRADES = ['A+', 'A', 'B', 'C', 'D', 'E', 'F'] as const;
+const ratings = study.ratings as Record<string, number>;
+const colour = (g: string) => GRADE_COLORS[g as keyof typeof GRADE_COLORS];
+const dots = [
+  { grade: 'A+', ours: true },
+  ...GRADES.flatMap((g) => Array.from({ length: ratings[g] ?? 0 }, () => ({ grade: g, ours: false }))),
+];
+const legend = GRADES.map((g) => ({ grade: g, count: (ratings[g] ?? 0) + (g === 'A+' ? 1 : 0) }));
+---
+
+<figure data-demo class={`waffle-card rounded-2xl bg-cream-light border border-stone p-6 md:p-10 ${className}`}>
+  <div class="waffle" role="img" aria-label={`100 dots: ${legend.map((l) => `${l.count} rated ${l.grade}`).join(', ')}. OakFox is one of the A+ dots.`}>
+    {dots.map((d, i) => (
+      <span class={`dot ${d.ours ? 'dot-ours' : ''}`} style={`--g: ${colour(d.grade)}; --i: ${i}`}></span>
+    ))}
+  </div>
+  <figcaption class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-ink/70">
+    {legend.map((l) => (
+      <span class="inline-flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full" style={`background: ${colour(l.grade)}`}></span>
+        <span><strong class="font-semibold text-ink">{l.grade}</strong> <span class="figures">{l.count}</span></span>
+      </span>
+    ))}
+  </figcaption>
+</figure>
+
+<style>
+  .waffle { display: grid; grid-template-columns: repeat(10, 1fr); gap: clamp(0.35rem, 1vw, 0.7rem); }
+  .dot {
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--g);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.5s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(var(--i) * 12ms);
+  }
+  .waffle-card:global(.is-in) .dot { opacity: 1; transform: none; }
+  .dot-ours { box-shadow: 0 0 0 3px var(--color-cream-light), 0 0 0 5px var(--color-ink); }
+  @media (prefers-reduced-motion: reduce) {
+    .dot { opacity: 1; transform: none; transition: none; }
+  }
+</style>

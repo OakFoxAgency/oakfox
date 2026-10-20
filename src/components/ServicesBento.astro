@@ -1,0 +1,77 @@
+---
+// The six services as a bento of working demos: each tile shows the craft
+// rather than describing it. Used on the homepage and the services index.
+import Specimen from './demo/Specimen.astro';
+import Reflow from './demo/Reflow.astro';
+import LiveMetrics from './demo/LiveMetrics.astro';
+import StrikeEdit from './demo/StrikeEdit.astro';
+import Rotator from './demo/Rotator.astro';
+import BeforeAfter from './demo/BeforeAfter.astro';
+---
+
+<div class="grid lg:grid-cols-12 gap-4 md:gap-5 lg:auto-rows-[minmax(15rem,auto)]">
+  <a href="/services/branding/" class="tile lg:col-span-5 lg:row-span-2 bg-forest text-cream">
+    <Specimen />
+    <div class="mt-auto pt-6">
+      <h3 class="tile-title">Branding</h3>
+      <p class="tile-copy text-cream/75">Names, identities, tone of voice, and the guidelines that keep them consistent.</p>
+    </div>
+  </a>
+
+  <a href="/services/web-design/" class="tile lg:col-span-7 bg-cream-light border border-stone">
+    <Reflow />
+    <div class="mt-6">
+      <h3 class="tile-title">Web design</h3>
+      <p class="tile-copy text-ink/70">Structure first, then a design that works on every screen, accessible from the start.</p>
+    </div>
+  </a>
+
+  <a href="/services/development/" class="tile lg:col-span-4 bg-ink text-cream">
+    <LiveMetrics />
+    <div class="mt-auto pt-6">
+      <h3 class="tile-title">Development</h3>
+      <p class="tile-copy text-cream/75">Fast, accessible builds on verified green hosting.</p>
+    </div>
+  </a>
+
+  <a href="/services/copywriting/" class="tile lg:col-span-3 bg-moss">
+    <StrikeEdit class="text-xl md:text-2xl" />
+    <div class="mt-auto pt-6">
+      <h3 class="tile-title">Copywriting</h3>
+      <p class="tile-copy text-ink/70">Plain claims you can stand behind.</p>
+    </div>
+  </a>
+
+  <a href="/services/marketing/" class="tile lg:col-span-5 bg-cream-light border border-stone">
+    <Rotator class="text-3xl md:text-4xl" />
+    <div class="mt-auto pt-6">
+      <h3 class="tile-title">Marketing</h3>
+      <p class="tile-copy text-ink/70">Strategy, content, email, social and SEO, with honest reporting.</p>
+    </div>
+  </a>
+
+  <a href="/portfolio/the-magpies-tale/" class="tile lg:col-span-7 bg-cream-light border border-stone">
+    <BeforeAfter />
+    <div class="mt-auto pt-6">
+      <h3 class="tile-title">Environmental</h3>
+      <p class="tile-copy text-ink/70">Every site we build is measured for carbon, before and after if it's a rebuild. This is The Magpie's Tale.</p>
+    </div>
+  </a>
+</div>
+
+<style>
+  .tile {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    min-height: 15rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .tile:hover { transform: translateY(-3px); }
+  .tile-title { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+  .tile-copy { margin-top: 0.5rem; font-size: 1rem; line-height: 1.55; max-width: 44ch; }
+  @media (prefers-reduced-motion: reduce) {
+    .tile { transition: none; }
+  }
+</style>

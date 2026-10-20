@@ -1,0 +1,33 @@
+---
+// Branding demo: the site's variable typeface breathing through its weight
+// axis (400 to 900). No extra bytes: it is the face every page already loads.
+interface Props {
+  text?: string;
+  class?: string;
+}
+const { text = 'Aa', class: className = '' } = Astro.props;
+---
+
+<div data-demo class={`specimen-wrap ${className}`} aria-hidden="true">
+  <span class="specimen">{text}</span>
+</div>
+
+<style>
+  .specimen {
+    display: block;
+    font-size: clamp(7rem, 15vw, 15rem);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    font-weight: 400;
+  }
+  .specimen-wrap:global(.is-in) .specimen {
+    animation: breathe 6s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%, 100% { font-weight: 400; letter-spacing: -0.03em; }
+    50% { font-weight: 900; letter-spacing: -0.06em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .specimen-wrap:global(.is-in) .specimen { animation: none; font-weight: 700; }
+  }
+</style>

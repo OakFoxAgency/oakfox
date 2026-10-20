@@ -11,29 +11,31 @@ const AW_BOOKING_CONVERSION = ''; // e.g. 'AW-123456789/IjKlMnOp' (booking)
 
 <div
   id="consent-banner"
-  class="fixed z-[210] bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-md opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
+  class="fixed z-[210] bottom-4 left-4 right-4 md:bottom-5 md:left-1/2 md:right-auto md:w-[min(64rem,calc(100vw-3rem))] md:-translate-x-1/2 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
   aria-live="polite"
   aria-label="Cookie consent"
 >
-  <div class="bg-cream-light border border-stone/60 rounded-lg shadow-xl p-5">
-    <div class="label text-forest mb-3">Cookies</div>
-    <p class="text-ink text-sm leading-relaxed mb-4">
+  <!-- A card on phones; on larger screens a slim bar along the bottom, so it
+       never sits over the hero's buttons. -->
+  <div class="bg-cream-light border border-stone rounded-2xl shadow-[0_12px_40px_rgba(22,26,20,0.14)] p-5 md:py-3.5 md:px-5 md:flex md:items-center md:gap-6">
+    <div class="text-[14px] font-semibold text-ink mb-2 md:hidden">Cookies</div>
+    <p class="text-ink/80 text-sm leading-relaxed mb-4 md:mb-0 md:flex-1">
       We count visits anonymously, without cookies. With your OK, we'll also use a single
       analytics cookie to understand how people find and use the site. No ads, no cross-site
       tracking. You can change your mind any time.
     </p>
-    <div class="flex gap-2">
+    <div class="flex gap-2 md:shrink-0">
       <button
         id="consent-accept"
         type="button"
-        class="flex-1 bg-forest text-cream text-sm font-medium py-2.5 px-4 rounded hover:bg-forest-dark transition-colors"
+        class="flex-1 bg-forest text-cream text-sm font-medium py-2.5 px-5 rounded-full hover:bg-forest-dark transition-colors"
       >
         Accept
       </button>
       <button
         id="consent-decline"
         type="button"
-        class="flex-1 text-ink text-sm font-medium py-2.5 px-4 rounded border border-stone/80 hover:bg-stone/30 transition-colors"
+        class="flex-1 text-ink text-sm font-medium py-2.5 px-5 rounded-full border border-stone hover:bg-stone/30 transition-colors"
       >
         Decline
       </button>

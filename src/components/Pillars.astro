@@ -1,0 +1,36 @@
+---
+// "What's included": the lead item large on a tinted panel, the rest stacked
+// beside it. Works for 2 to 4 items.
+interface Item {
+  title: string;
+  description: string;
+}
+interface Props {
+  title?: string;
+  items: Item[];
+}
+const { title = "What's included", items } = Astro.props;
+const [lead, ...rest] = items;
+---
+
+<section class="py-16 md:py-24 border-t border-stone">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <h2 class="headline text-4xl md:text-5xl">{title}</h2>
+    <div class="mt-10 md:mt-14 grid lg:grid-cols-12 gap-4 md:gap-5">
+      {lead && (
+        <div class="reveal lg:col-span-6 rounded-2xl bg-moss p-7 md:p-10 flex flex-col justify-end min-h-[18rem]">
+          <h3 class="text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1] max-w-[18ch]">{lead.title}</h3>
+          <p class="mt-4 text-lg text-ink/75 leading-relaxed max-w-[48ch]">{lead.description}</p>
+        </div>
+      )}
+      <div class="lg:col-span-6 grid gap-4 md:gap-5">
+        {rest.map((item) => (
+          <div class="reveal rounded-2xl border border-stone bg-cream-light p-7 md:p-8">
+            <h3 class="text-xl md:text-2xl font-semibold tracking-tight">{item.title}</h3>
+            <p class="mt-3 text-base text-ink/70 leading-relaxed max-w-[56ch]">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

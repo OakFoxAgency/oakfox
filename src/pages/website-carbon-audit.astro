@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JournalLinks from '../components/JournalLinks.astro';
+import PageHero from '../components/PageHero.astro';
+import Pillars from '../components/Pillars.astro';
+import FaqList from '../components/FaqList.astro';
+import CarbonMeter from '../components/CarbonMeter.astro';
+import CarbonWaffle from '../components/CarbonWaffle.astro';
+import { GRADE_COLORS } from '../lib/carbon.mjs';
+import study from '../../public/data/oakfox-uk-sme-carbon-study-2026-07-aggregates.json';
 
 const pageUrl = 'https://oakfox.co.uk/website-carbon-audit';
 
@@ -18,7 +25,7 @@ const webApplication = {
   name: 'Free Website Carbon Audit',
   url: pageUrl,
   description:
-    'Free website sustainability checker. Enter a URL and get an instant carbon audit — CO₂ per page view, page weight, a green hosting check, and an A+ to F grade based on the Sustainable Web Design Model.',
+    'Free website sustainability checker. Enter a URL and get an instant carbon audit: CO₂ per page view, page weight, a green hosting check, and an A+ to F grade based on the Sustainable Web Design Model.',
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Any',
   browserRequirements: 'Requires JavaScript',
@@ -34,7 +41,7 @@ const webApplication = {
   ],
 };
 
-// Sustainable Web Design digital carbon ratings — grams CO2e per visit, as
+// Sustainable Web Design digital carbon ratings: grams CO2e per visit, as
 // applied by co2.js perVisit. Bands mirror the published percentiles of pages
 // tested worldwide.
 const gradeBands = [
@@ -76,7 +83,7 @@ const improvements = [
   },
   {
     title: 'Ship less JavaScript',
-    body: 'Trackers, chat widgets, embedded fonts, and framework bloat all cost carbon on every single visit. Static-first builds strip most of it out; this page you are reading ships almost none.',
+    body: 'Trackers, chat widgets, embedded fonts and framework bloat all cost carbon on every single visit. Static-first builds strip most of it out.',
     link: { href: '/services/development/', label: 'Static-first development' },
   },
   {
@@ -162,33 +169,56 @@ const journalPosts = [
     note: 'The main UK green hosts side by side. If your audit flagged your hosting, start here.',
   },
 ];
+
+// Bar lengths for the grade ladder, against 0.40 g (F runs off the end).
+const ladderWidth = (grade: string) =>
+  ({ 'A+': 10, A: 20, B: 36, C: 52, D: 70, E: 90, F: 100 })[grade] ?? 100;
+const gradeColour = (grade: string) => GRADE_COLORS[grade as keyof typeof GRADE_COLORS];
+
+const why = [
+  {
+    title: 'The internet runs on electricity',
+    body: "Data centres and transmission networks account for around 1 to 2% of global electricity use, and every page view draws on both. Your website's carbon footprint is real, recurring and, unlike most emissions, fixable in an afternoon.",
+  },
+  {
+    title: 'Carbon and conversion are the same metric',
+    body: "The changes that cut CO₂ (smaller images, less JavaScript, faster hosting) are the changes that cut load time. Faster pages bounce less, convert more, and score better on the Core Web Vitals that feed Google's rankings. There is no trade-off to weigh here.",
+  },
+  {
+    title: "Claims are cheap. Evidence isn't",
+    body: 'If sustainability is part of your brand, your website is the first place anyone can check the claim. A verifiable grade and green hosting you can prove beat a leaf icon in the footer every time.',
+  },
+];
+
+const fixTones = [
+  { card: 'bg-forest text-cream', link: 'text-leaf' },
+  { card: 'bg-moss text-ink', link: 'text-forest' },
+  { card: 'bg-ink text-cream', link: 'text-leaf' },
+  { card: 'bg-cream-light border border-stone text-ink', link: 'text-forest' },
+];
+
+const ratings = study.ratings as Record<string, number>;
+const aOrBetter = (ratings['A+'] ?? 0) + (ratings.A ?? 0);
+const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
 ---
 
 <BaseLayout
-  title="Free Website Carbon Audit — Check How Green Your Website Is"
-  description="Free website carbon audit. Check your site's CO₂ footprint, page weight, and green hosting in seconds — instant A+ to F grade, no signup. From OakFox."
+  title="Free Website Carbon Audit: How Green Is Your Website?"
+  description="Free website carbon audit. Check your site's CO₂ per visit, page weight and green hosting in seconds, with an instant A+ to F grade and no signup. From OakFox."
   schema={[webApplication, breadcrumbs, faqSchema]}
 >
-  <!-- ============ Hero + tool ============ -->
-  <section class="relative pt-32 pb-16 md:pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 40%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Free tool · Website Carbon Audit</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        How <em class="text-forest">green</em> is your website?
-      </h1>
-      <div class="mt-8 md:mt-10 grid md:grid-cols-12 gap-8">
-        <p class="md:col-span-6 text-[15px] md:text-base text-ink/65 leading-relaxed max-w-[65ch]">
-          Enter your URL and get an instant environmental audit, covering CO₂ per
-          visit, page weight, a verified green hosting check, and an A+ to F
-          grade. Free, no signup, no email gate, no catch.
-        </p>
-      </div>
-
-      <!-- The tool -->
-      <div class="mt-10 md:mt-14 max-w-2xl">
-        <form id="audit-form" class="flex flex-col sm:flex-row gap-3" novalidate>
-          <label for="audit-url" class="sr-only">Your website address</label>
+  <!-- ============ Hero: the tool itself, with this page's own reading beside it ============ -->
+  <PageHero
+    title="How green is your website?"
+    accent="green"
+    intro="Enter your web address for an instant environmental audit: CO₂ per visit, page weight, a verified green hosting check and an A+ to F grade. Free, with no signup and no email."
+    primary={null}
+    secondary={null}
+  >
+    <div class="mt-9 max-w-2xl">
+      <form id="audit-form" novalidate>
+        <label for="audit-url" class="block text-[15px] font-semibold text-ink mb-3">Your website address</label>
+        <div class="flex flex-col sm:flex-row gap-3">
           <input
             id="audit-url"
             name="url"
@@ -198,67 +228,59 @@ const journalPosts = [
             spellcheck="false"
             placeholder="yourwebsite.co.uk"
             required
-            class="flex-1 bg-white border border-stone rounded-full px-6 py-4 text-[15px] text-ink placeholder:text-gray focus:outline-none focus:border-forest transition-colors duration-300"
+            class="flex-1 min-w-0 bg-white border border-ink/15 rounded-full px-6 py-4 text-[17px] text-ink placeholder:text-ink/45 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/15 transition-colors duration-300"
           />
-          <button
-            id="audit-submit"
-            type="submit"
-            class="inline-flex items-center justify-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-8 py-4 rounded-full text-[14px] font-medium whitespace-nowrap"
-          >
-            Audit my site
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
-        <p id="audit-status" class="mt-5 text-[14px] text-ink/65 leading-relaxed min-h-[1.5rem]" role="status" aria-live="polite"></p>
-      </div>
+          <button id="audit-submit" type="submit" class="btn-primary btn-lg">Audit my site</button>
+        </div>
+      </form>
+      <p id="audit-status" class="mt-4 text-[15px] text-ink/70 leading-relaxed min-h-[1.5rem]" role="status" aria-live="polite"></p>
     </div>
-  </section>
+    <div slot="aside">
+      <CarbonMeter heading="This page, measured as it loaded" showForm={false} />
+    </div>
+  </PageHero>
 
   <!-- ============ Results ============ -->
-  <section id="audit-result" class="pb-20 md:pb-28 hidden" aria-live="polite">
+  <section id="audit-result" class="pb-16 md:pb-24 hidden scroll-mt-24" aria-live="polite">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="border border-stone rounded-2xl bg-white/60 p-8 md:p-12 relative overflow-hidden">
+      <div class="rounded-2xl border border-stone bg-cream-light p-7 md:p-12 relative overflow-hidden">
         <div id="confetti-host" class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true"></div>
 
         <div class="grid md:grid-cols-12 gap-10 md:gap-14 items-start relative z-10">
           <!-- Grade badge -->
           <div class="md:col-span-3 flex flex-col items-center md:items-start">
             <div id="grade-badge" class="w-36 h-36 md:w-44 md:h-44 rounded-full flex items-center justify-center bg-forest">
-              <span id="grade-letter" class="headline text-cream" style="font-size: clamp(3.5rem, 5vw, 5rem);">–</span>
+              <span id="grade-letter" class="text-cream font-semibold tracking-tight" style="font-size: clamp(3.5rem, 5vw, 5rem);">?</span>
             </div>
-            <p class="mt-5 text-[12px] font-mono uppercase tracking-widest text-gray text-center md:text-left">
-              Digital carbon rating
-            </p>
+            <p class="mt-4 text-[14px] text-ink/60 text-center md:text-left">Digital carbon rating</p>
           </div>
 
           <!-- Verdict + stats -->
           <div class="md:col-span-9">
-            <p class="label text-gray mb-3">Results for <span id="result-url" class="text-ink/80 normal-case tracking-normal font-sans"></span></p>
-            <h2 id="verdict-title" class="headline text-2xl md:text-4xl text-ink"></h2>
-            <p id="verdict-copy" class="mt-4 text-[15px] text-ink/65 leading-relaxed max-w-2xl"></p>
+            <p class="text-[15px] text-ink/60 mb-2">Results for <span id="result-url" class="font-semibold text-ink"></span></p>
+            <h2 id="verdict-title" class="headline text-3xl md:text-5xl text-ink"></h2>
+            <p id="verdict-copy" class="mt-4 text-lg text-ink/70 leading-relaxed max-w-2xl"></p>
 
-            <dl class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
-              <div class="border-t border-stone pt-4">
-                <dt class="text-[11px] font-mono uppercase tracking-widest text-gray mb-2">CO₂ per visit</dt>
-                <dd id="stat-co2" class="text-xl md:text-2xl font-semibold text-ink">–</dd>
+            <dl class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+              <div class="rounded-xl border border-stone bg-white/70 p-4">
+                <dt class="text-[13px] text-ink/55 mb-1">CO₂ per visit</dt>
+                <dd id="stat-co2" class="figures text-2xl md:text-3xl font-semibold tracking-tight text-ink">…</dd>
               </div>
-              <div class="border-t border-stone pt-4">
-                <dt class="text-[11px] font-mono uppercase tracking-widest text-gray mb-2">Page weight</dt>
-                <dd id="stat-weight" class="text-xl md:text-2xl font-semibold text-ink">–</dd>
+              <div class="rounded-xl border border-stone bg-white/70 p-4">
+                <dt class="text-[13px] text-ink/55 mb-1">Page weight</dt>
+                <dd id="stat-weight" class="figures text-2xl md:text-3xl font-semibold tracking-tight text-ink">…</dd>
               </div>
-              <div class="border-t border-stone pt-4">
-                <dt class="text-[11px] font-mono uppercase tracking-widest text-gray mb-2">Cleaner than</dt>
-                <dd id="stat-cleaner" class="text-xl md:text-2xl font-semibold text-ink">–</dd>
+              <div class="rounded-xl border border-stone bg-white/70 p-4">
+                <dt class="text-[13px] text-ink/55 mb-1">Cleaner than</dt>
+                <dd id="stat-cleaner" class="figures text-2xl md:text-3xl font-semibold tracking-tight text-ink">…</dd>
               </div>
-              <div class="border-t border-stone pt-4">
-                <dt class="text-[11px] font-mono uppercase tracking-widest text-gray mb-2">Hosting</dt>
-                <dd id="stat-hosting" class="text-xl md:text-2xl font-semibold text-ink">–</dd>
+              <div class="rounded-xl border border-stone bg-white/70 p-4">
+                <dt class="text-[13px] text-ink/55 mb-1">Hosting</dt>
+                <dd id="stat-hosting" class="figures text-2xl md:text-3xl font-semibold tracking-tight text-ink">…</dd>
               </div>
             </dl>
-            <p id="stat-hosting-detail" class="mt-3 text-[13px] text-ink/65 leading-relaxed"></p>
-            <p id="equiv-line" class="mt-5 text-[14px] text-ink/65 leading-relaxed border-l-2 border-forest/40 pl-4"></p>
+            <p id="stat-hosting-detail" class="mt-4 text-[14px] text-ink/65 leading-relaxed"></p>
+            <p id="equiv-line" class="mt-5 text-[15px] text-ink/75 leading-relaxed border-l-2 border-forest pl-4"></p>
             <p id="cache-note" class="mt-4 text-[12px] text-ink/65 leading-relaxed hidden">
               Showing a saved result from the last hour.
               <button type="button" id="fresh-btn" class="text-forest underline underline-offset-4 hover:text-forest-dark transition-colors duration-300">Re-run a fresh audit</button>
@@ -308,7 +330,7 @@ const journalPosts = [
                   <button
                     id="plan-submit"
                     type="submit"
-                    class="inline-flex items-center justify-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium whitespace-nowrap"
+                    class="btn-primary"
                   >
                     Send me the plan
                   </button>
@@ -320,7 +342,7 @@ const journalPosts = [
               <a
                 id="cta-hosting-link"
                 href="/services/green-web-hosting/"
-                class="hidden mt-6 items-center gap-2 border border-forest/30 text-forest hover:bg-forest hover:text-cream transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+                class="hidden mt-6 btn-outline"
               >
                 Switch to green hosting, free migration
               </a>
@@ -329,7 +351,7 @@ const journalPosts = [
             <!-- CTA: celebration -->
             <div id="cta-celebrate" class="mt-10 hidden">
               <p class="text-[15px] text-ink/75 leading-relaxed max-w-xl">
-                🎉 Genuinely brilliant. A low-carbon page on verified green
+                Genuinely brilliant. A low-carbon page on verified green
                 hosting puts this site in rare company. Most of the web never
                 gets close. Whoever built and hosts it deserves a biscuit.
               </p>
@@ -337,15 +359,15 @@ const journalPosts = [
                 <button
                   id="share-btn"
                   type="button"
-                  class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+                  class="btn-primary"
                 >
                   Copy link to these results
                 </button>
                 <a
                   href="/contact/"
-                  class="inline-flex items-center gap-2 border border-forest/30 text-forest hover:bg-forest hover:text-cream transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+                  class="btn-outline"
                 >
-                  Talk to a studio that speaks your language
+                  Start a project
                 </a>
               </div>
             </div>
@@ -369,7 +391,7 @@ const journalPosts = [
                 <a
                   id="badge-withheld-cta"
                   href="/contact/?service=carbon-audit"
-                  class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+                  class="btn-primary"
                 >
                   Get a free plan to fix these
                 </a>
@@ -384,7 +406,7 @@ const journalPosts = [
               <p class="mt-3 text-[14px] text-ink/70 leading-relaxed max-w-xl">
                 Anything rated B or better can display this. It links to a live
                 re-run of this audit, so the rating a visitor checks is always
-                measured fresh — there is nothing to keep updated, and nothing
+                measured fresh. There is nothing to keep updated, and nothing
                 that can quietly go out of date.
               </p>
 
@@ -400,14 +422,14 @@ const journalPosts = [
                   />
                   <div class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
                     <div class="flex flex-col gap-2">
-                      <span class="text-[10px] uppercase tracking-[0.16em] text-ink/55">Style</span>
+                      <span class="text-[13px] text-ink/60">Style</span>
                       <div class="flex gap-1.5" role="group" aria-label="Badge style">
                         <button type="button" class="badge-opt" data-badge-theme="light" aria-pressed="true">Light</button>
                         <button type="button" class="badge-opt" data-badge-theme="dark" aria-pressed="false">Dark</button>
                       </div>
                     </div>
                     <div class="flex flex-col gap-2">
-                      <span class="text-[10px] uppercase tracking-[0.16em] text-ink/55">Format</span>
+                      <span class="text-[13px] text-ink/60">Format</span>
                       <div class="flex gap-1.5" role="group" aria-label="Badge format">
                         <button type="button" class="badge-opt" data-badge-format="svg" aria-pressed="true">SVG</button>
                         <button type="button" class="badge-opt" data-badge-format="png" aria-pressed="false">PNG</button>
@@ -422,7 +444,7 @@ const journalPosts = [
                 <div class="flex-1 min-w-[min(100%,300px)]">
                   <label
                     for="badge-embed"
-                    class="block text-[10px] uppercase tracking-[0.16em] text-ink/55"
+                    class="block text-[13px] text-ink/60"
                   >
                     Paste this into your footer
                   </label>
@@ -437,7 +459,7 @@ const journalPosts = [
                     <button
                       id="badge-copy"
                       type="button"
-                      class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+                      class="btn-primary"
                     >
                       Copy embed code
                     </button>
@@ -455,7 +477,7 @@ const journalPosts = [
         </div>
       </div>
 
-      <p class="mt-6 text-[12px] text-ink/65 leading-relaxed max-w-3xl">
+      <p class="mt-6 text-[13px] text-ink/60 leading-relaxed max-w-3xl">
         Page weight is measured by OakFox's own crawler: your page plus the
         assets an initial view loads (lazy-loaded media excluded); real-browser
         weight can be slightly higher where scripts inject extra content. Carbon is estimated with
@@ -467,118 +489,87 @@ const journalPosts = [
     </div>
   </section>
 
-  <!-- ============ What we check ============ -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <p class="label text-gray mb-10 md:mb-14">What the audit checks</p>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        {checks.map((c) => (
-          <div class="reveal">
-            <p class="label text-forest mb-4">{c.label}</p>
-            <h2 class="headline text-xl md:text-2xl mb-4">{c.title}</h2>
-            <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">{c.description}</p>
-          </div>
-        ))}
+  <Pillars title="What the audit checks" items={checks.map((c) => ({ title: c.title, description: c.description }))} />
+
+  <!-- ============ Grades, as a ladder ============ -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <h2 class="headline text-4xl md:text-5xl">What an A+ actually means</h2>
+        <p class="mt-6 text-lg text-ink/70 leading-relaxed">
+          Grades follow the Sustainable Web Design digital carbon ratings: grams
+          of CO₂e per visit, banded against every page tested worldwide. The
+          median page emits roughly 0.36&nbsp;g per visit, which rates an&nbsp;E.
+        </p>
       </div>
+      <ol data-demo class="ladder lg:col-span-8 space-y-3" aria-label="The grades, from A+ to F">
+        {gradeBands.map((band, i) => (
+          <li class="ladder-row" style={`--g: ${gradeColour(band.grade)}; --w: ${ladderWidth(band.grade)}%; --i: ${i}`}>
+            <span class="ladder-chip">{band.grade}</span>
+            <span class="ladder-measure">
+              <span class="ladder-bar"></span>
+              <span class="text-[14px] text-ink/65 whitespace-nowrap">{band.grade === 'F' ? band.limit : `up to ${band.limit}`}</span>
+            </span>
+            <span class="ladder-meaning text-[15px] text-ink/75 leading-snug">{band.meaning}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <!-- ============ Grade bands ============ -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">The grades</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            What an A+ actually means.
-          </h2>
-          <p class="mt-6 text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">
-            Grades follow the Sustainable Web Design digital carbon ratings: grams of CO₂e per visit, banded against every page tested
-            worldwide. The median page emits roughly 0.36&nbsp;g per visit,
-            which rates an&nbsp;E.
-          </p>
-        </div>
-        <div class="md:col-span-7 md:col-start-6">
-          <dl class="border-t border-stone">
-            {gradeBands.map((band) => (
-              <div class="reveal border-b border-stone py-4 grid grid-cols-[3rem_7rem_1fr] md:grid-cols-[3.5rem_9rem_1fr] gap-4 items-baseline">
-                <dt class="headline text-xl md:text-2xl text-forest">{band.grade}</dt>
-                <dd class="text-[13px] font-mono text-ink/65">{band.grade === 'F' ? band.limit : `≤ ${band.limit}`}</dd>
-                <dd class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">{band.meaning}</dd>
-              </div>
-            ))}
-          </dl>
+  <!-- ============ The study ============ -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <CarbonWaffle class="lg:col-span-7" />
+      <div class="lg:col-span-5">
+        <h2 class="headline text-4xl md:text-5xl">How 100 UK small business websites scored</h2>
+        <p class="mt-6 text-lg text-ink/70 leading-relaxed">
+          We ran this audit on the homepages of 99 small businesses across 18
+          sectors in July 2026, and on our own. {aOrBetter} earned an A or
+          better, and {eOrF} rated E or F. Each dot is one site; the ringed one
+          is ours.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="/blog/we-audited-100-uk-small-business-websites/" class="btn-primary">Read the study</a>
+          <a href="/data/oakfox-uk-sme-carbon-study-2026-07.csv" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">Download the data</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============ Why it matters ============ -->
-  <section class="py-20 md:py-28 border-t border-stone">
+  <section class="py-16 md:py-24 border-t border-stone">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Why it matters</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            A lighter site is a better business, not just a greener one.
-          </h2>
-        </div>
-        <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          <li class="reveal border-b border-stone py-6">
-            <h3 class="text-base md:text-lg font-medium text-ink mb-3">The internet runs on electricity</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">
-              Data centres and transmission networks account for around 1–2% of
-              global electricity use, and every page view draws on both. Your
-              website's carbon footprint is real, recurring, and, unlike most
-              emissions, fixable in an afternoon.
-            </p>
-          </li>
-          <li class="reveal border-b border-stone py-6">
-            <h3 class="text-base md:text-lg font-medium text-ink mb-3">Carbon and conversion are the same metric</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">
-              The changes that cut CO₂ (smaller images, less JavaScript, faster hosting) are the changes that cut load time. Faster pages bounce
-              less, convert more, and score better on the Core Web Vitals that
-              feed Google's rankings. There is no trade-off to weigh here.
-            </p>
-          </li>
-          <li class="reveal border-b border-stone py-6">
-            <h3 class="text-base md:text-lg font-medium text-ink mb-3">Claims are cheap. Evidence isn't</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">
-              If sustainability is part of your brand, your website is the first
-              place anyone can check the claim. A verifiable grade and green
-              hosting you can prove beat a leaf icon in the footer every time.
-            </p>
-          </li>
-        </ol>
+      <h2 class="headline text-4xl md:text-5xl max-w-[22ch]">A lighter site is a better business, not just a greener one.</h2>
+      <div class="mt-10 md:mt-14 border-t border-stone">
+        {why.map((w) => (
+          <div class="reveal grid md:grid-cols-12 gap-3 md:gap-10 py-8 md:py-10 border-b border-stone">
+            <h3 class="md:col-span-5 text-2xl md:text-3xl font-semibold tracking-tight leading-tight">{w.title}</h3>
+            <p class="md:col-span-7 text-lg text-ink/70 leading-relaxed max-w-[60ch]">{w.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- ============ How to improve ============ -->
-  <section class="py-20 md:py-28 border-t border-stone">
+  <section class="py-16 md:py-24 border-t border-stone">
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16 mb-12 md:mb-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Improving your grade</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Four fixes, in order of impact.
-          </h2>
-        </div>
-        <p class="md:col-span-7 md:col-start-6 text-[15px] text-ink/65 leading-relaxed max-w-[65ch]">
-          Most sites don't need a rebuild to move two grades. They need someone
-          to do the unglamorous work below. Do it yourself with our
-          <a href="/blog/sustainable-web-design-practical-guide/" class="text-forest hover:underline underline-offset-4">practical guide</a>,
-          or ask us for a free improvement plan.
-        </p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+      <h2 class="headline text-4xl md:text-5xl">Four fixes, in order of impact</h2>
+      <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[60ch]">
+        Most sites don't need a rebuild to move two grades. They need someone to
+        do the unglamorous work below. Do it yourself with our
+        <a href="/blog/sustainable-web-design-practical-guide/" class="text-forest underline underline-offset-4">practical guide</a>,
+        or ask us for a free improvement plan.
+      </p>
+      <div class="mt-10 md:mt-12 grid md:grid-cols-2 gap-4 md:gap-5">
         {improvements.map((item, i) => (
-          <div class="reveal border-t border-stone pt-6">
-            <p class="label text-forest mb-3">0{i + 1}</p>
-            <h3 class="headline text-lg md:text-xl mb-3">{item.title}</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed mb-4 max-w-[65ch]">{item.body}</p>
-            <a href={item.link.href} class="text-[13px] font-medium text-forest hover:underline underline-offset-4">
-              {item.link.label} →
+          <div class={`reveal rounded-2xl p-7 md:p-9 flex flex-col ${fixTones[i % fixTones.length].card}`}>
+            <h3 class="text-2xl md:text-3xl font-semibold tracking-tight">{item.title}</h3>
+            <p class="mt-3 text-base md:text-lg leading-relaxed opacity-80">{item.body}</p>
+            <a href={item.link.href} class={`group mt-6 inline-flex items-center gap-2 text-[15px] font-medium ${fixTones[i % fixTones.length].link}`}>
+              {item.link.label}
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </a>
           </div>
         ))}
@@ -587,67 +578,101 @@ const journalPosts = [
   </section>
 
   <JournalLinks
-    intro="The thinking behind the tool: what makes a website heavy, what genuinely green hosting looks like, and how to fix both."
+    title="The thinking behind the tool"
+    intro="What makes a website heavy, what genuinely green hosting looks like, and how to fix both."
     posts={journalPosts}
   />
 
-  <!-- ============ FAQ ============ -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Website carbon questions, answered.
-          </h2>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed max-w-[65ch]">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
+  <FaqList title="Website carbon questions, answered" items={faqs} />
 
-  <!-- ============ Final CTA ============ -->
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Didn't like your <em class="text-forest">grade</em>?
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Send us your URL and we will reply within 24 hours with the three
-          changes that would move it most. Free, specific to your site, and
-          yours to act on with or without us.
+  <!-- ============ Close: the forest block, pointing at the free plan ============ -->
+  <section class="bg-forest text-cream">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-36">
+      <h2 class="headline text-cream text-[length:clamp(3rem,8vw,7.5rem)] max-w-[12ch]">Didn't like your grade?</h2>
+      <div class="mt-10 max-w-[46rem]">
+        <p class="text-xl text-cream/80 leading-relaxed">
+          Send us your URL and we'll reply within 24 hours with the three changes
+          that would move it most. Free, specific to your site, and yours to act
+          on with or without us.
         </p>
-        <a href="/contact/?service=carbon-audit" class="inline-flex items-center gap-3 mt-10 text-[13px] font-medium text-forest group">
-          Get your free improvement plan
-          <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
+        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="/contact/?service=carbon-audit" class="btn-light">Get a free improvement plan</a>
+          <a href="/book/" class="link-line text-[15px] font-medium text-cream">Book a call</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .btn-lg { padding: 1rem 2rem; font-size: 1rem; }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--color-forest) 35%, transparent);
+    color: var(--color-forest);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.2;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { background: var(--color-forest); color: var(--color-cream); }
+  /* The JS toggles .hidden / .inline-flex on the hosting link. */
+  .btn-outline.hidden { display: none; }
+
+  /* Grade ladder: a chip, a bar as long as the band's upper limit, a meaning. */
+  .ladder-row {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 0.35rem 1.25rem;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .ladder-row { grid-template-columns: 3.5rem minmax(0, 15rem) 1fr; }
+  }
+  .ladder-chip {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    height: 3.25rem;
+    border-radius: 0.75rem;
+    background: var(--g);
+    color: var(--color-cream);
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  @media (min-width: 768px) { .ladder-chip { grid-row: auto; } }
+  .ladder-measure { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+  .ladder-bar {
+    display: block;
+    flex: 0 0 auto;
+    height: 0.625rem;
+    width: calc(var(--w) * 0.72);
+    border-radius: 999px;
+    background: var(--g);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i) * 80ms);
+  }
+  .ladder:global(.is-in) .ladder-bar { transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .ladder-bar { transform: none; transition: none; }
+  }
+
   #grade-badge {
     transition: background-color 500ms ease;
   }
   .plan-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   #plan-status[data-state='ok'] { color: #1A5C12; }
   #plan-status[data-state='error'] { color: #b44d4d; }
-  .confetto {
+  /* Confetti pieces are created by the script, so they never carry this
+     page's scoping attribute: the rule has to be global to reach them. */
+  :global(.confetto) {
     position: absolute;
     top: -12px;
     width: 8px;
@@ -662,7 +687,7 @@ const journalPosts = [
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .confetto {
+    :global(.confetto) {
       display: none;
     }
   }
@@ -1043,14 +1068,14 @@ const journalPosts = [
       '<!-- Carbon rating badge · oakfox.co.uk -->\n' +
       `<a href="${link}" target="_blank" rel="noopener">\n` +
       `  <img src="${origin}/badge/${file}"\n` +
-      `       alt="Carbon rating ${badgeState.grade} — website carbon audit by OakFox"\n` +
+      `       alt="Carbon rating ${badgeState.grade}, website carbon audit by OakFox"\n` +
       '       width="200" height="56" loading="lazy" decoding="async">\n' +
       '</a>';
 
     el<HTMLElement>('badge-format-note').textContent =
       badgeState.format === 'svg'
         ? '458 bytes. Lighter than a single line of text on most pages.'
-        : '7.3 KB at 2x. Use this only if your site builder refuses SVG uploads — Wix and Squarespace both do in places.';
+        : '7.3 KB at 2x. Use this only if your site builder refuses SVG uploads. Wix and Squarespace both do in places.';
   }
 
   function renderBadgeWithheld(blockers: Array<{ label: string; pitch: string }>, grade: string): void {
@@ -1067,7 +1092,7 @@ const journalPosts = [
         const copy = document.createElement('span');
         // The pitch reads as a sentence to the site's owner, which is exactly
         // who is looking at this panel.
-        copy.textContent = `${b.label} — ${b.pitch}`;
+        copy.textContent = `${b.label}: ${b.pitch}`;
         li.append(dot, copy);
         return li;
       })
@@ -1109,7 +1134,7 @@ const journalPosts = [
         // text at least leaves the user one keystroke away.
         field.focus();
         field.select();
-        btn.textContent = 'Selected — press Cmd/Ctrl+C';
+        btn.textContent = 'Selected. Press Cmd/Ctrl+C';
       }
       setTimeout(() => { btn.textContent = 'Copy embed code'; }, 2500);
     });

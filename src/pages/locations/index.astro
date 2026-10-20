@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { locations as locationData } from '../../data/locations';
 
 const pageUrl = 'https://oakfox.co.uk/locations';
 
@@ -7,9 +10,9 @@ const webPage = {
   '@type': 'WebPage',
   '@id': `${pageUrl}#webpage`,
   url: pageUrl,
-  name: 'Locations — Where OakFox Works in the UK',
+  name: 'Locations: where OakFox works in the UK',
   description:
-    'OakFox works with businesses across the UK — locally in West Lancashire (Ormskirk, Burscough, Southport), regionally across Manchester, Preston, and Liverpool, and remotely across the UK, Ireland, and Europe.',
+    'OakFox works with businesses across the UK: locally in West Lancashire (Ormskirk, Burscough, Southport), regionally across Manchester, Preston and Liverpool, and remotely across the UK, Ireland and Europe.',
   inLanguage: 'en-GB',
   isPartOf: { '@id': 'https://oakfox.co.uk/#website' },
 };
@@ -22,116 +25,96 @@ const breadcrumbs = {
   ],
 };
 
-const locations = [
-  {
-    name: 'Ormskirk',
-    slug: 'ormskirk',
-    blurb:
-      'Our closest town — ten minutes from the studio. Independent retailers, hospitality, and professional services along Burscough Street.',
-  },
-  {
-    name: 'Burscough',
-    slug: 'burscough',
-    blurb:
-      'Home to the studio at Martland Mill. Independent food producers, maker studios, and village hospitality.',
-  },
-  {
-    name: 'Southport',
-    slug: 'southport',
-    blurb:
-      'Coastal town twenty minutes west. Hospitality, retail, cultural institutions, and a growing independent scene.',
-  },
-  {
-    name: 'Preston',
-    slug: 'preston',
-    blurb:
-      'Lancashire\'s city — thirty minutes north. Professional services, universities, creative businesses.',
-  },
-  {
-    name: 'Manchester',
-    slug: 'manchester',
-    blurb:
-      'Forty-five minutes east. Creative industries, independent hospitality, B2B software, cultural organisations.',
-  },
-  {
-    name: 'Lancashire',
-    slug: 'lancashire',
-    blurb:
-      'The county we call home. From the Ribble Valley to the West Coast, we work with businesses across Lancashire.',
-  },
-];
+const blurbs: Record<string, string> = {
+  ormskirk: 'Our closest town, ten minutes from the studio. Independent retailers, hospitality and professional services along Burscough Street.',
+  burscough: 'Home to the studio at Martland Mill. Independent food producers, maker studios and village hospitality.',
+  southport: 'The closest coastal town. Hospitality, retail, cultural institutions and a growing independent scene.',
+  preston: "Lancashire's administrative city. Professional services, universities and creative businesses.",
+  manchester: 'Creative industries, independent hospitality, B2B software and cultural organisations.',
+  lancashire: 'The county we call home. From the Ribble Valley to the West Coast, we work with businesses across Lancashire.',
+};
+
+const locations = locationData.map((l) => ({ ...l, blurb: blurbs[l.slug] ?? '' }));
+
+// Drive times from the studio, read from the location data ("25 minutes west of the studio").
+const drives = locationData
+  .map((l) => ({ name: l.name, slug: l.slug, minutes: Number(l.distance.match(/^(\d+) minutes/)?.[1] ?? NaN), distance: l.distance }))
+  .filter((d) => d.slug !== 'burscough' && Number.isFinite(d.minutes))
+  .sort((a, b) => a.minutes - b.minutes);
+const maxMinutes = Math.max(...drives.map((d) => d.minutes));
 ---
 
 <BaseLayout
-  title="Locations — Where We Work in the UK"
-  description="OakFox works with businesses across the UK — locally in West Lancashire (Ormskirk, Burscough, Southport), regionally across Manchester, Preston, and Lancashire, and remotely across the UK, Ireland, and Europe."
+  title="Locations: Where We Work in the UK"
+  description="OakFox works with businesses across the UK: locally in West Lancashire (Ormskirk, Burscough, Southport), regionally across Manchester, Preston and Lancashire, and remotely across the UK, Ireland and Europe."
   schema={[webPage, breadcrumbs]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Locations</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Working <em class="text-forest">across Lancashire</em>.
-        Delivering <em class="text-forest">across the UK</em>.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8">
-        <p class="md:col-span-7 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          OakFox is based at Martland Mill, Burscough, in rural West Lancashire
-          — between Ormskirk and Southport, forty-five minutes from central
-          Manchester, and thirty minutes from Preston or Liverpool. Most of
-          our work is delivered remotely, with in-person visits for brand
-          discovery, photography, installations, and launches. The locations
-          below are where we know the ground best.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <p class="label text-gray mb-10 md:mb-14">Where we work</p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-        {locations.map((l) => (
-          <a href={`/locations/${l.slug}/`} class="reveal group block border-t border-stone pt-6 hover:border-forest transition-colors duration-500">
-            <h2 class="headline text-xl md:text-2xl mb-3 group-hover:text-forest transition-colors duration-500">
-              {l.name}
-            </h2>
-            <p class="text-[14px] text-ink/65 leading-relaxed mb-4">{l.blurb}</p>
-            <span class="inline-flex items-center gap-2 text-[13px] font-medium text-forest/80 group-hover:text-forest transition-colors duration-300">
-              See local services
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
+  <PageHero
+    title="Based in West Lancashire, working across the UK."
+    accent="Lancashire"
+    intro="The studio is at Martland Mill in Burscough, between Ormskirk and Southport. Most of our work happens remotely, with visits in person for brand discovery, photography, installations and launches. These are the places we know best."
+  >
+    <div slot="aside" class="rounded-2xl bg-ink text-cream p-7 md:p-9">
+      <p class="text-[15px] font-semibold">Drive time from the studio</p>
+      <p class="mt-1 text-[14px] text-cream/60">Martland Mill, Burscough</p>
+      <ul data-demo class="drives mt-7 space-y-5">
+        {drives.map((d, i) => (
+          <li>
+            <a href={`/locations/${d.slug}/`} class="group block">
+              <span class="flex items-baseline justify-between text-[15px]">
+                <span class="font-medium group-hover:text-leaf transition-colors">{d.name}</span>
+                <span class="figures text-cream/70">{d.minutes} min</span>
+              </span>
+              <span class="mt-2 block h-2 rounded-full bg-cream/10 overflow-hidden">
+                <span class="drive-bar block h-full rounded-full bg-leaf" style={`--w: ${Math.round((d.minutes / maxMinutes) * 100)}%; --i: ${i}`}></span>
+              </span>
+            </a>
+          </li>
         ))}
+      </ul>
+    </div>
+  </PageHero>
+
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <h2 class="headline text-4xl md:text-5xl">Where we work</h2>
+      <div class="mt-10 md:mt-12 grid md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-5">
+        {locations.map((l) => {
+          const home = l.slug === 'burscough';
+          const county = l.slug === 'lancashire';
+          const span = home ? 'lg:col-span-7' : county ? 'lg:col-span-12' : l.slug === 'ormskirk' ? 'lg:col-span-5' : 'lg:col-span-4';
+          const tone = home ? 'bg-forest text-cream' : county ? 'bg-moss' : 'bg-cream-light border border-stone';
+          return (
+            <a href={`/locations/${l.slug}/`} class={`reveal group flex flex-col rounded-2xl p-7 md:p-9 min-h-[15rem] transition-transform duration-300 hover:-translate-y-0.5 ${span} ${tone}`}>
+              <span class={`text-[13px] ${home ? 'text-cream/65' : 'text-ink/55'}`}>{l.region.replace(' / ', ' and ')}</span>
+              <h3 class="mt-2 text-3xl md:text-4xl font-semibold tracking-tight">{l.name}</h3>
+              <p class={`mt-3 text-base leading-relaxed max-w-[52ch] ${home ? 'text-cream/80' : 'text-ink/70'}`}>{l.blurb}</p>
+              <span class={`mt-auto pt-6 inline-flex items-center gap-2 text-[15px] font-medium ${home ? 'text-leaf' : 'text-forest'}`}>
+                Services in {l.name}
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Somewhere else?</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          We work <em class="text-forest">UK-wide</em>. And beyond.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Clients in the Lake District, Dublin, Edinburgh, London and Cornwall
-          have all collaborated with us remotely. Send a few lines about your
-          project — location is rarely the constraint.
-        </p>
-        <a href="/contact/" class="inline-flex items-center gap-3 mt-10 text-[13px] font-medium text-forest group">
-          Start a conversation
-          <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title="Somewhere else? We work UK-wide."
+    text="Clients in the Lake District, Dublin, Edinburgh, London and Cornwall have all worked with us remotely. Send a few lines about your project: location is rarely the constraint."
+    showLocations={false}
+  />
 </BaseLayout>
+
+<style>
+  .drive-bar {
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(0.2s + var(--i) * 0.12s);
+  }
+  .drives:global(.is-in) .drive-bar { width: var(--w); }
+  @media (prefers-reduced-motion: reduce) {
+    .drive-bar { width: var(--w); transition: none; }
+  }
+</style>

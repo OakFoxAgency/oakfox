@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
 import { isPublished } from '../../lib/posts';
 
 const posts = (await getCollection('blog', isPublished))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [lead, ...rest] = posts;
 
 const tagCounts = new Map<string, number>();
 for (const post of posts) {
@@ -17,6 +19,14 @@ const topTags = Array.from(tagCounts.entries())
   .sort((a, b) => b[1] - a[1])
   .slice(0, 12);
 
+const date = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const searchData = (post: (typeof posts)[number]) => ({
+  'data-title': post.data.title.toLowerCase(),
+  'data-description': post.data.description.toLowerCase(),
+  'data-tags': post.data.tags.join(' ').toLowerCase(),
+  'data-category': post.data.category.toLowerCase(),
+});
+
 const pageUrl = 'https://oakfox.co.uk/blog';
 
 const blogSchema = {
@@ -25,7 +35,7 @@ const blogSchema = {
   url: pageUrl,
   name: 'OakFox Journal',
   description:
-    'Essays and practical guides on sustainable branding, accessible web design, green web development, marketing without greenwashing, and environmental consultancy — from OakFox, a sustainable design studio in West Lancashire, UK.',
+    'Essays and practical guides on sustainable branding, accessible web design, green web development, marketing without greenwashing, and environmental consultancy, from OakFox, a sustainable design studio in West Lancashire, UK.',
   inLanguage: 'en-GB',
   publisher: { '@id': 'https://oakfox.co.uk/#organization' },
   blogPost: posts.slice(0, 10).map((post) => ({
@@ -48,126 +58,138 @@ const breadcrumbs = {
 ---
 
 <BaseLayout
-  title="Journal — Sustainable Branding, Web Design & Environmental Writing"
-  description="Essays and practical guides from the OakFox studio on sustainable branding, accessible web design, green web development, honest marketing, and environmental consultancy."
+  title="Journal: Sustainable Branding, Web Design and Marketing"
+  description="Essays and practical guides from the OakFox studio on sustainable branding, accessible web design, green web development, honest marketing and environmental consultancy."
   schema={[blogSchema, breadcrumbs]}
 >
-  <section class="pt-32 pb-8">
-    <div class="max-w-7xl mx-auto px-6">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-3xl">Journal</h1>
-      <p class="mt-6 text-lg text-gray max-w-2xl">
-        Essays and practical guides from the <a href="/about/" class="text-forest underline underline-offset-4">OakFox studio</a>
-        on sustainable branding, accessible web design, green web development,
-        honest marketing, and environmental consultancy.
-      </p>
-      <div class="mt-6 flex flex-wrap gap-4">
-        <a href="/contact/" class="text-forest font-medium text-sm hover:underline underline-offset-4">
-          Start a project &rarr;
-        </a>
-        <a href="/portfolio/" class="text-forest font-medium text-sm hover:underline underline-offset-4">
-          See selected work &rarr;
-        </a>
+  <PageHero
+    title="Journal"
+    intro="Essays and practical guides from the studio on sustainable branding, accessible web design, green web development, honest marketing and environmental consultancy."
+    primary={null}
+    secondary={null}
+  >
+    <div class="mt-10 flex flex-col gap-5">
+      <div class="relative max-w-md">
+        <input
+          id="blog-search"
+          type="search"
+          placeholder="Search the journal"
+          class="w-full pl-12 pr-5 py-3.5 rounded-full border border-ink/15 bg-white text-[15px] text-ink placeholder:text-ink/50 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/15 transition-all"
+          aria-label="Search the journal"
+        />
+        <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/55" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.3-4.3" stroke-linecap="round" />
+        </svg>
       </div>
-
-      <div class="mt-10 flex flex-col gap-4">
-        <div class="relative max-w-md">
-          <input
-            id="blog-search"
-            type="search"
-            placeholder="Search posts…"
-            class="w-full pl-11 pr-4 py-3 rounded-full border border-stone bg-cream text-[14px] text-ink placeholder:text-ink/65 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition-all"
-            aria-label="Search posts"
-          />
-          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/65" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M21 21l-4.3-4.3" stroke-linecap="round" />
-          </svg>
-        </div>
-        {topTags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mt-2">
-            <span class="text-[11px] font-mono uppercase tracking-widest text-gray pr-2 self-center">Tags</span>
-            {topTags.map(([tag, count]) => (
+      {topTags.length > 0 && (
+        <ul class="flex flex-wrap gap-2" aria-label="Topics">
+          {topTags.map(([tag, count]) => (
+            <li>
               <a
                 href={`/blog/tags/${tag}/`}
-                class="px-3 py-1 bg-forest/5 text-forest text-xs font-medium rounded-full hover:bg-forest hover:text-cream transition-colors duration-300"
+                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-stone bg-cream-light text-[14px] text-ink/80 hover:border-forest hover:text-forest transition-colors"
               >
-                {tag} <span class="text-forest/60">· {count}</span>
+                {tag} <span class="text-ink/45 figures">{count}</span>
               </a>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  </section>
-
-  <section class="py-8 pb-24">
-    <div class="max-w-7xl mx-auto px-6">
-      {posts.length > 0 ? (
-        <div id="blog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <a
-              href={`/blog/${post.id}/`}
-              class="blog-card group block rounded-2xl border border-gray-light p-6 transition-all duration-300 hover:border-forest hover:shadow-lg"
-              data-title={post.data.title.toLowerCase()}
-              data-description={post.data.description.toLowerCase()}
-              data-tags={post.data.tags.join(' ').toLowerCase()}
-              data-category={post.data.category.toLowerCase()}
-            >
-              <span class="text-xs font-medium text-forest uppercase tracking-widest">
-                {post.data.category}
-              </span>
-              <h2 class="text-xl font-semibold mt-3 group-hover:text-forest transition-colors duration-300">
-                {post.data.title}
-              </h2>
-              <p class="text-gray text-sm mt-2 line-clamp-3">{post.data.description}</p>
-              <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-light">
-                <span class="text-xs text-gray">{post.data.author}</span>
-                <time datetime={post.data.date.toISOString()} class="text-xs text-gray">
-                  {post.data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-                </time>
-              </div>
-            </a>
+            </li>
           ))}
-        </div>
-      ) : (
-        <p class="text-gray text-center py-12">Blog posts coming soon.</p>
+        </ul>
       )}
-      <p id="blog-empty" class="hidden text-gray text-center py-12">No posts match that search.</p>
+    </div>
+  </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      {lead ? (
+        <>
+          <a
+            href={`/blog/${lead.id}/`}
+            class="blog-card group grid lg:grid-cols-12 gap-6 lg:gap-12 rounded-2xl bg-forest text-cream p-8 md:p-12 lg:p-14"
+            {...searchData(lead)}
+          >
+            <div class="lg:col-span-8">
+              <p class="text-[14px] text-cream/65">Latest, {date(lead.data.date)}</p>
+              <h2 class="mt-4 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.08] text-cream">{lead.data.title}</h2>
+            </div>
+            <div class="lg:col-span-4 flex flex-col justify-end">
+              <p class="text-lg text-cream/80 leading-relaxed">{lead.data.description}</p>
+              <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-leaf">
+                Read it
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </div>
+          </a>
+
+          <ul class="mt-12 md:mt-16 border-t border-stone" id="blog-grid">
+            {rest.map((post) => (
+              <li class="border-b border-stone">
+                <a
+                  href={`/blog/${post.id}/`}
+                  class="blog-card post-row group grid md:grid-cols-12 gap-2 md:gap-8 py-6 md:py-8 items-baseline"
+                  {...searchData(post)}
+                >
+                  <span class="md:col-span-2 text-[15px] text-ink/60">
+                    <time class="figures" datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>
+                  </span>
+                  <span class="md:col-span-6">
+                    <span class="block text-xl md:text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">{post.data.title}</span>
+                    <span class="mt-1 block text-[14px] text-ink/55">{post.data.category}</span>
+                  </span>
+                  <span class="md:col-span-4 flex items-baseline justify-between gap-6 text-[15px] text-ink/65 leading-relaxed">
+                    <span class="line-clamp-2">{post.data.description}</span>
+                    <svg class="post-arrow w-5 h-5 shrink-0 text-forest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p class="text-ink/65 py-12">The first posts are on the way.</p>
+      )}
+      <p id="blog-empty" class="hidden text-lg text-ink/65 py-12">Nothing in the journal matches that search.</p>
     </div>
   </section>
 
-  <script>
-    function initBlogSearch() {
-      const input = document.getElementById('blog-search') as HTMLInputElement | null;
-      if (!input) return;
-      const cards = document.querySelectorAll<HTMLAnchorElement>('.blog-card');
-      const empty = document.getElementById('blog-empty');
-
-      input.addEventListener('input', () => {
-        const q = input.value.trim().toLowerCase();
-        let visible = 0;
-        cards.forEach((card) => {
-          const hay = [
-            card.dataset.title ?? '',
-            card.dataset.description ?? '',
-            card.dataset.tags ?? '',
-            card.dataset.category ?? '',
-          ].join(' ');
-          const match = q === '' || hay.includes(q);
-          card.style.display = match ? '' : 'none';
-          if (match) visible += 1;
-        });
-        if (empty) empty.classList.toggle('hidden', visible > 0);
-      });
-    }
-
-    document.addEventListener('astro:page-load', initBlogSearch);
-  </script>
-
-  <section class="py-20 md:py-24 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-3xl mx-auto px-6 relative z-10">
+  <section class="pb-20 md:pb-28">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
       <NewsletterSignup />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .post-arrow { opacity: 0; transform: translateX(-6px); transition: opacity 0.3s, transform 0.3s; }
+  .post-row:hover .post-arrow { opacity: 1; transform: none; }
+</style>
+
+<script>
+  function initBlogSearch() {
+    const input = document.getElementById('blog-search') as HTMLInputElement | null;
+    if (!input) return;
+    const cards = document.querySelectorAll<HTMLAnchorElement>('.blog-card');
+    const empty = document.getElementById('blog-empty');
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach((card) => {
+        const hay = [
+          card.dataset.title ?? '',
+          card.dataset.description ?? '',
+          card.dataset.tags ?? '',
+          card.dataset.category ?? '',
+        ].join(' ');
+        const match = q === '' || hay.includes(q);
+        // Rows hide their list item so the dividers go with them.
+        const target = (card.closest('li') as HTMLElement | null) ?? card;
+        target.style.display = match ? '' : 'none';
+        if (match) visible += 1;
+      });
+      if (empty) empty.classList.toggle('hidden', visible > 0);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initBlogSearch);
+</script>

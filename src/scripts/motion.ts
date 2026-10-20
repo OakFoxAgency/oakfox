@@ -157,7 +157,7 @@ function heroScene(): void {
   const headline = root.querySelector<HTMLElement>('.headline');
   const label = root.querySelector<HTMLElement>('.label');
   const paragraph = root.querySelector<HTMLElement>('[data-hero-paragraph]');
-  const cta = root.querySelector<HTMLElement>('[data-magnetic]');
+  const cta = root.querySelector<HTMLElement>('[data-hero-cta], [data-magnetic]');
   const aside = root.querySelector<HTMLElement>('[data-hero-aside]');
   const glow = root.querySelector<HTMLElement>('.hero-glow');
   const nudge = root.querySelector<HTMLElement>('.nudge');
@@ -629,6 +629,29 @@ function ctaScene(): void {
 }
 
 /* ------------------------------------------------------------------ */
+/* Quote: lights up word by word as it scrolls through the viewport    */
+/* ------------------------------------------------------------------ */
+
+function quoteScene(): void {
+  const root = document.querySelector<HTMLElement>('[data-scene="quote"]');
+  if (!root || prefersReduced()) return;
+  const quote = root.querySelector<HTMLElement>('blockquote');
+  const words = root.querySelectorAll<HTMLElement>('[data-word]');
+  if (!quote || !words.length) return;
+
+  gsap.fromTo(
+    words,
+    { opacity: 0.16 },
+    {
+      opacity: 1,
+      ease: 'none',
+      stagger: 0.1,
+      scrollTrigger: { trigger: quote, start: 'top 82%', end: 'bottom 50%', scrub: 0.6 },
+    },
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Lifecycle                                                           */
 /* ------------------------------------------------------------------ */
 
@@ -652,6 +675,7 @@ function runScenes(): void {
     statsScene();
     journalScene();
     hWorkScene();
+    quoteScene();
     ctaScene();
   });
 

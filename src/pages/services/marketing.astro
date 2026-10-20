@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AuditCta from '../../components/AuditCta.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
 import LocationSignpost from '../../components/LocationSignpost.astro';
+import AuditCta from '../../components/AuditCta.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Rotator from '../../components/demo/Rotator.astro';
 
 const pageUrl = 'https://oakfox.co.uk/services/marketing';
 
@@ -9,7 +16,7 @@ const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
   name: 'Marketing',
-  description: 'Marketing strategy and delivery for independent brands. Content, email, organic social, SEO — built on substance, measured honestly, no greenwashing.',
+  description: 'Marketing strategy and delivery for independent brands: content, email, organic social and SEO, built on substance, measured honestly, with no greenwashing.',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   areaServed: ['United Kingdom', 'Ireland', 'Europe'],
   serviceType: 'Marketing strategy and content',
@@ -27,65 +34,62 @@ const breadcrumbs = {
 
 const offerings = [
   {
-    label: 'Strategy',
     title: 'A plan you can actually follow',
     description:
-      'A clear, one-document strategy: who you are for, where you will meet them, what you will say, and how you will measure it. Useful, practical, and short enough that it gets read.',
+      "One clear strategy document: who you're for, where you'll meet them, what you'll say and how you'll measure it. Practical, and short enough to get read.",
   },
   {
-    label: 'Content',
     title: 'Content that earns attention',
     description:
-      'Journal articles, newsletters, long-form. Written with real expertise, not repurposed for keyword bait. Fewer, better pieces that do the work of twenty thin ones.',
+      'Journal articles, newsletters and long-form, written with real expertise rather than as keyword bait. Fewer, better pieces that do the work of twenty thin ones.',
   },
   {
-    label: 'Channels',
-    title: 'Email, organic social, and SEO',
+    title: 'Email, organic social and SEO',
     description:
-      'Email campaigns that respect the inbox. Organic social with a point of view. SEO that means writing genuinely useful pages, not stuffing them with synonyms. Paid only when it is the honest answer.',
+      "Email campaigns that respect the inbox, organic social with a point of view, and SEO that means writing genuinely useful pages. Paid media only when it's the honest answer.",
   },
 ];
 
 const process = [
-  { step: '01', title: 'Listen', body: 'A conversation about the business, the customers you already have, the goals for the next 6 to 12 months, and what marketing has done so far — what worked, what did not, and what never got tried.' },
-  { step: '02', title: 'Audit', body: 'A focused look at your current presence: website, analytics, organic rankings, social, email list. We find where the leverage is, not where the vanity metrics look good.' },
-  { step: '03', title: 'Strategy', body: 'A one-document plan: audiences, channels, content pillars, editorial calendar, KPIs. Agreed with you before anything gets built.' },
-  { step: '04', title: 'Build', body: 'Delivery — writing, designing, shipping. Content calendar populated. Email sequences written. Organic social moving. SEO improvements committed.' },
-  { step: '05', title: 'Review', body: 'Monthly check-ins against the KPIs we agreed. Honest read on what is working, what to cut, what to double down on. No bloated reports — just what changed and why.' },
+  { title: 'Listen', body: "A conversation about the business, your existing customers, your goals for the next 6 to 12 months, and what marketing has done so far: what worked, what didn't and what never got tried." },
+  { title: 'Audit', body: 'A focused look at your website, analytics, rankings, social and email list, to find where the leverage is rather than where the vanity metrics look good.' },
+  { title: 'Strategy', body: 'A one-document plan covering audiences, channels, content pillars, an editorial calendar and KPIs, agreed with you before anything is built.' },
+  { title: 'Build', body: 'Writing, designing and shipping: the content calendar filled, email sequences written, organic social moving and SEO improvements in place.' },
+  { title: 'Review', body: "Monthly check-ins against the KPIs we agreed: an honest read on what's working, what to cut and what to do more of." },
 ];
 
 const forWho = [
-  'Independent businesses doing genuinely good work that is not getting the audience it deserves',
-  'Brands launching or repositioning, needing marketing that matches the new direction',
+  "Independent businesses doing good work that isn't reaching the audience it deserves",
+  'Brands launching or repositioning who need marketing to match',
   'Sustainability-focused businesses who want claims that hold up to scrutiny',
-  'Founders who have tried agency retainers and ended up with generic content they did not ship',
-  'Teams who value clarity and cadence over volume',
+  "Founders who've tried agency retainers and ended up with generic content they never shipped",
+  'Teams who value clarity and a steady cadence over volume',
 ];
 
 const faqs = [
   {
     q: 'How much does a marketing retainer cost?',
-    a: 'Marketing engagements at OakFox typically run from £1,500/month for focused content + SEO to £6,000+/month for strategy, content, email, and organic social in combination. One-off strategy engagements start at £3,500. Every proposal is scoped to the hours and services you actually need rather than a fixed tier.',
+    a: 'Marketing at OakFox typically runs from £1,500 a month for focused content and SEO to £6,000 or more a month for strategy, content, email and organic social together. One-off strategy projects start at £3,500. Every proposal is scoped to the hours and services you actually need rather than a fixed tier.',
   },
   {
     q: 'Do you run paid ads?',
-    a: 'Only when it is the honest answer. Paid media works for specific scenarios — product launches, seasonal campaigns, event promotion, geographic expansion. For most independent brands, organic content, SEO, and email deliver better long-term returns per pound. We will tell you which category you fall into before taking your budget.',
+    a: "Only when it's the honest answer. Paid media works for specific situations: product launches, seasonal campaigns, event promotion and geographic expansion. For most independent brands, organic content, SEO and email give better long-term returns per pound, and we'll tell you which applies to you before taking your budget.",
   },
   {
     q: 'Can you handle SEO for a new website?',
-    a: 'Yes. SEO for OakFox means clear information architecture, substantive content that answers real queries, fast page performance, proper structured data, and steady content development around topical authority. No link schemes, no programmatic junk, no AI-generated filler. Results take three to nine months; the compounding starts immediately.',
+    a: 'Yes. SEO at OakFox means clear information architecture, substantial content that answers real searches, fast pages, proper structured data, and steady content that builds topical authority. No link schemes, no programmatic junk and no AI-generated filler. Results take three to nine months, and the compounding starts straight away.',
   },
   {
     q: 'Will my content be written by AI?',
-    a: 'No. We use AI for research, first drafts on internal documents, and efficiency on administrative tasks — we will not ship it as client-facing work. Every published piece is written, edited, and fact-checked by a human who understands your business. Substance over volume.',
+    a: "No. We use AI for research, first drafts of internal documents and admin, but we won't ship it as client-facing work. Every published piece is written, edited and fact-checked by a person who understands your business.",
   },
   {
     q: 'How do you measure marketing success?',
-    a: 'Honestly. We agree the two or three metrics that actually matter for your business — qualified enquiries, direct traffic, organic rankings for target queries, email list growth, retention — and report against them monthly. No bloated dashboards, no vanity metrics. If something is not working we cut it and say so.',
+    a: "Honestly. We agree the two or three metrics that matter for your business, such as qualified enquiries, direct traffic, rankings for target searches, email list growth or retention, and report against them monthly. No bloated dashboards or vanity metrics. If something isn't working, we cut it and say so.",
   },
   {
     q: 'What sectors do you work with?',
-    a: 'Independent hospitality, small consumer brands, professional services, cultural and charitable organisations, and B2B software — with a particular focus on sustainability-driven businesses. We turn down sectors we cannot support in good faith, which for us usually means fossil fuels, fast fashion, and anything relying on manipulative advertising.',
+    a: "Independent hospitality, small consumer brands, professional services, cultural and charitable organisations, and B2B software, with a particular focus on sustainability-driven businesses. We turn down sectors we can't support in good faith, which usually means fossil fuels, fast fashion and anything that relies on manipulative advertising.",
   },
 ];
 
@@ -101,149 +105,39 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Sustainable Marketing Agency — UK"
-  description="OakFox is a sustainable marketing agency in West Lancashire, UK. Strategy, content, email, organic social, and SEO for independent brands — measured honestly, no greenwashing, no vanity metrics."
+  title="Sustainable Marketing Agency, UK"
+  description="OakFox is a sustainable marketing agency in West Lancashire, UK. Strategy, content, email, organic social and SEO for independent brands, measured honestly, with no greenwashing and no vanity metrics."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Service · Marketing</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Marketing that <em class="text-forest">earns</em> attention.
-        Not <em class="text-forest">buys</em> it.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
-        <p class="md:col-span-6 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          Strategy, content, and channel work for independent businesses. Fewer,
-          better pieces. Email that respects the inbox. Organic social with a
-          point of view. SEO that means writing useful pages — not stuffing them.
-          Paid media only when it is the honest answer.
-        </p>
-        <div class="md:col-span-3 md:col-start-10 flex items-center justify-start md:justify-end">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a project
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-        </div>
-      </div>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Marketing that earns attention, rather than buying it."
+    accent="earns"
+    intro="Strategy, content and channel work for independent businesses. Fewer, better pieces, email that respects the inbox, organic social with a point of view, and SEO built on useful pages. Paid media only when it's the honest answer."
+  >
+    <div slot="aside" class="rounded-2xl border border-stone bg-cream-light p-8 md:p-10">
+      <Rotator class="text-4xl md:text-5xl" />
+      <p class="mt-8 text-[15px] text-ink/65">Strategy first, then the channels that suit you.</p>
     </div>
-  </section>
+  </PageHero>
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <h2 class="headline text-xl md:text-2xl mb-10 md:mb-14">What's included</h2>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        {offerings.map((o) => (
-          <div class="reveal">
-            <p class="label text-forest mb-4">{o.label}</p>
-            <h3 class="headline text-xl md:text-2xl mb-4">{o.title}</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed">{o.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <Pillars items={offerings} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">How we work</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Five stages. Honest&nbsp;measurement.
-          </h2>
-        </div>
-        <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {process.map((p) => (
-            <li class="reveal border-b border-stone py-6 grid grid-cols-[auto,1fr] gap-6 md:gap-10">
-              <span class="label text-gray pt-1">{p.step}</span>
-              <div>
-                <h3 class="text-base md:text-lg font-medium text-ink">{p.title}</h3>
-                <p class="mt-2 text-[14px] text-ink/65 leading-relaxed">{p.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <ProcessSteps title="How marketing with us runs" steps={process} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Who it's for</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Good fits look&nbsp;like…
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {forWho.map((line) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {line}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <FitList title="A good fit if you're one of these" items={forWho} />
+
+  <FaqList title="Marketing questions we hear a lot" items={faqs}>
+    What a realistic budget looks like:
+    <a href="/blog/how-much-does-marketing-cost-small-business-uk/" class="text-forest underline underline-offset-4">how much marketing costs for a small business in the UK</a>.
+  </FaqList>
 
   <LocationSignpost service="Marketing" keyword="sustainable marketing" />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Marketing questions we hear a lot.
-          </h2>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
-
   <AuditCta />
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Tell us what you're trying to <em class="text-forest">move</em>.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Send a few lines about the goal — more leads, a launch, better retention, a
-          rebrand that needs momentum. We reply within 24 hours with a first read.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a conversation
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-          <a href="/book/" class="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300">
-            Or book a free call
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title="Tell us what you're trying to move."
+    text="Send a few lines about the goal: more leads, a launch, better retention, or a rebrand that needs momentum. We reply within 24 hours with a first read."
+  />
 </BaseLayout>

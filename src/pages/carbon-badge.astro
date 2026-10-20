@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Pillars from '../components/Pillars.astro';
+import FaqList from '../components/FaqList.astro';
+import { GRADE_COLORS } from '../lib/carbon.mjs';
 
 const pageUrl = 'https://oakfox.co.uk/carbon-badge';
 
@@ -32,15 +36,15 @@ const webPage = {
 const faqs = [
   {
     q: 'Who can display the badge?',
-    a: 'Any website that scores A+, A or B in the audit. It is free, there is no fee and no application — if your site earned the grade, the embed code appears with your results and you are welcome to use it.',
+    a: 'Any website that scores A+, A or B in the audit. It is free, with no fee and no application: if your site earned the grade, the embed code appears with your results and you are welcome to use it.',
   },
   {
     q: 'What happens if my rating changes later?',
-    a: 'The badge links to a live re-run of the audit rather than a saved result, so whatever a visitor sees when they click is measured fresh that moment. Nothing to keep updated on your side. If your site slips below B, we would ask you to take the badge down — but the link will show the honest grade either way, which is rather the point.',
+    a: 'The badge links to a live re-run of the audit rather than a saved result, so whatever a visitor sees when they click is measured fresh that moment. Nothing to keep updated on your side. If your site slips below B, we would ask you to take the badge down, but the link will show the honest grade either way, which is rather the point.',
   },
   {
     q: 'Can I recolour it or crop it to fit my design?',
-    a: 'Please do not. A badge that has been edited stops being evidence of anything. There is a light and a dark version, in SVG and PNG, which covers almost every footer — if none of them work for your site, email us and we will look at it.',
+    a: 'Please do not. A badge that has been edited stops being evidence of anything. There is a light and a dark version, in SVG and PNG, which covers almost every footer. If none of them work for your site, email us and we will look at it.',
   },
   {
     q: 'Does the link have to stay on it?',
@@ -67,199 +71,150 @@ const faqSchema = {
 };
 
 const variants = [
-  { grade: 'A+', file: 'carbon-a-plus', label: 'A+ · under 0.040 g' },
-  { grade: 'A', file: 'carbon-a', label: 'A · under 0.079 g' },
-  { grade: 'B', file: 'carbon-b', label: 'B · under 0.145 g' },
+  { grade: 'A+', file: 'carbon-a-plus', limit: 'Under 0.040 g' },
+  { grade: 'A', file: 'carbon-a', limit: 'Under 0.079 g' },
+  { grade: 'B', file: 'carbon-b', limit: 'Under 0.145 g' },
+];
+
+// The whole scale, so the cut-off is visible: badges stop at B.
+const scale = ['A+', 'A', 'B', 'C', 'D', 'E', 'F'].map((g) => ({
+  grade: g,
+  colour: GRADE_COLORS[g as keyof typeof GRADE_COLORS],
+  badge: ['A+', 'A', 'B'].includes(g),
+}));
+
+const principles = [
+  {
+    title: 'The link re-audits live',
+    description:
+      'Clicking the badge runs the audit again from scratch, against your site as it is at that moment, not against a result we saved when you first earned it. There is nothing for you to maintain, and nothing we can quietly leave stale.',
+  },
+  {
+    title: 'It carries a grade, not a number',
+    description:
+      'A gram figure baked into an image starts drifting the moment you add a photo to a page, and you would never know. The grade is stable enough to sit in a file for a year; the precise figure lives where it can be measured again.',
+  },
+  {
+    title: 'If your site gets heavier, the audit says so',
+    description:
+      'We would ask you to take the badge down if you drop below B, but we are not policing footers. Anyone who clicks sees the real current grade, whichever badge is sitting above it.',
+  },
 ];
 ---
 
 <BaseLayout
-  title="The Carbon Rating Badge | OakFox"
-  description="A free embeddable badge for websites rated A+, A or B in the OakFox website carbon audit. 458 bytes, links to a live re-audit, and honest about what it measures."
+  title="The Carbon Rating Badge"
+  description="A free embeddable badge for websites rated A+, A or B in the OakFox website carbon audit. 458 bytes, linked to a live re-audit, and honest about what it measures."
   schema={[webPage, faqSchema, breadcrumbs]}
 >
-  <!-- ============ Hero ============ -->
-  <section class="pt-32 pb-16 md:pt-40 md:pb-20">
-    <div class="max-w-3xl mx-auto px-6">
-      <span class="text-xs font-medium text-forest uppercase tracking-widest block mb-4">
-        Carbon Rating Badge
-      </span>
-      <h1 class="headline text-4xl md:text-5xl lg:text-6xl text-ink leading-[1.05]">
-        Proof you can put in your footer.
-      </h1>
-      <p class="mt-7 text-lg text-ink/75 leading-relaxed">
-        If your website scores A+, A or B in our
-        <a
-          href="/website-carbon-audit/"
-          class="text-forest underline underline-offset-4 hover:text-forest-dark transition-colors"
-          >free carbon audit</a
-        >, you have built something genuinely lighter than most of the web. This
-        badge says so, and links to a live re-measurement so anyone can check.
-      </p>
-      <p class="mt-5 text-[15px] text-ink/65 leading-relaxed">
-        It is free. There is no application, no fee, and nothing to sign. Run the
-        audit and if you earned it, the embed code appears with your results.
-      </p>
-      <div class="mt-9">
-        <a
-          href="/website-carbon-audit/"
-          class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
-        >
-          Audit your site
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </a>
+  <PageHero
+    back={{ label: 'Website carbon audit', href: '/website-carbon-audit/' }}
+    title="Proof you can put in your footer."
+    accent="footer."
+    intro="If your website scores A+, A or B in our free carbon audit, it is lighter than most of the web. This badge says so, and links to a live re-measurement so anyone can check. It's free, with no application, no fee and nothing to sign."
+    primary={{ label: 'Audit your site', href: '/website-carbon-audit/' }}
+    secondary={{ label: 'See the grades', href: '#grades' }}
+  >
+    <div slot="aside" class="grid gap-4">
+      <div class="rounded-2xl border border-stone bg-cream-light p-8 md:p-10 grid place-items-center">
+        <img src="/badge/carbon-a-plus.svg" alt="Carbon rating A+ badge, light style" width="300" height="84" class="w-[min(300px,100%)] h-auto" />
       </div>
+      <div class="rounded-2xl bg-ink p-8 md:p-10 grid place-items-center">
+        <img src="/badge/carbon-a-plus-dark.svg" alt="Carbon rating A+ badge, dark style" width="300" height="84" class="w-[min(300px,100%)] h-auto" />
+      </div>
+      <p class="text-[14px] text-ink/60 text-center">458 bytes as SVG. Lighter than a line of text on most pages.</p>
     </div>
-  </section>
+  </PageHero>
 
-  <!-- ============ The badges ============ -->
-  <section class="py-16 md:py-20 border-t border-stone">
-    <div class="max-w-3xl mx-auto px-6">
-      <h2 class="headline text-2xl md:text-3xl text-ink">The three grades</h2>
-      <p class="mt-4 text-[15px] text-ink/70 leading-relaxed max-w-2xl">
-        Bands come from the Sustainable Web Design Model, as applied by
-        <a
-          href="https://www.thegreenwebfoundation.org/co2-js/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline underline-offset-4 hover:text-forest">co2.js</a
-        >. Grams are CO₂e per page view. Below B there is no badge — we are not
-        going to hand out a graphic for a middling result.
-      </p>
-
-      <div class="mt-10 space-y-4">
-        {
-          variants.map((v) => (
-            <div
-              class="flex flex-wrap items-center gap-x-8 gap-y-4 border border-stone rounded-2xl p-5 md:p-6"
-            >
-              <img
-                src={`/badge/${v.file}.svg`}
-                alt={`Carbon rating ${v.grade} badge, light style`}
-                width="200"
-                height="56"
-                loading="lazy"
-                decoding="async"
-              />
-              <div
-                class="rounded-xl p-3"
-                style="background:#1F2319"
-              >
-                <img
-                  src={`/badge/${v.file}-dark.svg`}
-                  alt={`Carbon rating ${v.grade} badge, dark style`}
-                  width="200"
-                  height="56"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <span class="text-[13px] text-ink/65">{v.label}</span>
-            </div>
-          ))
-        }
+  <!-- The scale, with the cut-off marked, then the three badges. -->
+  <section id="grades" class="py-16 md:py-24 border-t border-stone scroll-mt-24">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+        <div class="lg:col-span-6">
+          <h2 class="headline text-4xl md:text-5xl">Three grades earn it. Four don't.</h2>
+          <p class="mt-6 text-lg text-ink/70 leading-relaxed max-w-[48ch]">
+            Bands come from the Sustainable Web Design Model, as applied by
+            <a href="https://www.thegreenwebfoundation.org/co2-js/" target="_blank" rel="noopener noreferrer" class="text-forest underline underline-offset-4">co2.js</a>.
+            Grams are CO₂e per page view. Below B there is no badge: we are not
+            going to hand out a graphic for a middling result.
+          </p>
+        </div>
+        <ol data-demo class="scale lg:col-span-6 grid grid-cols-7 gap-1.5" aria-label="The carbon grades, A+ to F. Badges go to A+, A and B.">
+          {scale.map((s, i) => (
+            <li class={`scale-step ${s.badge ? '' : 'scale-off'}`} style={`--g: ${s.colour}; --i: ${i}`}>
+              <span class="scale-bar"></span>
+              <span class="mt-2 block text-center text-[15px] font-semibold">{s.grade}</span>
+            </li>
+          ))}
+        </ol>
       </div>
 
-      <p class="mt-8 text-[13px] text-ink/60 leading-relaxed max-w-2xl">
+      <div class="mt-12 md:mt-16 grid md:grid-cols-3 gap-4 md:gap-5">
+        {variants.map((v) => (
+          <div class="reveal rounded-2xl border border-stone bg-cream-light overflow-hidden">
+            <div class="p-6 md:p-7 grid place-items-center min-h-[7rem]">
+              <img src={`/badge/${v.file}.svg`} alt={`Carbon rating ${v.grade} badge, light style`} width="200" height="56" loading="lazy" decoding="async" />
+            </div>
+            <div class="bg-ink p-6 md:p-7 grid place-items-center min-h-[7rem]">
+              <img src={`/badge/${v.file}-dark.svg`} alt={`Carbon rating ${v.grade} badge, dark style`} width="200" height="56" loading="lazy" decoding="async" />
+            </div>
+            <div class="px-6 md:px-7 py-5 flex items-baseline justify-between gap-4">
+              <span class="text-2xl font-semibold tracking-tight">{v.grade}</span>
+              <span class="text-[15px] text-ink/65">{v.limit} per view</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-[15px] text-ink/60 leading-relaxed max-w-[70ch]">
         Each badge comes in SVG and PNG. Use the SVG unless your site builder
-        refuses it — Wix and Squarespace both reject SVG uploads in places, which
+        refuses it. Wix and Squarespace both reject SVG uploads in places, which
         is the only reason the PNG exists.
       </p>
     </div>
   </section>
 
-  <!-- ============ How it stays honest ============ -->
-  <section class="py-16 md:py-20 border-t border-stone">
-    <div class="max-w-3xl mx-auto px-6">
-      <h2 class="headline text-2xl md:text-3xl text-ink">How it stays honest</h2>
-      <div class="mt-8 space-y-7">
-        <div class="flex gap-5">
-          <span
-            class="shrink-0 w-8 h-8 rounded-full bg-forest text-cream flex items-center justify-center text-[13px] font-medium"
-            >1</span
-          >
-          <div>
-            <h3 class="text-[16px] font-medium text-ink">The badge carries a grade, not a number</h3>
-            <p class="mt-2 text-[15px] text-ink/70 leading-relaxed">
-              A gram figure baked into an image file starts drifting the moment
-              you add a photo to a page, and you would never know. The grade is
-              stable enough to sit in a file for a year; the precise figure lives
-              where it can be re-measured.
-            </p>
-          </div>
-        </div>
-        <div class="flex gap-5">
-          <span
-            class="shrink-0 w-8 h-8 rounded-full bg-forest text-cream flex items-center justify-center text-[13px] font-medium"
-            >2</span
-          >
-          <div>
-            <h3 class="text-[16px] font-medium text-ink">The link re-audits live</h3>
-            <p class="mt-2 text-[15px] text-ink/70 leading-relaxed">
-              Clicking the badge runs the audit again from scratch, against your
-              site as it is at that moment — not against a result we cached when
-              you first earned it. There is nothing for you to maintain, and
-              nothing we can quietly leave stale.
-            </p>
-          </div>
-        </div>
-        <div class="flex gap-5">
-          <span
-            class="shrink-0 w-8 h-8 rounded-full bg-forest text-cream flex items-center justify-center text-[13px] font-medium"
-            >3</span
-          >
-          <div>
-            <h3 class="text-[16px] font-medium text-ink">
-              If your site gets heavier, the audit says so
-            </h3>
-            <p class="mt-2 text-[15px] text-ink/70 leading-relaxed">
-              We would ask you to take the badge down if you drop below B, but we
-              are not policing footers. The safeguard is structural: anyone who
-              clicks sees the real current grade regardless of which badge is
-              sitting above it.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Pillars title="How it stays honest" items={principles} />
 
-  <!-- ============ FAQ ============ -->
-  <section class="py-16 md:py-20 border-t border-stone">
-    <div class="max-w-3xl mx-auto px-6">
-      <h2 class="headline text-2xl md:text-3xl text-ink">Questions</h2>
-      <dl class="mt-8 divide-y divide-stone">
-        {
-          faqs.map((f) => (
-            <div class="py-6 first:pt-0">
-              <dt class="text-[16px] font-medium text-ink">{f.q}</dt>
-              <dd class="mt-2.5 text-[15px] text-ink/70 leading-relaxed">{f.a}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
-  </section>
+  <FaqList title="Questions about the badge" items={faqs} />
 
-  <!-- ============ CTA ============ -->
-  <section class="py-16 md:py-24 border-t border-stone">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="headline text-2xl md:text-3xl text-ink">Find out where you stand.</h2>
-      <p class="mt-4 text-[15px] text-ink/70 leading-relaxed max-w-xl mx-auto">
-        The audit takes about twenty seconds and needs nothing but your web
-        address. If you are already at B or better, the embed code will be
-        waiting at the bottom of your results.
-      </p>
-      <div class="mt-8">
-        <a
-          href="/website-carbon-audit/"
-          class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-8 py-4 rounded-full text-[14px] font-medium"
-        >
-          Run the free audit
-        </a>
+  <!-- Close: the forest block, pointing at the audit. -->
+  <section class="bg-forest text-cream">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-36">
+      <h2 class="headline text-cream text-[length:clamp(3rem,8vw,7.5rem)] max-w-[12ch]">Find out where you stand.</h2>
+      <div class="mt-10 max-w-[44rem]">
+        <p class="text-xl text-cream/80 leading-relaxed">
+          The audit takes about twenty seconds and needs nothing but your web
+          address. At B or better, the embed code is waiting with your results.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="/website-carbon-audit/" class="btn-light">Run the free audit</a>
+          <a href="/book/" class="link-line text-[15px] font-medium text-cream">Book a call</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .scale-bar {
+    display: block;
+    height: 4.5rem;
+    border-radius: 0.5rem;
+    background: var(--g);
+    transform: scaleY(0.2);
+    transform-origin: bottom;
+    opacity: 0;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+    transition-delay: calc(var(--i) * 70ms);
+  }
+  .scale:global(.is-in) .scale-bar { transform: none; opacity: 1; }
+  .scale-off .scale-bar {
+    background: repeating-linear-gradient(135deg, var(--g) 0 6px, color-mix(in oklab, var(--g) 55%, var(--color-cream)) 6px 12px);
+  }
+  .scale:global(.is-in) .scale-off .scale-bar { opacity: 0.35; }
+  .scale-off { color: color-mix(in oklab, var(--color-ink) 45%, transparent); }
+  @media (prefers-reduced-motion: reduce) {
+    .scale-bar { transform: none; opacity: 1; transition: none; }
+    .scale-off .scale-bar { opacity: 0.35; }
+  }
+</style>

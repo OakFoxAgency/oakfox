@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Img from '../components/Img.astro';
+import PageHero from '../components/PageHero.astro';
+import Pillars from '../components/Pillars.astro';
+import CarbonWaffle from '../components/CarbonWaffle.astro';
+import CtaBlock from '../components/CtaBlock.astro';
 
 const pageUrl = 'https://oakfox.co.uk/about';
 
@@ -40,7 +44,7 @@ const aboutPage = {
   '@type': 'AboutPage',
   '@id': `${pageUrl}#webpage`,
   url: pageUrl,
-  name: 'About OakFox — Sustainable Design Studio in West Lancashire',
+  name: 'About OakFox, a sustainable design studio in West Lancashire',
   description:
     'OakFox is a sustainable branding, web design, development, marketing and environmental consultancy studio based in West Lancashire, UK. Founded by Nathan James Entwistle.',
   inLanguage: 'en-GB',
@@ -57,63 +61,29 @@ const breadcrumbs = {
   ],
 };
 
-const values = [
-  {
-    title: 'Sustainability first, not last',
-    body: 'Every decision — from the suppliers we recommend to the hosting we deploy on — is weighed for environmental impact. We work on verified renewable-powered infrastructure and will tell you when a project cannot be delivered responsibly under the terms proposed.',
-  },
-  {
-    title: 'Craft over volume',
-    body: 'We take on a small number of projects each quarter. No templates, no reskins, no pipeline of junior designers producing work under a senior name. You get the person who quoted you, doing the work.',
-  },
-  {
-    title: 'Honest partnership',
-    body: 'Transparent timelines, transparent pricing, transparent capability. If something is outside our wheelhouse we will tell you. If a supplier you have been recommended is greenwashing, we will say so.',
-  },
-];
-
 const credentials = [
-  '15+ years of brand and web design experience',
-  'Worked with independent businesses and international brands',
-  'OakFox Limited — registered in England, Companies House number 17118912',
-  'Member of the West Lancashire creative community — based at Martland Mill, Burscough',
+  { label: 'Experience', value: '15+ years of brand and web design' },
+  { label: 'Clients', value: 'Independent businesses and international brands' },
+  { label: 'Company', value: 'OakFox Limited, registered in England, number 17118912' },
+  { label: 'Studio', value: 'Martland Mill, Burscough, West Lancashire' },
 ];
 
 const capabilities = [
   {
-    title: 'Brand & identity',
-    body: 'Strategy, naming, identity systems, packaging and print — built to hold up across every surface a business actually uses.',
+    title: 'Brand and identity',
+    description: 'Strategy, naming, identity systems, packaging and print, built to hold up on every surface a business actually uses.',
   },
   {
-    title: 'Web design & development',
-    body: 'Static-first sites on renewable-powered infrastructure. Astro, React, headless CMS — measured against real performance and carbon budgets.',
+    title: 'Web design and development',
+    description: 'Static-first sites on renewable-powered infrastructure. Astro, React and headless CMS, measured against real performance and carbon budgets.',
   },
   {
-    title: 'Marketing & content',
-    body: 'Editorial direction, campaign work, photography and copy commissioned through our network of trusted specialists.',
+    title: 'Marketing and content',
+    description: 'Editorial direction, campaign work, photography and copy, commissioned through a network of trusted specialists.',
   },
   {
     title: 'Environmental consultancy',
-    body: 'Sustainability audits, supply-chain review, reporting and the original research that informs it — covering ancient woodlands, biodiversity and UK ecosystem health.',
-  },
-];
-
-const accreditations = [
-  {
-    badge: '/images/site/greenweb-krystal.png',
-    badgeAlt: 'Green Web Foundation — verified green hosting',
-    name: 'Green Web Foundation',
-    status: 'Verified green hosting',
-    body: 'Our infrastructure is independently verified as running on renewable energy by The Green Web Foundation. The claim is auditable in thirty seconds via their public registry.',
-    href: 'https://www.thegreenwebfoundation.org/green-web-check/?url=oakfox.co.uk',
-  },
-  {
-    badge: '/images/site/SME-Committed-Badge-2026.svg',
-    badgeAlt: 'SME Climate Hub — Committed 2026',
-    name: 'SME Climate Hub',
-    status: 'Committed 2026',
-    body: 'Public commitment to halve our emissions by 2030 and reach net-zero by 2050, in line with the UN Race to Zero campaign and the 1.5°C pathway.',
-    href: 'https://smeclimatehub.org/',
+    description: 'Sustainability audits, supply chain reviews, reporting, and the original research behind them, covering ancient woodlands, biodiversity and UK ecosystem health.',
   },
 ];
 
@@ -123,275 +93,201 @@ const research = [
     body: 'Original field and survey research into how UK communities understand, value and engage with ancient woodland habitats.',
   },
   {
-    title: 'Biodiversity & UK ecosystem health',
-    body: 'Ongoing study of biodiversity indicators across UK ecosystems, with a focus on how independent businesses and landowners can contribute meaningfully.',
+    title: 'Biodiversity and UK ecosystem health',
+    body: 'Ongoing study of biodiversity indicators across UK ecosystems, focused on how independent businesses and landowners can make a real contribution.',
   },
   {
     title: 'Sustainability in practice',
-    body: 'Applied research into supply-chain transparency, greenwashing patterns and the operational reality of low-impact business.',
+    body: 'Applied research into supply chain transparency, greenwashing patterns and what low-impact business looks like day to day.',
+  },
+];
+
+const accreditations = [
+  {
+    badge: '/images/site/greenweb-krystal.png',
+    badgeAlt: 'Green Web Foundation: verified green hosting',
+    name: 'Green Web Foundation',
+    status: 'Verified green hosting',
+    body: 'Our infrastructure is independently verified as running on renewable energy. Anyone can check the claim in thirty seconds on their public registry.',
+    href: 'https://www.thegreenwebfoundation.org/green-web-check/?url=oakfox.co.uk',
+  },
+  {
+    badge: '/images/site/SME-Committed-Badge-2026.svg',
+    badgeAlt: 'SME Climate Hub: committed 2026',
+    name: 'SME Climate Hub',
+    status: 'Committed 2026',
+    body: 'A public commitment to halve our emissions by 2030 and reach net zero by 2050, in line with the UN Race to Zero campaign and the 1.5°C pathway.',
+    href: 'https://smeclimatehub.org/',
+  },
+];
+
+const values = [
+  {
+    title: 'Sustainability first, not last',
+    body: "Every decision, from the suppliers we recommend to the hosting we deploy on, is weighed for its environmental impact. We work on verified renewable-powered infrastructure, and we'll tell you when a project can't be delivered responsibly on the terms proposed.",
+  },
+  {
+    title: 'Craft over volume',
+    body: 'We take on a small number of projects each quarter. No templates, no reskins, and no pipeline of junior designers producing work under a senior name. The person who quoted you does the work.',
+  },
+  {
+    title: 'Honest partnership',
+    body: "Clear timelines, clear pricing and a clear view of what we can and can't do. If something is outside our skills, we'll say so. If a supplier you've been recommended is greenwashing, we'll say that too.",
   },
 ];
 ---
 
 <BaseLayout
-  title="About OakFox — Sustainable Design Studio in West Lancashire"
-  description="OakFox is a sustainable design studio in West Lancashire, UK. Founded by Nathan James Entwistle — 15+ years of branding, web design, development, marketing, and environmental consultancy for independent businesses and international brands."
+  title="About: Sustainable Design Studio in West Lancashire"
+  description="OakFox is a sustainable design studio in West Lancashire, UK, founded by Nathan James Entwistle. 15+ years of branding, web design, development, marketing and environmental consultancy for independent businesses and international brands."
   schema={[aboutPage, person, breadcrumbs]}
 >
-  <!-- ========== HERO ========== -->
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">About OakFox</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        A <em class="text-forest">sustainable</em> design studio,
-        built on <em class="text-forest">considered</em> work.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8">
-        <p class="md:col-span-7 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          OakFox is an independent design and environmental studio based in
-          rural West Lancashire, UK. We combine brand identity, web design and
-          development, marketing, and environmental consultancy — often inside
-          a single engagement — for businesses that want to grow without the
-          environmental cost. Our work is informed by original research into
-          ancient woodlands, biodiversity and the health of UK ecosystems,
-          which means sustainability arrives as evidence, not as a tagline.
-        </p>
+  <PageHero
+    title="A sustainable design studio, run by the person who does the work."
+    accent="sustainable"
+    intro="OakFox designs brands and websites, runs marketing and advises on sustainability, often inside a single project, for businesses that want to grow without the environmental cost."
+  >
+    <figure slot="aside" class="relative">
+      <div class="img-wrap rounded-2xl bg-moss overflow-hidden">
+        <Img src="/images/site/nathan.jpg" alt="Nathan James Entwistle, founder of OakFox" loading="eager" class="w-full h-auto" />
       </div>
-    </div>
-  </section>
+      <figcaption class="mt-4 text-[15px] text-ink/70">
+        <span class="font-semibold text-ink">Nathan James Entwistle</span>, founder, designer and developer
+      </figcaption>
+    </figure>
+  </PageHero>
 
-  <!-- ========== HOW THE STUDIO WORKS ========== -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">How the studio works</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            A small studio with a wider network.
-          </h2>
-          <div class="mt-8 space-y-5 text-[15px] text-ink/65 leading-relaxed">
-            <p>
-              OakFox runs as a tight core team backed by a network of trusted
-              specialists — photographers, illustrators, copywriters and
-              specialist developers — brought in when a project calls for them.
-            </p>
-            <p>
-              Engagements are deliberately limited each quarter so every
-              client gets considered attention. Brand, web and environmental
-              work sits under one roof, so a single project can move from
-              identity to launch to sustainability reporting without changing
-              hands.
-            </p>
-          </div>
-        </div>
-
-        <div class="md:col-span-7 md:col-start-6 grid sm:grid-cols-2 gap-x-8 gap-y-8">
-          {capabilities.map((c) => (
-            <div class="reveal border-t border-stone pt-6">
-              <h3 class="text-base md:text-lg font-medium text-ink mb-2">{c.title}</h3>
-              <p class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{c.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== ENVIRONMENTAL RESEARCH ========== -->
-  <section class="py-20 md:py-28 border-t border-stone bg-forest/[0.03]">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-forest mb-6">Environmental research</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            A vested interest in the sector we serve.
-          </h2>
-          <p class="mt-8 text-[15px] text-ink/65 leading-relaxed">
-            Our environmental consultancy work is grounded in original
-            research, not borrowed credentials. The studio has conducted
-            and published work on the topics below, and we draw on it
-            directly when advising clients on sustainability claims,
-            supply chains and reporting.
+  <!-- The founder: the story in prose, the facts beside it. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <h2 class="headline text-4xl md:text-5xl max-w-[18ch]">Fifteen years of brand and web work, one studio.</h2>
+        <div class="mt-8 space-y-6 text-lg md:text-xl text-ink/75 leading-relaxed max-w-[60ch]">
+          <p>
+            Nathan founded OakFox after more than 15 years of brand and web work,
+            for local independents and international names alike. Alongside client
+            work he designs and builds the studio's own products, apps used by
+            thousands of families, publishes original sustainability research, and
+            stays involved in every project from the first conversation to handover.
+          </p>
+          <p>
+            OakFox runs as a small core team with a wider network of trusted
+            specialists: photographers, illustrators, copywriters and specialist
+            developers, brought in when a project needs them. Brand, web and
+            environmental work sit under one roof, so a project can move from
+            identity to launch to sustainability reporting without changing hands.
+          </p>
+          <p>
+            Away from the studio he hikes, volunteers on local conservation projects,
+            and spends most weekends somewhere outdoors with his wife and two young children.
           </p>
         </div>
-        <div class="md:col-span-7 md:col-start-6 grid gap-8">
+      </div>
+      <dl class="lg:col-span-5 self-start rounded-2xl border border-stone bg-cream-light p-7 md:p-9 divide-y divide-stone">
+        {credentials.map((c) => (
+          <div class="py-4 first:pt-0 last:pb-0">
+            <dt class="text-[13px] text-ink/55">{c.label}</dt>
+            <dd class="mt-1 text-lg font-medium text-ink leading-snug">{c.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <Pillars title="What the studio does" items={capabilities} />
+
+  <!-- Research: the topics, and the study that put numbers on small business websites. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="lg:col-span-5">
+        <h2 class="headline text-4xl md:text-5xl">Research, not borrowed credentials</h2>
+        <p class="mt-6 text-lg text-ink/70 leading-relaxed max-w-[46ch]">
+          Our environmental consultancy is grounded in original work. We draw on it
+          directly when advising clients on sustainability claims, supply chains and reporting.
+        </p>
+        <ul class="mt-10 space-y-8">
           {research.map((r) => (
-            <div class="reveal border-t border-forest/15 pt-6">
-              <h3 class="text-base md:text-lg font-medium text-ink mb-2">{r.title}</h3>
-              <p class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{r.body}</p>
-            </div>
+            <li class="reveal border-l-2 border-forest pl-5">
+              <h3 class="text-xl font-semibold tracking-tight">{r.title}</h3>
+              <p class="mt-2 text-base text-ink/70 leading-relaxed">{r.body}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- ========== ACCREDITATIONS ========== -->
-  <section class="py-20 md:py-28 border-t border-stone bg-forest/[0.03]">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-forest mb-6">Accreditations & commitments</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Independently verified, publicly committed.
-          </h2>
-          <p class="mt-8 text-[15px] text-ink/65 leading-relaxed">
-            We hold ourselves to the same standards we ask of our clients —
-            third-party verification where it exists, public commitments
-            where it does not. The list is current and will grow over time.
-          </p>
-        </div>
-        <div class="md:col-span-7 md:col-start-6 grid gap-8">
-          {accreditations.map((a) => (
-            <a
-              href={a.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="reveal group flex items-start gap-6 md:gap-8 border-t border-forest/15 pt-6"
-            >
-              <div class="shrink-0 w-20 md:w-24 flex items-center justify-center">
-                <img
-                  src={a.badge}
-                  alt={a.badgeAlt}
-                  loading="lazy"
-                  decoding="async"
-                  class="w-full h-auto"
-                />
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-baseline gap-3 flex-wrap">
-                  <h3 class="text-base md:text-lg font-medium text-ink group-hover:text-forest transition-colors duration-300">{a.name}</h3>
-                  <span class="label text-forest">{a.status}</span>
-                </div>
-                <p class="mt-2 text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{a.body}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== VALUES ========== -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">What drives us</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            The values the work is built on.
-          </h2>
-        </div>
-        <div class="md:col-span-7 md:col-start-6 grid gap-8">
-          {values.map((v) => (
-            <div class="reveal border-t border-stone pt-6">
-              <h3 class="text-base md:text-lg font-medium text-ink mb-2">{v.title}</h3>
-              <p class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{v.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FOUNDER ========== -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
-        <div class="md:col-span-4">
-          <div class="img-wrap bg-forest/5 overflow-hidden">
-            <Img src="/images/site/nathan.jpg" alt="Nathan James Entwistle, founder of OakFox" class="w-full h-auto" />
-          </div>
-        </div>
-        <div class="md:col-span-7 md:col-start-6">
-          <p class="label text-gray mb-4">The founder</p>
-          <h2 class="headline text-2xl md:text-3xl">Nathan James Entwistle</h2>
-          <div class="mt-6 space-y-5 text-[15px] text-ink/70 leading-relaxed">
-            <p>
-              Nathan founded OakFox after 15+ years of brand and web work
-              spanning local independents and international names. Alongside
-              client work he designs and builds the studio's own products —
-              apps used by thousands of families — publishes original
-              sustainability research, and stays involved in every engagement
-              from discovery through handover.
-            </p>
-            <p>
-              Away from the studio he hikes, volunteers on local conservation
-              projects, and spends most weekends exploring somewhere in nature
-              with his wife and two young children.
-            </p>
-          </div>
-
-          <ul class="mt-8 border-t border-stone">
-            {credentials.map((line) => (
-              <li class="border-b border-stone py-4 text-[14px] text-ink/75 leading-relaxed">
-                {line}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== LOCATION ========== -->
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Where we are</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Based in West Lancashire.
-            Working UK-wide.
-          </h2>
-        </div>
-        <div class="md:col-span-7 md:col-start-6 text-[15px] text-ink/70 leading-relaxed space-y-5">
-          <p>
-            Our studio sits in Martland Mill, Burscough — between Ormskirk and
-            Southport — a few minutes from the West Lancashire coast and
-            roughly 45 minutes from central Manchester or Liverpool. Most
-            client collaboration happens remotely, with in-person visits for
-            brand discovery, photography, or installations when they matter.
-          </p>
-          <p>
-            We work with independent businesses and established brands across
-            the UK, Ireland, and mainland Europe. Local clients have included
-            studios in <a href="/locations/ormskirk/" class="text-forest underline underline-offset-4">Ormskirk</a>,
-            <a href="/locations/southport/" class="text-forest underline underline-offset-4">Southport</a>,
-            <a href="/locations/preston/" class="text-forest underline underline-offset-4">Preston</a>,
-            and <a href="/locations/manchester/" class="text-forest underline underline-offset-4">Manchester</a>;
-            remote clients have ranged from the Lake District and Dublin to
-            London and further.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CTA ========== -->
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Start with the person who'll <em class="text-forest">do the work</em>.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Whether you are a start-up finding your feet, an established brand
-          ready to evolve, or a specialist team buried in paperwork — send a
-          few lines. We reply within 24 hours.
+      <div class="lg:col-span-7">
+        <CarbonWaffle />
+        <p class="mt-5 text-base text-ink/70 leading-relaxed">
+          We also audited 100 UK small business homepages for carbon and published the data.
+          Each dot is one site, coloured by grade; the ringed one is ours.
+          <a href="/blog/we-audited-100-uk-small-business-websites/" class="text-forest underline underline-offset-4">Read the study</a>.
         </p>
-        <a href="/contact/" class="inline-flex items-center gap-3 mt-10 text-[13px] font-medium text-forest group">
-          Start a conversation
-          <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        </a>
       </div>
     </div>
   </section>
+
+  <!-- Accreditations: the badges, each linked to where it can be checked. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <h2 class="headline text-4xl md:text-5xl max-w-[20ch]">Independently verified, publicly committed</h2>
+      <div class="mt-10 md:mt-12 grid md:grid-cols-2 gap-4 md:gap-5">
+        {accreditations.map((a) => (
+          <a href={a.href} target="_blank" rel="noopener noreferrer" class="reveal group flex items-start gap-6 rounded-2xl bg-moss p-7 md:p-9 transition-transform duration-300 hover:-translate-y-0.5">
+            <div class="shrink-0 w-20 md:w-24 rounded-xl bg-cream-light p-3 flex items-center justify-center">
+              <img src={a.badge} alt={a.badgeAlt} loading="lazy" decoding="async" class="w-full h-auto" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-[14px] font-medium text-forest">{a.status}</p>
+              <h3 class="mt-1 text-2xl font-semibold tracking-tight group-hover:text-forest transition-colors">{a.name}</h3>
+              <p class="mt-3 text-base text-ink/75 leading-relaxed">{a.body}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values: three statements, set large. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <h2 class="headline text-4xl md:text-5xl">What the work is built on</h2>
+      <ol class="mt-10 md:mt-14 divide-y divide-stone border-y border-stone">
+        {values.map((v) => (
+          <li class="reveal grid lg:grid-cols-12 gap-4 lg:gap-16 py-8 md:py-10">
+            <h3 class="lg:col-span-5 text-3xl md:text-4xl font-semibold tracking-tight leading-[1.1]">{v.title}</h3>
+            <p class="lg:col-span-7 text-lg text-ink/75 leading-relaxed max-w-[62ch]">{v.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Where we are: prose with the local links. -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <h2 class="lg:col-span-5 headline text-4xl md:text-5xl">Based in West Lancashire, working UK-wide</h2>
+      <div class="lg:col-span-7 space-y-6 text-lg text-ink/75 leading-relaxed max-w-[62ch]">
+        <p>
+          The studio is at Martland Mill in Burscough, between Ormskirk and Southport,
+          a few minutes from the West Lancashire coast and roughly 45 minutes from central
+          Manchester or Liverpool. Most collaboration happens remotely, with visits in person
+          for brand discovery, photography or installations when they matter.
+        </p>
+        <p>
+          We work with independent businesses and established brands across the UK, Ireland
+          and mainland Europe. Local clients have included studios in
+          <a href="/locations/ormskirk/" class="text-forest underline underline-offset-4">Ormskirk</a>,
+          <a href="/locations/southport/" class="text-forest underline underline-offset-4">Southport</a>,
+          <a href="/locations/preston/" class="text-forest underline underline-offset-4">Preston</a> and
+          <a href="/locations/manchester/" class="text-forest underline underline-offset-4">Manchester</a>;
+          remote clients have ranged from the Lake District and Dublin to London and further afield.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock
+    title="Start with the person who'll do the work."
+    text="Whether you're a start-up finding your feet, an established brand ready to change, or a specialist team buried in paperwork, send a few lines. We reply within 24 hours."
+    showLocations={false}
+  />
 </BaseLayout>

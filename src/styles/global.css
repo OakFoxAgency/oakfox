@@ -1,55 +1,52 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Fallbacks sized to the web fonts, so nothing moves when Work Sans and
-   Playfair swap in. The homepage hero is vertically centred and its headline
-   words are inline-blocks, so a narrower fallback re-wrapped the lines and the
-   whole block jumped: CLS 0.27 on mobile (Lighthouse, 12 Oct 2026).
-   size-adjust is measured on the headline's own words (Work Sans at 500 against
-   Arial and Android's Roboto; Playfair italic against Georgia italic); the
-   overrides are the web fonts' ascent and descent divided by it. */
+/* Fallbacks sized to Schibsted Grotesk, so nothing moves when it swaps in.
+   size-adjust is measured on the hero's own copy (Schibsted at 400 against
+   Arial, and at 600 against Arial Bold, which is what headings fall back to);
+   the overrides are the web font's ascent (2000) and descent (528) over 2048
+   units, divided by it. Roboto stands in for Arial on Android. */
 @font-face {
-  font-family: 'Work Sans Fallback';
-  src: local('Arial'), local('ArialMT');
-  size-adjust: 113.95%;
-  ascent-override: 81.61%;
-  descent-override: 21.33%;
+  font-family: 'Schibsted Fallback';
+  src: local('Arial'), local('ArialMT'), local('Roboto'), local('Roboto-Regular');
+  font-weight: 100 500;
+  size-adjust: 104.5%;
+  ascent-override: 93.45%;
+  descent-override: 24.67%;
   line-gap-override: 0%;
 }
 @font-face {
-  font-family: 'Work Sans Fallback Android';
-  src: local('Roboto'), local('Roboto-Regular');
-  size-adjust: 113.07%;
-  ascent-override: 82.25%;
-  descent-override: 21.49%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: 'Playfair Display Fallback';
-  font-style: italic;
-  src: local('Georgia Italic'), local('Georgia-Italic');
-  size-adjust: 90.11%;
-  ascent-override: 120.07%;
-  descent-override: 27.85%;
+  font-family: 'Schibsted Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+  font-weight: 600 900;
+  size-adjust: 99.75%;
+  ascent-override: 97.9%;
+  descent-override: 25.85%;
   line-gap-override: 0%;
 }
 
 @theme {
-  --color-cream: #F5F0E8;
-  --color-cream-light: #FAF7F2;
+  /* Bone rather than beige: the same family of off-white, less yellow, so the
+     forest green reads cleaner against it. Names kept so every page follows. */
+  --color-cream: #F3F2EC;
+  --color-cream-light: #F9F8F4;
+  --color-moss: #E2E7DA;
+  /* The forest accent, lifted for use on dark panels (ink, forest). */
+  --color-leaf: #A9D88F;
   --color-forest: #1A5C12;
   --color-forest-dark: #0E3B0A;
-  --color-ink: #1A1D17;
+  --color-ink: #161A14;
   --color-ink-light: #2E3329;
   --color-white: #FFFFFF;
-  --color-stone: #D6D1C8;
-  /* 4.96:1 on cream. The previous #8A8680 sat at 3.19:1 and carried every
-     .label and caption on the site, so it failed AA almost everywhere. */
-  --color-gray: #6B6760;
+  --color-stone: #D8D6CD;
+  /* 5.3:1 on the bone background, so captions pass AA. */
+  --color-gray: #62645D;
 
-  --font-sans: 'Work Sans', 'Work Sans Fallback', 'Work Sans Fallback Android', system-ui, sans-serif;
-  --font-display: 'Playfair Display', 'Playfair Display Fallback', 'PT Serif', Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Schibsted Grotesk Variable', 'Schibsted Fallback', system-ui, sans-serif;
+  /* Display is the same face now: emphasis comes from weight and colour, not
+     a second family. */
+  --font-display: var(--font-sans);
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 @layer base {
@@ -78,57 +75,83 @@
 /* ---------- Type ---------- */
 .headline {
   font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  letter-spacing: -0.025em;
   line-height: 1.05;
+  text-wrap: balance;
 }
+/* Emphasis inside a headline is the same face in forest green: no serif
+   swapped in mid-sentence. */
 .headline em {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-style: normal;
+  color: var(--color-forest);
 }
 
+/* A small plain caption (dates, categories, form hints). Sentence case, the
+   body face: not the tracked uppercase mono label over every heading. */
 .label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.35;
 }
 
-/* ---------- Grain ---------- */
-.noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 200;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
+/* ---------- Buttons ---------- */
+/* Pills for anything you press; cards and images are 16px (rounded-2xl). */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  background: var(--color-forest);
+  color: var(--color-cream);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover { background: var(--color-forest-dark); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+}
+/* The same button for dark panels. */
+.btn-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  background: var(--color-cream);
+  color: var(--color-forest-dark);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+.btn-light:hover { background: var(--color-leaf); }
+.btn-light:active { transform: translateY(1px); }
+.btn-light:focus-visible {
+  outline: 2px solid var(--color-leaf);
+  outline-offset: 3px;
 }
 
-/* ---------- Hero glow ---------- */
-@keyframes glow-drift {
-  0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.5; }
-  30%  { transform: translate(-46%, -54%) scale(1.08); opacity: 0.7; }
-  60%  { transform: translate(-53%, -47%) scale(1.04); opacity: 0.55; }
-  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.5; }
+/* Tabular figures for numbers that sit in columns or change (grades, grams). */
+.figures {
+  font-variant-numeric: tabular-nums;
 }
+
+/* Retired: the drifting blurred glow behind headings. Markup still on some
+   pages is hidden until each template is reworked. */
 .hero-glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(26, 92, 18, 0.14), rgba(26, 92, 18, 0.04) 45%, transparent 65%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-  animation: glow-drift 14s ease-in-out infinite;
+  display: none;
 }
 
 /* ---------- Reveal on scroll ---------- */
@@ -231,22 +254,11 @@
   will-change: transform;
   transform: translateY(0);
 }
-/* Headlines containing italic <em> children must keep their italic
-   metric — the inner <em> is wrapped, so just propagate font-style. */
-.headline em .split-word > span,
-.headline .split-word em > span {
-  font-style: italic;
-}
-/* Italic display glyphs overhang the tight reveal mask: the descender on
-   "grow" drops below the line-box and the italic lean pushes the first letter
-   left, so overflow:hidden slices them. Pad the mask to make room (padding is
-   inside the clip box), and cancel it with margin so spacing/baseline are
-   unchanged. The deeper hidden offset in motion.ts keeps the padded mask from
-   letting the word peek before it reveals. */
-.headline em .split-word,
-.headline .split-word em {
-  padding: 0 0 0.16em 0.1em;
-  margin: 0 0 -0.16em -0.1em;
+/* Descenders (g, y, p) sit below the line box at line-height 1.05, so the
+   reveal mask gets room underneath, cancelled by a negative margin. */
+.headline .split-word {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
 }
 
 /* ---------- Page transition curtain ---------- */
@@ -263,7 +275,6 @@ body.is-loading {
     scroll-behavior: auto;
   }
   /* Disable the more aggressive ambient animations */
-  .hero-glow,
   .nudge {
     animation: none !important;
   }

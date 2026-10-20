@@ -25,6 +25,7 @@
     "@astrojs/mdx": "^5.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
     "@fontsource/playfair-display": "^5.2.8",
     "@fontsource/work-sans": "^5.2.8",
     "@resvg/resvg-js": "^2.6.2",

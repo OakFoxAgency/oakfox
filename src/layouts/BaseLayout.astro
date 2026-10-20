@@ -1,4 +1,9 @@
 ---
+// One self-hosted variable face for everything (400-700 in one 48 KB file):
+// no third-party font request, and lighter than the three Google families it
+// replaced. Fallback metrics for it are at the top of global.css.
+import '@fontsource-variable/schibsted-grotesk/wght.css';
+import schibstedLatin from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
@@ -151,15 +156,7 @@ const jsonLd = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="application/rss+xml" title="OakFox Journal" href="/rss.xml" />
     <link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Trimmed to the faces the public site actually uses: Playfair is only
-         ever .headline em (italic 400), mono labels are 400, and nothing on
-         the public pages uses Work Sans 300. -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=JetBrains+Mono:wght@400&family=Work+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href={schibstedLatin} as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
 
     <meta property="og:type" content={type} />
@@ -180,7 +177,6 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="bg-cream min-h-screen flex flex-col">
-    <div class="noise"></div>
     <Header />
     <main class="flex-1">
       <slot />
@@ -291,6 +287,17 @@ const jsonLd = {
       // ----- GSAP / Lenis / page transitions -----
       bootMotion();
       bootTransitions();
+    </script>
+    <script>
+      // Demos start as they scroll into view; the page-weight reading (and the
+      // carbon model it needs) only loads on pages that show a meter.
+      import { watchDemos } from '../scripts/demos';
+      document.addEventListener('astro:page-load', () => {
+        watchDemos();
+        if (document.querySelector('[data-meter], [data-dev]')) {
+          import('../scripts/page-weight').then((m) => m.schedule());
+        }
+      });
     </script>
   </body>
 </html>

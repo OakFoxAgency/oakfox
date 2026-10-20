@@ -1,7 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AuditCta from '../../components/AuditCta.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
 import LocationSignpost from '../../components/LocationSignpost.astro';
+import AuditCta from '../../components/AuditCta.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import CarbonMeter from '../../components/CarbonMeter.astro';
+import LiveMetrics from '../../components/demo/LiveMetrics.astro';
 
 const pageUrl = 'https://oakfox.co.uk/services/development';
 
@@ -9,7 +17,7 @@ const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
   name: 'Development',
-  description: 'Web development for brands that care what sits under the hood. Fast, accessible, sustainable builds with modern static-first architecture — hosted on verified green infrastructure.',
+  description: 'Web development for brands that care what sits under the hood. Fast, accessible, sustainable builds with modern static-first architecture, hosted on verified green infrastructure.',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   areaServed: ['United Kingdom', 'Ireland', 'Europe'],
   serviceType: 'Web development',
@@ -27,65 +35,62 @@ const breadcrumbs = {
 
 const offerings = [
   {
-    label: 'Frontend',
     title: 'Fast, accessible builds',
     description:
-      'Static-first architecture where it fits, modern frameworks where it helps. Optimised assets, minimal JavaScript, clean markup. The pages load before the user notices.',
+      'Static-first architecture where it fits, modern frameworks where they help. Optimised assets, minimal JavaScript and clean markup, so pages load before anyone notices.',
   },
   {
-    label: 'Backend',
-    title: 'CMS, APIs, integrations',
+    title: 'CMS, APIs and integrations',
     description:
-      'Headless CMS that your team can actually edit without breaking the site. APIs for booking, forms, and e-commerce. Integrations with the tools you already use — not a new platform to onboard into.',
+      'A headless CMS your team can edit without breaking the site. APIs for booking, forms and e-commerce, and integrations with the tools you already use, rather than a new platform to learn.',
   },
   {
-    label: 'Hosting',
-    title: 'Green, performant infrastructure',
+    title: 'Green, fast infrastructure',
     description:
-      'Deployed to verified renewable-powered hosting by default. Global edge delivery, automated deployments on every push, and monitoring that tells us when something breaks before your customers do.',
+      "Deployed to verified renewable-powered hosting by default, with edge delivery, automatic deployments on every push, and monitoring that tells us something's broken before your customers do.",
   },
 ];
 
 const process = [
-  { step: '01', title: 'Specify', body: 'A tight build spec — what the site has to do, the tech stack, the integrations, the hosting, the CMS, the deploy pipeline. Agreed before anyone writes code.' },
-  { step: '02', title: 'Scaffold', body: 'Repository, CI, staging environment, CMS. The scaffolding goes up first so every page built from here on is deploying automatically and reviewable by you.' },
-  { step: '03', title: 'Build', body: 'Pages, components, templates — built against the design system and tested on real devices. Performance and accessibility audits at each sprint, not at the end.' },
-  { step: '04', title: 'Launch', body: 'DNS cutover, redirects configured, analytics live, sitemap submitted, monitoring on. A controlled go-live — not a prayer.' },
-  { step: '05', title: 'Support', body: 'Optional retainer for ongoing development, or a clean handover to your in-house team. Documentation written assuming the reader was not in the room.' },
+  { title: 'Specify', body: 'A tight build spec: what the site has to do, the stack, integrations, hosting, CMS and deploy pipeline. Agreed before anyone writes code.' },
+  { title: 'Scaffold', body: 'Repository, CI, staging and CMS go up first, so every page from then on deploys automatically and you can review it.' },
+  { title: 'Build', body: 'Pages, components and templates built against the design system and tested on real devices, with performance and accessibility checked every sprint.' },
+  { title: 'Launch', body: 'DNS cutover, redirects, analytics, sitemap and monitoring, in a controlled go-live.' },
+  { title: 'Support', body: "An optional retainer for ongoing work, or a clean handover to your team, with documentation written for someone who wasn't in the room." },
 ];
 
 const forWho = [
   'Brands with a design in hand and a developer deadline looming',
-  'Businesses whose existing site is slow, fragile, or impossible for the team to update',
-  'Sustainability-focused businesses who want their hosting footprint to match their claims',
-  'Founders who have been burned by shiny framework choices and want a site they can still run in five years',
-  'Teams wanting a site that passes a Lighthouse audit without compromises',
+  'Businesses whose current site is slow, fragile or impossible for the team to update',
+  'Sustainability-focused businesses who want their hosting to match their claims',
+  'Founders burned by fashionable frameworks who want a site they can still run in five years',
+  'Teams who want a site that passes a Lighthouse audit without compromises',
 ];
 
 const faqs = [
   {
     q: 'What tech stack do you build websites on?',
-    a: 'We default to static-first builds using Astro, with Tailwind CSS for styling, MDX for content collections, and a headless CMS (Sanity, Contentful, or Storyblok depending on fit) when the client needs to edit. For applications we reach for React, Next.js, or Vue where the complexity justifies it — but we start with the lightest architecture that solves the problem.',
+    a: 'We default to static-first builds with Astro, Tailwind CSS for styling, MDX for content, and a headless CMS (Sanity, Contentful or Storyblok, depending on fit) when the client needs to edit. For applications we use React, Next.js or Vue where the complexity justifies it, but we start with the lightest architecture that solves the problem.',
   },
   {
     q: 'How much does a custom website build cost?',
-    a: 'Custom web development at OakFox typically ranges from £2,500 for a static marketing site to £20,000+ for a multi-section CMS-driven site with integrations. Every quote is case-by-case. We send a detailed written proposal after a free initial call.',
+    a: 'Custom web development at OakFox typically ranges from £2,500 for a static marketing site to £20,000 or more for a multi-section, CMS-driven site with integrations. Every quote is worked out case by case, and we send a detailed written proposal after a free first call.',
   },
   {
     q: 'What is "green web hosting" and why does it matter?',
-    a: 'Green web hosting runs on verified renewable-powered infrastructure — solar, wind, hydro — rather than fossil-fuel-backed grid power. Websites are responsible for a meaningful share of global digital emissions, so hosting choice is one of the highest-leverage sustainability decisions a business makes. We deploy by default to providers on The Green Web Foundation verified list.',
+    a: "Green web hosting runs on verified renewable power (solar, wind or hydro) rather than fossil-fuel-backed grid power. Websites account for a meaningful share of global digital emissions, so choosing a host is one of the highest-leverage sustainability decisions a business makes. We deploy by default to providers on The Green Web Foundation's verified list.",
   },
   {
     q: 'Do you work with Shopify, WordPress, or other CMS platforms?',
-    a: 'Yes — where they fit. Shopify for e-commerce when the feature set matches; Shopify Hydrogen where a custom frontend is justified. WordPress only when the client has an existing ecosystem we should not break. For most marketing sites we prefer headless CMS options — faster, more secure, easier to maintain, far fewer plugin conflicts.',
+    a: "Yes, where they fit. Shopify for e-commerce when its feature set matches, and Shopify Hydrogen where a custom frontend is justified. WordPress only when the client has an existing setup we shouldn't break. For most marketing sites we prefer a headless CMS: faster, more secure, easier to maintain, and far fewer plugin conflicts.",
   },
   {
     q: 'Will my website be fast and pass Core Web Vitals?',
-    a: 'Yes. Every site we build targets a 95+ Lighthouse performance score and green Core Web Vitals out of the box. Static rendering, optimised images, minimal JavaScript, and edge hosting combine to give pages that load in well under a second on 4G. We audit at every sprint, not at the end.',
+    a: 'Yes. Every site we build targets a Lighthouse performance score of 95 or more and green Core Web Vitals from launch. Static rendering, optimised images, minimal JavaScript and edge hosting give pages that load in well under a second on 4G. We check this every sprint, not just at the end.',
   },
   {
     q: 'Do you offer ongoing website support and maintenance?',
-    a: 'Yes. After launch we offer monthly retainers covering security updates, content edits, performance monitoring, and small feature work. Retainers are scoped to the hours you actually need rather than a fixed package. Alternatively we do a clean handover to your in-house team with documentation written assuming the reader was not in the room.',
+    a: "Yes. After launch we offer monthly retainers covering security updates, content edits, performance monitoring and small features, scoped to the hours you actually need rather than a fixed package. Or we hand over cleanly to your in-house team, with documentation written for someone who wasn't in the room.",
   },
 ];
 
@@ -101,153 +106,41 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Sustainable Web Development Agency — UK"
-  description="OakFox builds fast, accessible, sustainable websites. Static-first architecture with Astro, headless CMS, and verified green hosting — for brands that care what sits under the hood."
+  title="Sustainable Web Development Agency, UK"
+  description="OakFox builds fast, accessible, sustainable websites: static-first architecture with Astro, a headless CMS and verified green hosting, for brands that care what sits under the hood."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
-  <section class="relative pt-32 pb-20 overflow-hidden">
-    <div class="hero-glow" style="top: 45%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <p class="label text-forest mb-8">Service · Development</p>
-      <h1 class="headline text-ink max-w-4xl" style="font-size: clamp(2rem, 5.5vw, 4.5rem);">
-        Websites that <em class="text-forest">load</em>.
-        Pages that <em class="text-forest">last</em>.
-      </h1>
-      <div class="mt-10 md:mt-14 grid md:grid-cols-12 gap-8 items-end">
-        <p class="md:col-span-6 text-[15px] md:text-base text-ink/65 leading-relaxed">
-          Modern, static-first web builds with a deliberate lightness of footprint
-          — fewer bytes over the wire, faster pages, lower energy cost. Deployed
-          to verified renewable-powered hosting, edited by your team through a
-          CMS they actually use.
-        </p>
-        <div class="md:col-span-3 md:col-start-10 flex items-center justify-start md:justify-end">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a project
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-        </div>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Websites that load. Pages that last."
+    accent="load last"
+    intro="Modern, static-first builds that send fewer bytes, load faster and use less energy. Deployed to verified renewable-powered hosting, and edited by your team through a CMS they'll actually use."
+  >
+    <div slot="aside" class="space-y-4">
+      <CarbonMeter heading="This page, built by us, as it loaded" showForm={false} />
+      <div class="rounded-2xl bg-ink text-cream p-6 md:p-7">
+        <LiveMetrics />
       </div>
     </div>
-  </section>
+  </PageHero>
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <h2 class="headline text-xl md:text-2xl mb-10 md:mb-14">What's included</h2>
-      <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-        {offerings.map((o) => (
-          <div class="reveal">
-            <p class="label text-forest mb-4">{o.label}</p>
-            <h3 class="headline text-xl md:text-2xl mb-4">{o.title}</h3>
-            <p class="text-[14px] text-ink/65 leading-relaxed">{o.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <Pillars items={offerings} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10 md:gap-16">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">How we work</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Five stages. Clean&nbsp;handover.
-          </h2>
-        </div>
-        <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {process.map((p) => (
-            <li class="reveal border-b border-stone py-6 grid grid-cols-[auto,1fr] gap-6 md:gap-10">
-              <span class="label text-gray pt-1">{p.step}</span>
-              <div>
-                <h3 class="text-base md:text-lg font-medium text-ink">{p.title}</h3>
-                <p class="mt-2 text-[14px] text-ink/65 leading-relaxed">{p.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
+  <ProcessSteps title="How a build runs, from spec to support" steps={process} />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Who it's for</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Good fits look&nbsp;like…
-          </h2>
-        </div>
-        <ul class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {forWho.map((line) => (
-            <li class="reveal border-b border-stone py-5 text-[15px] md:text-base text-ink/75 leading-relaxed">
-              {line}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <FitList title="A good fit if you're" items={forWho} />
+
+  <FaqList title="Web development questions we hear a lot" items={faqs}>
+    Typical prices, from DIY builders to agencies:
+    <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
+  </FaqList>
 
   <LocationSignpost service="Web development" keyword="sustainable web development" />
 
-  <section class="py-20 md:py-28 border-t border-stone">
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-      <div class="grid md:grid-cols-12 gap-10">
-        <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Frequently asked</p>
-          <h2 class="headline text-2xl md:text-3xl">
-            Web development questions we hear a lot.
-          </h2>
-          <p class="mt-6 text-[14px] text-ink/65 leading-relaxed">
-            Typical prices, from DIY builders to agencies:
-            <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
-          </p>
-        </div>
-        <dl class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {faqs.map((f) => (
-            <div class="reveal border-b border-stone py-6">
-              <dt class="text-base md:text-lg font-medium text-ink mb-3">{f.q}</dt>
-              <dd class="text-[14px] md:text-[15px] text-ink/65 leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </div>
-  </section>
-
   <AuditCta />
 
-  <section class="py-24 md:py-40 border-t border-stone relative overflow-hidden">
-    <div class="hero-glow" style="top: 50%;"></div>
-    <div class="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-      <div class="reveal max-w-2xl">
-        <p class="label text-gray mb-6">Next step</p>
-        <h2 class="headline text-3xl md:text-4xl lg:text-5xl">
-          Got designs. Need a <em class="text-forest">build</em>.
-        </h2>
-        <p class="mt-6 text-[15px] text-ink/65 leading-relaxed max-w-lg">
-          Send us what you have — designs, existing URL, a one-liner about the
-          scope. We reply within 24 hours with a first read on complexity and timeline.
-        </p>
-        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <a href="/contact/" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
-            Start a conversation
-            <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </a>
-          <a href="/book/" class="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-forest transition-colors duration-300">
-            Or book a free call
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <CtaBlock
+    title="Got designs. Need a build."
+    text="Send what you have: designs, an existing URL, a line about the scope. We reply within 24 hours with a first read on complexity and timeline."
+  />
 </BaseLayout>
