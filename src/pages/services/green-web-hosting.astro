@@ -121,18 +121,22 @@ const offerings = [
   },
 ];
 
-const whyGreen = [
+// How a move works, start to finish. The general case for green hosting lives
+// in the comparison post; this page is for people ready to switch.
+const moveSteps = [
   {
-    title: 'The internet has a carbon footprint',
-    body: 'Data centres and transmission networks now account for around 1–2% of global electricity use. Hosting choice is one of the highest-leverage sustainability decisions any business can make for its digital footprint.',
+    title: 'Check your current site',
+    body: 'Run the free website carbon audit on your site as it is now. It shows the page weight, CO₂ per visit and whether your current host is verified green, so you can see what the move changes.',
+    link: { href: '/website-carbon-audit/', label: 'Run the free audit' },
   },
   {
-    title: 'Green hosting is verifiable',
-    body: 'We host with providers on The Green Web Foundation\'s verified directory, not just companies that buy offsets and call it neutral. You can independently check whether a site is hosted green at thegreenwebfoundation.org.',
+    title: 'Tell us where it lives',
+    body: 'Send us your current host and the plan that fits. We reply within 24 hours with a migration window and a single invoice. No setup fees, no surprise add-ons.',
+    link: { href: '/contact?service=green-web-hosting', label: 'Start the migration' },
   },
   {
-    title: 'It is no slower, and no more expensive',
-    body: 'Modern renewable-powered UK hosting performs identically to fossil-fuel-backed grid hosting on speed, uptime, and cost. The trade-off is essentially zero, which makes the case for switching very straightforward.',
+    title: 'We move everything',
+    body: 'Files, databases, email accounts and DNS records, copied over and checked before anything switches. The DNS cutover happens at a quiet time, so visitors see no downtime. Most moves finish inside a working day.',
   },
 ];
 
@@ -150,12 +154,12 @@ const faqs = [
     a: 'Managed green web hosting is website hosting that runs on verified renewable energy and is fully looked after for you. With OakFox, your site sits in a UK data centre on infrastructure listed in The Green Web Foundation\'s verified directory, and we handle setup, DNS, SSL, daily backups, security updates, and monitoring, so you never log into a control panel. Plans start at £9 a month and include free migration from your current host.',
   },
   {
-    q: 'Is green web hosting actually greener, or is it marketing?',
-    a: 'Both exist. Genuinely green hosting runs on verified renewable energy (solar, wind, hydro) and can be independently checked against The Green Web Foundation\'s public directory. Hosts that simply purchase carbon offsets to claim "neutrality" are not the same thing. OakFox only resells hosts on the verified green directory.',
+    q: 'How can I check your hosting is really green?',
+    a: 'Look it up yourself. Every site we host shows as green in The Green Web Foundation\'s public directory, which lists hosts running on verified renewable energy, not ones that buy offsets and call themselves neutral. Our free website carbon audit runs the same check on any site, including yours as it is today.',
   },
   {
     q: 'Where are your servers located?',
-    a: 'All hosting plans run in UK data centres, which matters for GDPR, for performance to UK visitors, and for the carbon intensity of the underlying grid.',
+    a: 'All hosting plans run in UK data centres, which matters for GDPR, for performance to UK visitors, and for the carbon intensity of the underlying grid. Every plan is available anywhere in the UK, and we look after clients from our home patch of West Lancashire to London.',
   },
   {
     q: 'Will moving to green hosting hurt my SEO or speed?',
@@ -168,10 +172,6 @@ const faqs = [
   {
     q: 'What is included in "managed"?',
     a: 'Setup, DNS configuration, SSL certificates, automated backups, security updates, uptime monitoring, and a real human to email when something is wrong. You never need to log into cPanel unless you want to.',
-  },
-  {
-    q: 'Do you offer green web hosting in London / Manchester / Liverpool / elsewhere in the UK?',
-    a: 'Yes, every plan is available UK-wide. Hosting is location-independent at the point of purchase, though we serve clients across the UK including London, Manchester, Liverpool, Birmingham, Leeds, Edinburgh, and our home patch of West Lancashire / Ormskirk.',
   },
   {
     q: 'What happens if I want to leave?',
@@ -213,7 +213,10 @@ const faqSchema = {
           migration from your current host, plans from £9 a month, and a real
           person to email when something needs fixing.
         </p>
-        <div class="md:col-span-3 md:col-start-10 flex items-center justify-start md:justify-end">
+        <div class="md:col-span-3 md:col-start-10 flex flex-col items-start md:items-end gap-4">
+          <a href="/website-carbon-audit/" class="text-[13px] text-ink/65 underline underline-offset-4 hover:text-forest transition-colors duration-300">
+            Is your current host green? Check free
+          </a>
           <a href="#plans" class="inline-flex items-center gap-3 text-[13px] font-medium text-forest group">
             See the plans
             <span class="w-10 h-10 rounded-full border border-forest/30 flex items-center justify-center transition-all duration-500 group-hover:bg-forest group-hover:text-cream">
@@ -300,16 +303,24 @@ const faqSchema = {
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
       <div class="grid md:grid-cols-12 gap-10 md:gap-16">
         <div class="md:col-span-4">
-          <p class="label text-gray mb-6">Why green</p>
+          <p class="label text-gray mb-6">How the move works</p>
           <h2 class="headline text-2xl md:text-3xl">
-            Hosting is the easiest sustainability win your website has.
+            You do the first two steps. We do the&nbsp;rest.
           </h2>
         </div>
         <ol class="md:col-span-7 md:col-start-6 border-t border-stone">
-          {whyGreen.map((w) => (
-            <li class="reveal border-b border-stone py-6">
-              <h3 class="text-base md:text-lg font-medium text-ink mb-3">{w.title}</h3>
-              <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">{w.body}</p>
+          {moveSteps.map((s, i) => (
+            <li class="reveal border-b border-stone py-6 flex gap-5">
+              <span class="text-[12px] font-mono text-forest pt-1">0{i + 1}</span>
+              <div>
+                <h3 class="text-base md:text-lg font-medium text-ink mb-3">{s.title}</h3>
+                <p class="text-[14px] text-ink/65 leading-relaxed max-w-[65ch]">{s.body}</p>
+                {s.link && (
+                  <a href={s.link.href} class="inline-block mt-3 text-[13px] font-medium text-forest underline underline-offset-4 hover:text-forest-dark transition-colors">
+                    {s.link.label}
+                  </a>
+                )}
+              </div>
             </li>
           ))}
         </ol>

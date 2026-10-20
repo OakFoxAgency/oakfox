@@ -271,31 +271,59 @@ const journalPosts = [
             </p>
 
             <!-- CTA: needs work -->
-            <div id="cta-improve" class="mt-10 hidden">
-              <div class="flex flex-wrap items-center gap-4">
-                <a
-                  id="cta-improve-link"
-                  href="/contact/?service=carbon-audit"
-                  class="inline-flex items-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
-                >
-                  Get a free improvement plan
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a
-                  id="cta-hosting-link"
-                  href="/services/green-web-hosting/"
-                  class="hidden items-center gap-2 border border-forest/30 text-forest hover:bg-forest hover:text-cream transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
-                >
-                  Switch to green hosting, free migration
-                </a>
-              </div>
-              <p class="mt-4 text-[13px] text-ink/65 leading-relaxed max-w-xl">
-                Tell us your URL and we will reply within 24 hours with the three
-                changes that would move your grade the most. No charge, no
-                obligation, and you are free to make them yourself.
+            <div id="cta-improve" class="mt-10 pt-8 border-t border-stone hidden">
+              <h3 class="headline text-[22px] md:text-[26px] text-ink leading-tight">
+                Get a free plan to improve this grade.
+              </h3>
+              <p class="mt-3 text-[14px] text-ink/70 leading-relaxed max-w-xl">
+                Nathan will look at <span data-plan-host>your site</span> and reply
+                within 24 hours with the three changes that would move its grade
+                the most. No charge, no obligation, and you are free to make them
+                yourself.
               </p>
+              <form id="plan-form" class="mt-6 max-w-2xl" novalidate>
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <label for="plan-name" class="sr-only">Your name</label>
+                  <input
+                    id="plan-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    maxlength="120"
+                    placeholder="Your name"
+                    required
+                    class="flex-1 min-w-0 bg-white border border-stone rounded-full px-6 py-3.5 text-[15px] text-ink placeholder:text-gray focus:outline-none focus:border-forest transition-colors duration-300"
+                  />
+                  <label for="plan-email" class="sr-only">Your email</label>
+                  <input
+                    id="plan-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="you@yourbusiness.co.uk"
+                    required
+                    class="flex-1 min-w-0 bg-white border border-stone rounded-full px-6 py-3.5 text-[15px] text-ink placeholder:text-gray focus:outline-none focus:border-forest transition-colors duration-300"
+                  />
+                  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="plan-hp" />
+                  <button
+                    id="plan-submit"
+                    type="submit"
+                    class="inline-flex items-center justify-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium whitespace-nowrap"
+                  >
+                    Send me the plan
+                  </button>
+                </div>
+                <p id="plan-status" class="mt-3 text-[13px] text-ink/65 leading-relaxed" role="status" aria-live="polite">
+                  We only use your email to send the plan.
+                </p>
+              </form>
+              <a
+                id="cta-hosting-link"
+                href="/services/green-web-hosting/"
+                class="hidden mt-6 items-center gap-2 border border-forest/30 text-forest hover:bg-forest hover:text-cream transition-colors duration-300 px-7 py-3.5 rounded-full text-[14px] font-medium"
+              >
+                Switch to green hosting, free migration
+              </a>
             </div>
 
             <!-- CTA: celebration -->
@@ -616,6 +644,9 @@ const journalPosts = [
   #grade-badge {
     transition: background-color 500ms ease;
   }
+  .plan-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  #plan-status[data-state='ok'] { color: #1A5C12; }
+  #plan-status[data-state='error'] { color: #b44d4d; }
   .confetto {
     position: absolute;
     top: -12px;
@@ -752,7 +783,66 @@ const journalPosts = [
 
   let lastAuditedUrl: URL | null = null;
 
+  // ---- Improvement plan request (posts to the contact form's endpoint) ----
+  const plan = { host: '', summary: '', shownAt: 0 };
+  const PLAN_NOTE = 'We only use your email to send the plan.';
+
+  function resetPlanForm(): void {
+    const status = document.getElementById('plan-status');
+    if (!status) return;
+    status.textContent = PLAN_NOTE;
+    delete status.dataset.state;
+  }
+
+  async function sendPlanRequest(form: HTMLFormElement): Promise<void> {
+    const status = el<HTMLParagraphElement>('plan-status');
+    const button = el<HTMLButtonElement>('plan-submit');
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    if (!name || !email) {
+      status.textContent = 'Add your name and email and we will send it over.';
+      status.dataset.state = 'error';
+      return;
+    }
+    data.set('message', plan.summary);
+    data.append('services[]', 'Carbon audit plan');
+    data.set('elapsed_ms', String(Date.now() - plan.shownAt));
+    for (const key of ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) {
+      const value = sessionStorage.getItem('oakfox_' + key);
+      if (value) data.set(key, value);
+    }
+
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    try {
+      const response = await fetch('/api/contact.php', { method: 'POST', body: data });
+      const result = await response.json().catch(() => ({}));
+      if (response.ok && result.success) {
+        status.textContent = `Thanks, ${name}. The plan for ${plan.host} will be in your inbox within 24 hours.`;
+        status.dataset.state = 'ok';
+        window.oakfoxTrack?.('plan');
+        if (window.gtag && window.__awConversionIds?.contact) {
+          window.gtag('event', 'conversion', { send_to: window.__awConversionIds.contact });
+        }
+        form.reset();
+      } else {
+        status.textContent = result.error || 'Something went wrong. Please email nathan@oakfox.co.uk instead.';
+        status.dataset.state = 'error';
+      }
+    } catch {
+      status.textContent = 'Network error. Please email nathan@oakfox.co.uk instead.';
+      status.dataset.state = 'error';
+    }
+    button.disabled = false;
+    button.textContent = 'Send me the plan';
+  }
+
   async function runAudit(url: URL, fresh = false): Promise<void> {
+    // Every audit counts, whether it started here, from a site-wide band or a
+    // shared ?url= link. Not re-runs, and not our own footer badge.
+    if (!fresh && url.hostname.replace(/^www\./, '') !== 'oakfox.co.uk') window.oakfoxTrack?.('audit');
+
     const status = el<HTMLParagraphElement>('audit-status');
     const result = el<HTMLElement>('audit-result');
     const submit = el<HTMLButtonElement>('audit-submit');
@@ -885,9 +975,6 @@ const journalPosts = [
     const hostingLink = el<HTMLAnchorElement>('cta-hosting-link');
     hostingLink.classList.toggle('hidden', !offerHostingSwitch);
     hostingLink.classList.toggle('inline-flex', offerHostingSwitch);
-    el<HTMLAnchorElement>('cta-improve-link').href =
-      `/contact/?service=carbon-audit&audit=${encodeURIComponent(url.hostname)}&grade=${encodeURIComponent(grade)}`;
-
     // Shareable URL for these results.
     const shareUrl = `${window.location.origin}${window.location.pathname}?url=${encodeURIComponent(url.hostname)}`;
     history.replaceState(null, '', shareUrl);
@@ -907,6 +994,23 @@ const journalPosts = [
     el<HTMLElement>('cta-badge-withheld').classList.toggle('hidden', badge.allowed || !badge.blockers.length);
     if (badge.allowed) renderBadgeEmbed();
     else if (badge.blockers.length) renderBadgeWithheld(badge.blockers, grade);
+
+    // What a plan request sends Nathan: the numbers this visitor just saw.
+    // No scheme or www. in the message, or contact.php flags it as spam.
+    plan.host = url.hostname.replace(/^www\./, '');
+    plan.summary = [
+      'Free improvement plan request from the website carbon audit.',
+      '',
+      `Site: ${plan.host}`,
+      `Grade: ${grade}`,
+      `CO2 per visit: ${formatGrams(grams)}`,
+      `Page weight: ${formatBytes(carbon.bytes)}`,
+      `Hosting: ${isGreenHost ? 'verified green' : greenKnown ? 'not verified green' : 'unknown'}`,
+      ...(badge.blockers.length ? [`Also found: ${badge.blockers.map((b) => b.label).join('; ')}`] : []),
+    ].join('\n');
+    plan.shownAt = Date.now();
+    document.querySelectorAll('[data-plan-host]').forEach((node) => { node.textContent = plan.host; });
+    resetPlanForm();
 
     status.textContent = '';
     result.classList.remove('hidden');
@@ -1031,6 +1135,12 @@ const journalPosts = [
 
     document.getElementById('fresh-btn')?.addEventListener('click', () => {
       if (lastAuditedUrl) runAudit(lastAuditedUrl, true);
+    });
+
+    const planForm = document.getElementById('plan-form') as HTMLFormElement | null;
+    planForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      sendPlanRequest(planForm);
     });
 
     initBadgeControls();

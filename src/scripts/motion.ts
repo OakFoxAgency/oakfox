@@ -158,6 +158,7 @@ function heroScene(): void {
   const label = root.querySelector<HTMLElement>('.label');
   const paragraph = root.querySelector<HTMLElement>('[data-hero-paragraph]');
   const cta = root.querySelector<HTMLElement>('[data-magnetic]');
+  const aside = root.querySelector<HTMLElement>('[data-hero-aside]');
   const glow = root.querySelector<HTMLElement>('.hero-glow');
   const nudge = root.querySelector<HTMLElement>('.nudge');
 
@@ -165,7 +166,7 @@ function heroScene(): void {
 
   if (prefersReduced()) {
     if (words.length) gsap.set(words, { yPercent: 0, opacity: 1 });
-    [label, paragraph, cta].forEach((el) => {
+    [label, paragraph, cta, aside].forEach((el) => {
       if (el) gsap.set(el, { autoAlpha: 1, y: 0 });
     });
     return;
@@ -201,6 +202,13 @@ function heroScene(): void {
       cta,
       { autoAlpha: 0, y: 18 },
       { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.7 },
+    );
+  }
+  if (aside) {
+    gsap.fromTo(
+      aside,
+      { autoAlpha: 0, y: 18 },
+      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.85 },
     );
   }
 

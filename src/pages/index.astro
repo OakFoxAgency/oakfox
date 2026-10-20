@@ -115,6 +115,39 @@ const homeSchema = {
             </a>
           </div>
         </div>
+
+        <!-- The free carbon audit, where visitors land: most never scroll to the band further down. -->
+        <div data-hero-aside class="md:col-span-5 md:col-start-8 md:self-end">
+          <div class="border border-stone rounded-2xl bg-white/60 p-6 md:p-8">
+            <p class="label text-forest mb-4">Free tool · Website carbon audit</p>
+            <p class="headline text-xl md:text-2xl text-ink">How green is <em class="text-forest">your</em> website?</p>
+            <p class="mt-3 text-[14px] text-ink/65 leading-relaxed">
+              An A+ to F grade in seconds, with CO₂ per visit, page weight and a
+              verified green hosting check.
+            </p>
+            <form action="/website-carbon-audit/" method="get" class="mt-5 flex flex-col sm:flex-row gap-3">
+              <label for="hero-audit-url" class="sr-only">Your website address</label>
+              <input
+                id="hero-audit-url"
+                name="url"
+                type="text"
+                inputmode="url"
+                autocomplete="url"
+                spellcheck="false"
+                placeholder="yourwebsite.co.uk"
+                required
+                class="flex-1 min-w-0 bg-white border border-stone rounded-full px-5 py-3 text-[15px] text-ink placeholder:text-gray focus:outline-none focus:border-forest transition-colors duration-300"
+              />
+              <button
+                type="submit"
+                class="inline-flex items-center justify-center gap-2 bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-6 py-3 rounded-full text-[14px] font-medium whitespace-nowrap"
+              >
+                Get my grade
+              </button>
+            </form>
+            <p class="mt-3 text-[12px] text-ink/55">Free, and no email needed.</p>
+          </div>
+        </div>
       </div>
     </div>
 

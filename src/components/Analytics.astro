@@ -32,9 +32,5 @@
       send({ k: 'pv', en: landing ? 1 : 0 });
       landing = false;
     });
-    // The carbon audit runs from a page script; count each submitted audit here.
-    document.addEventListener('submit', (e) => {
-      if (e.target.id === 'audit-form') window.oakfoxTrack('audit');
-    }, true);
   })();
 </script>
