@@ -5,8 +5,8 @@
 date_default_timezone_set('Europe/London');
 
 const BOOKING_SLOT_MINUTES = 30;
-const BOOKING_OPEN_HOUR = 9;    // 09:00
-const BOOKING_CLOSE_HOUR = 17;  // last slot ends at 17:00 (so last start is 16:30)
+const BOOKING_OPEN_HOUR = 9;               // first call starts 09:00
+const BOOKING_CLOSE_MINUTE = 16 * 60 + 30; // last call ends 16:30, when the studio closes (so the last start is 16:00)
 const BOOKING_MIN_LEAD_HOURS = 24;
 const BOOKING_MAX_DAYS_AHEAD = 30;
 
@@ -63,7 +63,7 @@ function booking_slots_for_date(string $date): array {
     if ($dow >= 6) return []; // closed weekends
 
     $slots = [];
-    for ($h = BOOKING_OPEN_HOUR * 60; $h + BOOKING_SLOT_MINUTES <= BOOKING_CLOSE_HOUR * 60; $h += BOOKING_SLOT_MINUTES) {
+    for ($h = BOOKING_OPEN_HOUR * 60; $h + BOOKING_SLOT_MINUTES <= BOOKING_CLOSE_MINUTE; $h += BOOKING_SLOT_MINUTES) {
         $start = $day->setTime(intdiv($h, 60), $h % 60);
         $end = $start->modify('+' . BOOKING_SLOT_MINUTES . ' minutes');
         $slots[] = [

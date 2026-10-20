@@ -17,7 +17,7 @@ echo json_encode([
     'slots' => $slots,
     'config' => [
         'openHour' => BOOKING_OPEN_HOUR,
-        'closeHour' => BOOKING_CLOSE_HOUR,
+        'closeMinute' => BOOKING_CLOSE_MINUTE,
         'slotMinutes' => BOOKING_SLOT_MINUTES,
         'minLeadHours' => BOOKING_MIN_LEAD_HOURS,
         'maxDaysAhead' => BOOKING_MAX_DAYS_AHEAD,

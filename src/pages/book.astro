@@ -9,10 +9,11 @@ const serviceSchema = {
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
 };
 
-// The calendar's own rules (script below): weekdays only, from 24 hours ahead,
-// up to 30 days out, 30 minutes per call.
+// The calendar's own rules (script below and api/_booking_lib.php): weekdays
+// only, calls starting 09:00 to 16:00, from 24 hours ahead, up to 30 days out,
+// 30 minutes per call.
 const howItWorks = [
-  { title: 'Pick a time', body: 'Any weekday slot from a day ahead to a month out, shown in UK time.' },
+  { title: 'Pick a time', body: 'Any weekday call starting between 9:00 and 16:00 UK time, from a day ahead to a month out.' },
   { title: 'Get the confirmation', body: 'An email confirms the time, with a link to cancel if your plans change.' },
   { title: 'Talk it through', body: "Thirty minutes on your project and whether we're a good fit. No pitch and no obligation." },
 ];
@@ -20,13 +21,13 @@ const howItWorks = [
 
 <BaseLayout
   title="Book a call"
-  description="Book a free 30-minute initial call with OakFox. Calls run Monday to Friday, with times from 9am UK time."
+  description="Book a free 30-minute initial call with OakFox. Calls run Monday to Friday, starting between 9am and 4pm UK time."
   schema={serviceSchema}
 >
   <PageHero
     title="Book a free thirty-minute call."
     accent="free"
-    intro="Pick a time that suits you. No pitch and no obligation, just a chance to talk through your project and see if we're a good fit. Calls run Monday to Friday, UK time."
+    intro="Pick a time that suits you. No pitch and no obligation, just a chance to talk through your project and see if we're a good fit. Calls start between 9:00 and 16:00, Monday to Friday, UK time."
     primary={null}
     secondary={{ label: 'Rather write? Send a message', href: '/contact/' }}
   >
