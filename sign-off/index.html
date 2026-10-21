@@ -94,7 +94,8 @@ OakFox Limited. Questions about this agreement? Email <a href="mailto:nathan@oak
             var names = b.items.length > 1 ? b.items.slice(0, -1).join(', ') + ' and ' + b.items[b.items.length - 1] : b.items[0];
             $('billing-for').textContent = 'For ' + names + '.';
             $('bill-monthly').textContent = 'Monthly: ' + b.monthly + ' a month';
-            $('bill-annually').textContent = 'Annually: ' + b.annually + ' a year';
+            $('bill-annually').textContent = 'Annually: ' + b.annually + ' a year'
+              + (b.freeMonths ? ', ' + (b.freeMonths === 2 ? 'two' : b.freeMonths) + ' months free' : '');
           }
 
           $('state').hidden = true;
