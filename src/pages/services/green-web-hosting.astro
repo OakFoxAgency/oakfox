@@ -24,14 +24,16 @@ const breadcrumbs = {
   ],
 };
 
-// TODO Nathan: confirm the specs (backups, support times) against the hosting
-// box (185.116.214.190), which replaced the HostingUK reseller package.
-// Yearly is ten months' price: "two months free".
+// Prices confirmed by Nathan 21 Oct 2026 (£9.99 / £22.99 / £45.99, no VAT:
+// OakFox isn't VAT-registered). Yearly is ten months' price, "two months
+// free", kept as strings so the pence are exact. Backups match the hosting
+// box: WHM keeps 30 daily, 4 weekly and 3 monthly copies.
 const plans = [
   {
     id: 'starter',
     name: 'Starter',
-    price: 9,
+    price: '9.99',
+    year: '99.90',
     summary: 'A single site, fully managed. For sole traders, small studios, and brochure sites.',
     features: [
       '1 website',
@@ -48,7 +50,8 @@ const plans = [
   {
     id: 'growth',
     name: 'Growth',
-    price: 22,
+    price: '22.99',
+    year: '229.90',
     summary: 'Multi-site businesses, e-commerce, and sites with growing traffic.',
     features: [
       'Up to 3 websites',
@@ -66,14 +69,15 @@ const plans = [
   {
     id: 'business',
     name: 'Business',
-    price: 45,
+    price: '45.99',
+    year: '459.90',
     summary: 'Higher-traffic sites, multiple brands, or businesses needing hands-on involvement.',
     features: [
       'Up to 10 websites',
       '100 GB SSD storage',
       'Unmetered UK bandwidth',
       'Free SSL certificates (all sites)',
-      'Hourly backups (60-day retention)',
+      'Daily backups (30-day retention), plus monthly copies kept 3 months',
       'Free migration from your current host',
       'Phone + email support, 4-hour response SLA',
       'Monthly performance + uptime check-in',
@@ -85,7 +89,7 @@ const plans = [
 ];
 
 // Machine-readable pricing so answer engines and rich results can surface
-// "managed green web hosting UK from £9/month" with structured Offer data.
+// "managed green web hosting UK from £9.99/month" with structured Offer data.
 const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
@@ -166,7 +170,7 @@ const faqs = [
   },
   {
     q: 'Can I pay yearly?',
-    a: 'Yes. Pay yearly and you get two months free: Starter is £90 a year, Growth £220 and Business £450. Prices exclude VAT.',
+    a: 'Yes. Pay yearly and you get two months free: Starter is £99.90 a year, Growth £229.90 and Business £459.90. No VAT to add.',
   },
   {
     q: 'What happens if I want to leave?',
@@ -207,13 +211,13 @@ const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
 ---
 
 <BaseLayout
-  title="Managed Green Hosting from £9/month, Free Migration"
-  description="Managed green hosting plans for UK businesses from £9 a month: renewable-powered UK data centres, free migration from your current host and real UK support. Pick a plan and sign up online."
+  title="Managed Green Hosting from £9.99/month, Free Migration"
+  description="Managed green hosting plans for UK businesses from £9.99 a month: renewable-powered UK data centres, free migration from your current host and real UK support. Pick a plan and sign up online."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
   <PageHero
     back={{ label: 'Services', href: '/services/' }}
-    title="Managed green hosting from £9 a month."
+    title="Managed green hosting from £9.99 a month."
     accent="green"
     intro="Renewable-powered hosting in UK data centres, with the boring bits (setup, DNS, SSL, backups and monitoring) handled by OakFox. Pick a plan, tell us where your site lives now, and we move it for free."
     primary={{ label: 'See the plans', href: '#plans' }}
@@ -241,10 +245,10 @@ const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
               {p.highlight && <span class="rounded-full bg-cream/15 px-3 py-1 text-[13px] font-medium">Most popular</span>}
             </div>
             <div class="mt-6">
-              <span class="figures text-5xl md:text-6xl font-semibold tracking-tight">£{p.price}</span>
+              <span class="figures text-5xl md:text-6xl font-semibold tracking-tight">£{p.price.split('.')[0]}<span class="normal-nums text-3xl md:text-4xl">.{p.price.split('.')[1]}</span></span>
               <span class={`text-[15px] ml-1 ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>/ month</span>
             </div>
-            <p class={`mt-2 text-[15px] ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>or £{p.price * 10} a year, two months free</p>
+            <p class={`mt-2 text-[15px] ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>or £{p.year} a year, two months free</p>
             <p class={`mt-4 text-[15px] leading-relaxed ${p.highlight ? 'text-cream/80' : 'text-ink/70'}`}>{p.summary}</p>
             <ul class="mt-6 mb-8 space-y-3 flex-1">
               {p.features.map((f) => (
@@ -262,7 +266,7 @@ const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
       </div>
 
       <p class="mt-8 text-[15px] text-ink/65 leading-relaxed max-w-3xl">
-        Prices exclude VAT. Still choosing between hosts? Our <a href="/blog/green-web-hosting-uk-compared/" class={link}>comparison of UK green hosts</a>
+        No VAT to add. Still choosing between hosts? Our <a href="/blog/green-web-hosting-uk-compared/" class={link}>comparison of UK green hosts</a>
         covers the options if you'd rather run hosting yourself. Need something larger, like a busy
         e-commerce store, a high-traffic publication or dedicated infrastructure?
         <a href="/contact/?service=hosting" class={link}>Get in touch</a> for a custom quote.
@@ -438,9 +442,9 @@ const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
 
   <script>
     const PLANS: Record<string, string> = {
-      starter: 'Starter (£9 a month)',
-      growth: 'Growth (£22 a month)',
-      business: 'Business (£45 a month)',
+      starter: 'Starter (£9.99 a month)',
+      growth: 'Growth (£22.99 a month)',
+      business: 'Business (£45.99 a month)',
     };
     const BILLING: Record<string, string> = {
       monthly: 'monthly',
