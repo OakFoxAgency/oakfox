@@ -118,7 +118,17 @@ function signoff_fingerprint(array $doc): string {
         'billingChoice' => !empty($doc['billingChoice']),
         'created' => $doc['created'] ?? '',
     ];
+    // Only sign-offs that carry it: older fingerprints must stay as signed.
+    if (isset($doc['annualMonths'])) $agreement['annualMonths'] = (int) $doc['annualMonths'];
     return hash('sha256', json_encode($agreement, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+}
+
+// Sign-offs created from 21 Oct 2026 carry annualMonths: 10, so paying the
+// monthly items annually costs ten months ("two months free", as on the
+// hosting page). Older ones have no field and stay at twelve, so what was
+// signed reads exactly as it did.
+function signoff_annual_months(array $doc): int {
+    return (int) ($doc['annualMonths'] ?? 12);
 }
 
 function signoff_clean(string $s, int $max = 2000): string {
@@ -145,18 +155,24 @@ function signoff_sums(array $items): array {
     return $sums;
 }
 
-// Everything the first year costs: the one-off items, twelve months of the
-// monthly ones and the yearly ones. The same whichever way the client pays.
-function signoff_first_year(array $items): string {
-    $s = signoff_sums($items);
-    return signoff_money($s['one-off'] + 12 * $s['month'] + $s['year']);
+// Everything the first year costs: the one-off items, a year of the monthly
+// ones and the yearly ones. Paying annually costs less when the sign-off has
+// a discount, so until the client chooses both totals are given.
+function signoff_first_year(array $doc, ?string $choice = null): string {
+    $s = signoff_sums($doc['items'] ?? []);
+    $monthly = signoff_money($s['one-off'] + 12 * $s['month'] + $s['year']);
+    $annually = signoff_money($s['one-off'] + signoff_annual_months($doc) * $s['month'] + $s['year']);
+    if ($choice === 'annually') return $annually;
+    if ($choice === 'monthly' || $monthly === $annually || !signoff_billing($doc)) return $monthly;
+    return $monthly . ' paying monthly, or ' . $annually . ' paying annually';
 }
 
 // How it's paid, in words: "£9.99 a month and £14.99 a year". Paying
-// annually folds twelve months of the monthly items into the yearly payment.
-function signoff_plan(array $items, string $choice = 'monthly'): string {
+// annually folds the monthly items into the yearly payment, at the
+// sign-off's annual months (signoff_annual_months).
+function signoff_plan(array $items, string $choice = 'monthly', int $annualMonths = 12): string {
     $s = signoff_sums($items);
-    $year = $s['year'] + ($choice === 'annually' ? 12 * $s['month'] : 0);
+    $year = $s['year'] + ($choice === 'annually' ? $annualMonths * $s['month'] : 0);
     $parts = [];
     if ($s['one-off'] > 0) $parts[] = signoff_money($s['one-off']) . ' up front';
     if ($choice !== 'annually' && $s['month'] > 0) $parts[] = signoff_money($s['month']) . ' a month';
@@ -171,14 +187,16 @@ function signoff_plan(array $items, string $choice = 'monthly'): string {
 function signoff_summary(array $doc): array {
     $items = $doc['items'] ?? [];
     $choice = $doc['signature']['billing'] ?? null;
+    $months = signoff_annual_months($doc);
     $plan = signoff_billing($doc) && !$choice
-        ? signoff_plan($items, 'monthly') . ', or ' . signoff_plan($items, 'annually')
-        : signoff_plan($items, $choice ?: 'monthly');
-    return [['First year total', signoff_first_year($items)], ['Payments', $plan]];
+        ? signoff_plan($items, 'monthly') . ', or ' . signoff_plan($items, 'annually', $months)
+        : signoff_plan($items, $choice ?: 'monthly', $months);
+    return [['First year total', signoff_first_year($doc, $choice)], ['Payments', $plan]];
 }
 
 // When the sign-off lets the client choose, the monthly items can be paid
-// monthly or as one yearly payment of twelve months.
+// monthly or as one yearly payment (twelve months, or ten on sign-offs made
+// from 21 Oct 2026).
 function signoff_billing(array $doc): ?array {
     if (empty($doc['billingChoice'])) return null;
     $monthly = 0;
@@ -189,7 +207,9 @@ function signoff_billing(array $doc): ?array {
         $labels[] = $item['label'];
     }
     if (!$labels) return null;
-    return ['items' => $labels, 'monthly' => signoff_money($monthly), 'annually' => signoff_money($monthly * 12)];
+    $months = signoff_annual_months($doc);
+    return ['items' => $labels, 'monthly' => signoff_money($monthly), 'annually' => signoff_money($monthly * $months),
+        'freeMonths' => 12 - $months];
 }
 
 function signoff_billing_line(array $doc): string {
@@ -203,7 +223,8 @@ function signoff_billing_line(array $doc): string {
 
 // Saved when the agreement is signed: one entry per paid item, first due on
 // the signing date, and reminded by _signoff_reminders.php. Paying annually
-// turns a monthly item into a yearly payment of twelve months. This is
+// turns a monthly item into a yearly payment of the sign-off's annual months
+// (twelve, or ten on sign-offs made from 21 Oct 2026). This is
 // working state, not part of the agreement, so it's outside the fingerprint.
 function signoff_schedule(array $doc, string $today): array {
     $choice = $doc['signature']['billing'] ?? 'monthly';
@@ -213,7 +234,7 @@ function signoff_schedule(array $doc, string $today): array {
         if ($amount <= 0) continue;
         $unit = $item['unit'] ?? 'one-off';
         $every = $unit === 'month' ? ($choice === 'annually' ? 'year' : 'month') : ($unit === 'year' ? 'year' : 'once');
-        if ($unit === 'month' && $every === 'year') $amount = round($amount * 12, 2);
+        if ($unit === 'month' && $every === 'year') $amount = round($amount * signoff_annual_months($doc), 2);
         $out[] = [
             'id' => 'p' . ($i + 1),
             'label' => $item['label'],
@@ -263,10 +284,10 @@ function signoff_public(array $doc): array {
         'intro' => $doc['intro'] ?? '',
         'items' => $doc['items'] ?? [],
         'terms' => $doc['terms'] ?? [],
-        'firstYear' => signoff_first_year($doc['items'] ?? []),
+        'firstYear' => signoff_first_year($doc, $doc['signature']['billing'] ?? null),
         'plans' => [
             'monthly' => signoff_plan($doc['items'] ?? [], 'monthly'),
-            'annually' => signoff_plan($doc['items'] ?? [], 'annually'),
+            'annually' => signoff_plan($doc['items'] ?? [], 'annually', signoff_annual_months($doc)),
         ],
         'billing' => signoff_billing($doc),
         'fingerprint' => $doc['fingerprint'] ?? '',

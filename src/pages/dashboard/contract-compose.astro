@@ -268,9 +268,9 @@ const defaultClauses = {
       const amount = parseFloat(fields.fAmount.value) || 0;
       const fmt = '£' + amount.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       if (!amount) return '—';
-      if (type === 'fixed') return `${fmt} fixed fee, excluding VAT unless stated.`;
-      if (type === 'hourly') return `${fmt} per hour, excluding VAT unless stated. Work is billed to the nearest quarter-hour.`;
-      if (type === 'retainer') return `${fmt} per calendar month, excluding VAT unless stated. The retainer renews monthly until terminated in accordance with this Agreement.`;
+      if (type === 'fixed') return `${fmt} fixed fee.`;
+      if (type === 'hourly') return `${fmt} per hour. Work is billed to the nearest quarter-hour.`;
+      if (type === 'retainer') return `${fmt} per calendar month. The retainer renews monthly until terminated in accordance with this Agreement.`;
       return fmt;
     }
 

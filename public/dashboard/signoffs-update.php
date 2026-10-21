@@ -86,6 +86,8 @@ $doc = [
     'terms' => [],
     // Lets the client choose to pay the monthly items monthly or annually.
     'billingChoice' => !empty($in['billingChoice']),
+    // Annually is ten months' price, two months free (from 21 Oct 2026).
+    'annualMonths' => 10,
 ];
 
 foreach (is_array($in['items'] ?? null) ? $in['items'] : [] as $item) {
