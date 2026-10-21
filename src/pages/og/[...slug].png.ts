@@ -68,7 +68,7 @@ const staticPages: PageEntry[] = [
     slug: 'services/web-design',
     eyebrow: 'Service · Web Design',
     title: 'Websites designed around the people who use them.',
-    subtitle: 'Information architecture, UX, and design systems — accessible from the start.',
+    subtitle: 'Information architecture, UX and design systems, accessible from the start.',
     badge: 'Web Design',
   },
   {
@@ -89,13 +89,13 @@ const staticPages: PageEntry[] = [
     slug: 'services/marketing',
     eyebrow: 'Service · Marketing',
     title: 'Marketing that earns attention, not buys it.',
-    subtitle: 'Strategy, content, email, organic social, SEO — no greenwashing.',
+    subtitle: 'Strategy, content, email, organic social and SEO, with no greenwashing.',
     badge: 'Marketing',
   },
   {
     slug: 'services/environmental',
     eyebrow: 'Service · Environmental',
-    title: 'Sustainability, by proof — not by claim.',
+    title: 'Sustainability by proof, not by claim.',
     subtitle: 'Verified green hosting and original ecological research, built into every project.',
     badge: 'Environmental',
   },
@@ -103,7 +103,7 @@ const staticPages: PageEntry[] = [
     slug: 'website-carbon-audit',
     eyebrow: 'Free tool',
     title: 'How green is your website?',
-    subtitle: 'Instant carbon audit — CO₂ per visit, page weight, green hosting check, A+ to F grade.',
+    subtitle: 'Free carbon emissions audit: CO₂ per visit, page weight, green hosting check and an A+ to F grade.',
     badge: 'Carbon Audit',
   },
   {
@@ -127,7 +127,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       slug: `locations/${l.slug}`,
       eyebrow: `${l.region} · Location`,
       title: `A design studio for ${l.name} businesses.`,
-      subtitle: `Branding, web, marketing, and environmental work — ${l.distance}.`,
+      subtitle: `Branding, web, marketing and environmental work, ${l.distance}.`,
       badge: l.name,
     })),
     ...portfolioItems.map((item) => ({

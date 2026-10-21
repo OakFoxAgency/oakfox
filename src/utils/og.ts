@@ -3,24 +3,18 @@ import { Resvg } from '@resvg/resvg-js';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// Load fonts from @fontsource packages at build time. Satori supports woff
-// (not woff2), so the .woff files are the right choice.
+// Load fonts from @fontsource packages at build time. Satori reads woff (not
+// woff2) and can't use variable fonts, so the images use the static cuts of
+// Schibsted Grotesk, the site's own face (served as a variable woff2).
 const nodeModules = path.join(process.cwd(), 'node_modules');
-const workSans400 = fs.readFileSync(
-  path.join(nodeModules, '@fontsource/work-sans/files/work-sans-latin-400-normal.woff')
-);
-const workSans500 = fs.readFileSync(
-  path.join(nodeModules, '@fontsource/work-sans/files/work-sans-latin-500-normal.woff')
-);
-const workSans600 = fs.readFileSync(
-  path.join(nodeModules, '@fontsource/work-sans/files/work-sans-latin-600-normal.woff')
-);
-const workSans700 = fs.readFileSync(
-  path.join(nodeModules, '@fontsource/work-sans/files/work-sans-latin-700-normal.woff')
-);
-const playfairItalic = fs.readFileSync(
-  path.join(nodeModules, '@fontsource/playfair-display/files/playfair-display-latin-500-italic.woff')
-);
+const schibsted = (weight: number) =>
+  fs.readFileSync(
+    path.join(nodeModules, `@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-${weight}-normal.woff`)
+  );
+const schibsted400 = schibsted(400);
+const schibsted500 = schibsted(500);
+const schibsted600 = schibsted(600);
+const schibsted700 = schibsted(700);
 
 export interface OgImageProps {
   eyebrow?: string;
@@ -46,7 +40,7 @@ function tpl({ eyebrow, title, subtitle, badge }: OgImageProps) {
         flexDirection: 'column',
         padding: '72px 80px',
         position: 'relative',
-        fontFamily: 'Work Sans',
+        fontFamily: 'Schibsted Grotesk',
       },
       children: [
         {
@@ -87,7 +81,8 @@ function tpl({ eyebrow, title, subtitle, badge }: OgImageProps) {
                     gap: '10px',
                   },
                   children: [
-                    { type: 'span', props: { style: { color: FOREST }, children: '◆' } },
+                    // The diamond is drawn, not typed: the font has no U+25C6.
+                    { type: 'div', props: { style: { width: '15px', height: '15px', background: FOREST, transform: 'rotate(45deg)' } } },
                     'OakFox',
                   ],
                 },
@@ -214,16 +209,19 @@ function tpl({ eyebrow, title, subtitle, badge }: OgImageProps) {
   };
 }
 
+// Schibsted Grotesk has no subscript digits, so CO₂ is written CO2 here.
+const plain = (s?: string) => s?.replace(/₂/g, '2');
+
 export async function renderOgPng(props: OgImageProps): Promise<Buffer> {
-  const svg = await satori(tpl(props) as any, {
+  const text = { ...props, eyebrow: plain(props.eyebrow), title: plain(props.title)!, subtitle: plain(props.subtitle), badge: plain(props.badge) };
+  const svg = await satori(tpl(text) as any, {
     width: 1200,
     height: 630,
     fonts: [
-      { name: 'Work Sans', data: workSans400, weight: 400, style: 'normal' },
-      { name: 'Work Sans', data: workSans500, weight: 500, style: 'normal' },
-      { name: 'Work Sans', data: workSans600, weight: 600, style: 'normal' },
-      { name: 'Work Sans', data: workSans700, weight: 700, style: 'normal' },
-      { name: 'Playfair Display', data: playfairItalic, weight: 500, style: 'italic' },
+      { name: 'Schibsted Grotesk', data: schibsted400, weight: 400, style: 'normal' },
+      { name: 'Schibsted Grotesk', data: schibsted500, weight: 500, style: 'normal' },
+      { name: 'Schibsted Grotesk', data: schibsted600, weight: 600, style: 'normal' },
+      { name: 'Schibsted Grotesk', data: schibsted700, weight: 700, style: 'normal' },
     ],
   });
 
