@@ -212,8 +212,15 @@ function tpl({ eyebrow, title, subtitle, badge }: OgImageProps) {
 // Schibsted Grotesk has no subscript digits, so CO₂ is written CO2 here.
 const plain = (s?: string) => s?.replace(/₂/g, '2');
 
+// At 22px the subtitle runs about 75 characters a line. A title over 50
+// characters takes three lines, which leaves room for two subtitle lines, not
+// three, before the footer rule; cut at a word and end with an ellipsis.
+const fit = (s: string | undefined, max: number) =>
+  !s || s.length <= max ? s : s.slice(0, s.lastIndexOf(' ', max - 1)).replace(/[\s,;:.]+$/, '') + '…';
+
 export async function renderOgPng(props: OgImageProps): Promise<Buffer> {
-  const text = { ...props, eyebrow: plain(props.eyebrow), title: plain(props.title)!, subtitle: plain(props.subtitle), badge: plain(props.badge) };
+  const subtitle = fit(plain(props.subtitle), props.title.length > 50 ? 150 : 225);
+  const text = { ...props, eyebrow: plain(props.eyebrow), title: plain(props.title)!, subtitle, badge: plain(props.badge) };
   const svg = await satori(tpl(text) as any, {
     width: 1200,
     height: 630,
