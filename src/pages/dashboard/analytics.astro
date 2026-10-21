@@ -136,6 +136,7 @@ import DashboardLayout from '../../layouts/DashboardLayout.astro';
     newsletter: 'Newsletter sign-up',
     audit: 'Carbon audit run',
     plan: 'Audit plan requested',
+    hosting: 'Hosting sign-up',
   };
   const STORE_KEY = 'oakfox_analytics_days';
   const SVG = 'http://www.w3.org/2000/svg';
@@ -165,7 +166,7 @@ import DashboardLayout from '../../layouts/DashboardLayout.astro';
   }
 
   function renderKpis(d: Data) {
-    const enquiries = (t: Totals) => (t.events.contact || 0) + (t.events.booking || 0) + (t.events.plan || 0);
+    const enquiries = (t: Totals) => (t.events.contact || 0) + (t.events.booking || 0) + (t.events.plan || 0) + (t.events.hosting || 0);
     const tiles: [string, number, number][] = [
       ['Visitors', d.current.visitors, d.previous.visitors],
       ['Page views', d.current.pageviews, d.previous.pageviews],

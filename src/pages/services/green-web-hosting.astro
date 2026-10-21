@@ -10,6 +10,9 @@ import AuditCta from '../../components/AuditCta.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
 import GreenCheck from '../../components/demo/GreenCheck.astro';
 
+// This page sells hosting: plans, prices and sign-up. Which green host to pick
+// in general is the comparison post's job (/blog/green-web-hosting-uk-compared/).
+
 const pageUrl = 'https://oakfox.co.uk/services/green-web-hosting';
 
 const breadcrumbs = {
@@ -21,12 +24,14 @@ const breadcrumbs = {
   ],
 };
 
-// TODO Nathan: confirm pricing + specs against your HostingUK reseller package.
+// TODO Nathan: confirm the specs (backups, support times) against the hosting
+// box (185.116.214.190), which replaced the HostingUK reseller package.
+// Yearly is ten months' price: "two months free".
 const plans = [
   {
+    id: 'starter',
     name: 'Starter',
-    price: '£9',
-    cadence: '/ month',
+    price: 9,
     summary: 'A single site, fully managed. For sole traders, small studios, and brochure sites.',
     features: [
       '1 website',
@@ -37,13 +42,13 @@ const plans = [
       'Free migration from your current host',
       'Email support, next business day',
     ],
-    cta: { label: 'Start with Starter', href: '/contact?plan=hosting-starter' },
+    cta: 'Sign up for Starter',
     highlight: false,
   },
   {
+    id: 'growth',
     name: 'Growth',
-    price: '£22',
-    cadence: '/ month',
+    price: 22,
     summary: 'Multi-site businesses, e-commerce, and sites with growing traffic.',
     features: [
       'Up to 3 websites',
@@ -55,13 +60,13 @@ const plans = [
       'Priority email support, same business day',
       'Quarterly performance + uptime check-in',
     ],
-    cta: { label: 'Choose Growth', href: '/contact?plan=hosting-growth' },
+    cta: 'Sign up for Growth',
     highlight: true,
   },
   {
+    id: 'business',
     name: 'Business',
-    price: '£45',
-    cadence: '/ month',
+    price: 45,
     summary: 'Higher-traffic sites, multiple brands, or businesses needing hands-on involvement.',
     features: [
       'Up to 10 websites',
@@ -74,7 +79,7 @@ const plans = [
       'Monthly performance + uptime check-in',
       'Quarterly review call',
     ],
-    cta: { label: 'Talk about Business', href: '/contact?plan=hosting-business' },
+    cta: 'Sign up for Business',
     highlight: false,
   },
 ];
@@ -94,12 +99,12 @@ const serviceSchema = {
     '@type': 'Offer',
     name: `${p.name}: Managed Green Web Hosting`,
     description: p.summary,
-    price: p.price.replace(/[^0-9.]/g, ''),
+    price: String(p.price),
     priceCurrency: 'GBP',
     url: `${pageUrl}#plans`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: p.price.replace(/[^0-9.]/g, ''),
+      price: String(p.price),
       priceCurrency: 'GBP',
       referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
       valueAddedTaxIncluded: false,
@@ -125,18 +130,15 @@ const offerings = [
   },
 ];
 
-// How a move works, start to finish. The general case for green hosting lives
-// in the comparison post; this page is for people ready to switch.
 const moveSteps = [
   {
-    title: 'Check your current site',
-    body: 'Run the free website carbon audit on your site as it is now. It shows the page weight, CO₂ per visit and whether your current host is verified green, so you can see what the move changes.',
+    title: 'Pick a plan and sign up',
+    body: "Choose a plan, monthly or yearly, and tell us where your site lives now. Not sure which plan fits? Pick the closest and say so in the notes. Curious what the move changes? Run the free carbon audit on your site as it is today.",
     link: { label: 'Run the free audit', href: '/website-carbon-audit/' },
   },
   {
-    title: 'Tell us where it lives',
-    body: 'Send us your current host and the plan that fits. We reply within 24 hours with a migration window and a single invoice. No setup fees, no surprise add-ons.',
-    link: { label: 'Start the migration', href: '/contact?service=green-web-hosting' },
+    title: 'We reply within 24 hours',
+    body: 'With a migration window and a single invoice. No setup fees, no surprise add-ons.',
   },
   {
     title: 'We move everything',
@@ -152,37 +154,38 @@ const forWho = [
   'Leaving a host that bills in dollars and answers from a time zone twelve hours behind',
 ];
 
+// Buying questions first. "Which green host?" belongs to the comparison post.
 const faqs = [
   {
-    q: 'What is managed green web hosting?',
-    a: 'Managed green web hosting is website hosting that runs on verified renewable energy and is fully looked after for you. With OakFox, your site sits in a UK data centre on infrastructure listed in The Green Web Foundation\'s verified directory, and we handle setup, DNS, SSL, daily backups, security updates, and monitoring, so you never log into a control panel. Plans start at £9 a month and include free migration from your current host.',
-  },
-  {
-    q: 'How can I check your hosting is really green?',
-    a: 'Look it up yourself. Every site we host shows as green in The Green Web Foundation\'s public directory, which lists hosts running on verified renewable energy, not ones that buy offsets and call themselves neutral. Our free website carbon audit runs the same check on any site, including yours as it is today.',
-  },
-  {
-    q: 'Where are your servers located?',
-    a: 'All hosting plans run in UK data centres, which matters for GDPR, for performance to UK visitors, and for the carbon intensity of the underlying grid. Every plan is available anywhere in the UK, and we look after clients from our home patch of West Lancashire to London.',
-  },
-  {
-    q: 'Will moving to green hosting hurt my SEO or speed?',
-    a: 'No. Modern green hosting performs identically to standard hosting on every metric: uptime, response time, Core Web Vitals, Lighthouse score. If anything, a move from a slow shared host to managed green hosting often improves performance.',
+    q: 'What is included in "managed"?',
+    a: 'Setup, DNS configuration, SSL certificates, automated backups, security updates, uptime monitoring, and a real human to email when something is wrong. You never need to log into cPanel unless you want to.',
   },
   {
     q: 'Do you handle the migration from my current host?',
     a: 'Yes, free on every plan. We move your files, databases, email accounts, and DNS records, then schedule the DNS cutover for a quiet time so visitors see zero downtime. Most migrations complete inside a working day.',
   },
   {
-    q: 'What is included in "managed"?',
-    a: 'Setup, DNS configuration, SSL certificates, automated backups, security updates, uptime monitoring, and a real human to email when something is wrong. You never need to log into cPanel unless you want to.',
+    q: 'Can I pay yearly?',
+    a: 'Yes. Pay yearly and you get two months free: Starter is £90 a year, Growth £220 and Business £450. Prices exclude VAT.',
   },
   {
     q: 'What happens if I want to leave?',
     a: 'You own your data. We hand over a complete export (files, databases, DNS records) and assist with migration to your new host. No lock-in, no exit fees, no awkward conversations.',
   },
   {
-    q: 'How does this compare to Krystal, Kualo, or GreenGeeks directly?',
+    q: 'Will moving to green hosting hurt my SEO or speed?',
+    a: 'No. Modern green hosting performs identically to standard hosting on every metric: uptime, response time, Core Web Vitals, Lighthouse score. If anything, a move from a slow shared host to managed green hosting often improves performance.',
+  },
+  {
+    q: 'Where are your servers located?',
+    a: 'All hosting plans run in UK data centres, which matters for GDPR, for performance to UK visitors, and for the carbon intensity of the underlying grid. Every plan is available anywhere in the UK, and we look after clients from our home patch of West Lancashire to London.',
+  },
+  {
+    q: 'How can I check your hosting is really green?',
+    a: 'Look it up yourself. Every site we host shows as green in The Green Web Foundation\'s public directory, which lists hosts running on verified renewable energy, not ones that buy offsets and call themselves neutral. Our free website carbon audit runs the same check on any site, including yours as it is today.',
+  },
+  {
+    q: 'Why not go direct to Krystal or Kualo?',
     a: 'Going direct to a host is cheaper if you are comfortable managing your own hosting. OakFox\'s plans cost a little more because they include hands-on UK support, free migrations, ongoing maintenance, and the same person to talk to whether the question is about hosting, your site, or your brand.',
   },
 ];
@@ -198,25 +201,26 @@ const faqSchema = {
 };
 
 const link = 'text-forest underline underline-offset-4 hover:text-forest-dark';
+const input =
+  'w-full rounded-full border border-ink/15 bg-white px-5 py-3.5 text-[15px] text-ink placeholder:text-ink/45 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition';
+const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
 ---
 
 <BaseLayout
   title="Managed Green Hosting from £9/month, Free Migration"
-  description="OakFox managed green hosting plans for UK businesses: renewable-powered UK data centres, cPanel, free migration from your current host, and real UK support from £9 a month."
+  description="Managed green hosting plans for UK businesses from £9 a month: renewable-powered UK data centres, free migration from your current host and real UK support. Pick a plan and sign up online."
   schema={[serviceSchema, breadcrumbs, faqSchema]}
 >
   <PageHero
     back={{ label: 'Services', href: '/services/' }}
-    title="Managed green hosting. UK support."
-    accent="green support"
-    intro="Renewable-powered hosting in UK data centres, with the boring bits (setup, DNS, SSL, backups and monitoring) handled by OakFox. Free migration from your current host, plans from £9 a month, and a real person to email when something needs fixing."
+    title="Managed green hosting from £9 a month."
+    accent="green"
+    intro="Renewable-powered hosting in UK data centres, with the boring bits (setup, DNS, SSL, backups and monitoring) handled by OakFox. Pick a plan, tell us where your site lives now, and we move it for free."
     primary={{ label: 'See the plans', href: '#plans' }}
-    secondary={{ label: 'Is your current host green? Check free', href: '/website-carbon-audit/' }}
+    secondary={{ label: 'Sign up', href: '#sign-up' }}
   >
     <GreenCheck slot="aside" />
   </PageHero>
-
-  <Pillars items={offerings} />
 
   <!-- Plans: the one place on the site where three like-for-like cards are the
        honest layout, because they're being compared. -->
@@ -237,9 +241,10 @@ const link = 'text-forest underline underline-offset-4 hover:text-forest-dark';
               {p.highlight && <span class="rounded-full bg-cream/15 px-3 py-1 text-[13px] font-medium">Most popular</span>}
             </div>
             <div class="mt-6">
-              <span class="figures text-5xl md:text-6xl font-semibold tracking-tight">{p.price}</span>
-              <span class={`text-[15px] ml-1 ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>{p.cadence}</span>
+              <span class="figures text-5xl md:text-6xl font-semibold tracking-tight">£{p.price}</span>
+              <span class={`text-[15px] ml-1 ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>/ month</span>
             </div>
+            <p class={`mt-2 text-[15px] ${p.highlight ? 'text-cream/70' : 'text-ink/65'}`}>or £{p.price * 10} a year, two months free</p>
             <p class={`mt-4 text-[15px] leading-relaxed ${p.highlight ? 'text-cream/80' : 'text-ink/70'}`}>{p.summary}</p>
             <ul class="mt-6 mb-8 space-y-3 flex-1">
               {p.features.map((f) => (
@@ -251,21 +256,108 @@ const link = 'text-forest underline underline-offset-4 hover:text-forest-dark';
                 </li>
               ))}
             </ul>
-            <a href={p.cta.href} class={p.highlight ? 'btn-light' : 'btn-primary'}>{p.cta.label}</a>
+            <a href="#sign-up" data-plan={p.id} class={p.highlight ? 'btn-light' : 'btn-primary'}>{p.cta}</a>
           </div>
         ))}
       </div>
 
       <p class="mt-8 text-[15px] text-ink/65 leading-relaxed max-w-3xl">
-        Prices exclude VAT. Annual billing is available with two months free.
-        Still deciding between hosts? Read our <a href="/blog/green-web-hosting-uk-compared/" class={link}>independent comparison of six green hosts</a> first.
-        Need something larger, like a busy e-commerce store, a high-traffic publication or
-        dedicated infrastructure? <a href="/contact/" class={link}>Get in touch</a> for a custom quote.
+        Prices exclude VAT. Still choosing between hosts? Our <a href="/blog/green-web-hosting-uk-compared/" class={link}>comparison of UK green hosts</a>
+        covers the options if you'd rather run hosting yourself. Need something larger, like a busy
+        e-commerce store, a high-traffic publication or dedicated infrastructure?
+        <a href="/contact/?service=hosting" class={link}>Get in touch</a> for a custom quote.
       </p>
     </div>
   </section>
 
-  <ProcessSteps title="You do the first two steps. We do the rest." steps={moveSteps} />
+  <Pillars items={offerings} />
+
+  <!-- Sign-up: posts to the contact form's endpoint as a Hosting enquiry with
+       the plan and billing choice spelled out, and counts as a `hosting` event. -->
+  <section id="sign-up" class="py-16 md:py-24 border-t border-stone scroll-mt-24">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-5">
+        <h2 class="headline text-4xl md:text-5xl">Sign up in two minutes.</h2>
+        <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[48ch]">
+          Choose a plan and tell us where your site is now. We reply within 24 hours with a
+          migration window and a single invoice, then move everything for you.
+        </p>
+        <p class="mt-5 text-[15px] text-ink/65 leading-relaxed max-w-[48ch]">
+          Rather talk it through first? <a href="/book/" class={link}>Book a call</a>.
+        </p>
+      </div>
+
+      <div class="lg:col-span-7">
+        <form id="hosting-form" class="rounded-2xl border border-stone bg-cream-light p-6 md:p-9 space-y-6" novalidate>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hosting-hp" />
+
+          <fieldset>
+            <legend class={fieldLabel}>Plan</legend>
+            <div class="flex flex-wrap gap-2">
+              {plans.map((p) => (
+                <label class="hosting-pill">
+                  <input type="radio" name="plan" value={p.id} class="sr-only" checked={p.highlight} />
+                  <span class="pill-label">{p.name}, £{p.price}/month</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class={fieldLabel}>Billing</legend>
+            <div class="flex flex-wrap gap-2">
+              <label class="hosting-pill">
+                <input type="radio" name="billing" value="monthly" class="sr-only" checked />
+                <span class="pill-label">Monthly</span>
+              </label>
+              <label class="hosting-pill">
+                <input type="radio" name="billing" value="yearly" class="sr-only" />
+                <span class="pill-label">Yearly, two months free</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="hosting-site" class={fieldLabel}>Your website</label>
+              <input type="text" id="hosting-site" name="site" required autocomplete="url" class={input} placeholder="yourbusiness.co.uk" />
+            </div>
+            <div>
+              <label for="hosting-current" class={fieldLabel}>Hosted with now <span class="text-ink/55 font-normal">(optional)</span></label>
+              <input type="text" id="hosting-current" name="current_host" class={input} placeholder="e.g. GoDaddy, or not sure" />
+            </div>
+            <div>
+              <label for="hosting-name" class={fieldLabel}>Your name</label>
+              <input type="text" id="hosting-name" name="name" required maxlength="120" autocomplete="name" class={input} placeholder="Jane Cole" />
+            </div>
+            <div>
+              <label for="hosting-email" class={fieldLabel}>Your email</label>
+              <input type="email" id="hosting-email" name="email" required autocomplete="email" class={input} placeholder="you@yourbusiness.co.uk" />
+            </div>
+          </div>
+
+          <div>
+            <label for="hosting-notes" class={fieldLabel}>Anything we should know? <span class="text-ink/55 font-normal">(optional)</span></label>
+            <textarea
+              id="hosting-notes"
+              name="notes"
+              rows="3"
+              maxlength="2000"
+              class="w-full rounded-2xl border border-ink/15 bg-white px-5 py-4 text-[15px] text-ink placeholder:text-ink/45 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/20 transition resize-none"
+              placeholder="More than one site, email accounts to move, a date to avoid..."
+            ></textarea>
+          </div>
+
+          <div id="hosting-status" class="text-center text-[15px] font-medium" style="min-height: 24px;" aria-live="polite"></div>
+
+          <button type="submit" id="hosting-submit" class="btn-primary w-full">Sign up for hosting</button>
+          <p class="text-center text-[13px] text-ink/60">We reply within 24 hours. Your details are only used for your hosting.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps title="How the move works" steps={moveSteps} />
 
   <FitList title="A good fit if you're" items={forWho} />
 
@@ -288,9 +380,9 @@ const link = 'text-forest underline underline-offset-4 hover:text-forest-dark';
     </div>
   </section>
 
-  <FaqList title="Green hosting questions we hear a lot" items={faqs}>
-    Reading up first? Our <a href="/blog/green-web-hosting-uk-compared/" class={link}>green web hosting comparison</a>
-    covers the main UK providers in depth, and <a href="/blog/carbon-neutral-vs-green-web-hosting/" class={link}>carbon neutral vs green hosting</a>
+  <FaqList title="Before you sign up" items={faqs}>
+    Still deciding which kind of host you need? Our <a href="/blog/green-web-hosting-uk-compared/" class={link}>green web hosting comparison</a>
+    covers the main UK providers, and <a href="/blog/carbon-neutral-vs-green-web-hosting/" class={link}>carbon neutral vs green hosting</a>
     explains why the two labels aren't the same thing.
   </FaqList>
 
@@ -300,7 +392,138 @@ const link = 'text-forest underline underline-offset-4 hover:text-forest-dark';
 
   <CtaBlock
     title="Ready to move?"
-    text="Tell us where your site is hosted now and which plan fits. We reply within 24 hours with a migration window and a single invoice. No setup fees, no surprise add-ons."
+    text="Pick a plan and tell us where your site is hosted now. We reply within 24 hours with a migration window and a single invoice. No setup fees, no surprise add-ons."
     showLocations={false}
+    primary={{ label: 'Sign up', href: '#sign-up' }}
+    secondary={{ label: 'Book a call', href: '/book/' }}
   />
+
+  <style>
+    .hosting-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+    .hosting-pill {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .pill-label {
+      display: inline-block;
+      padding: 0.55rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 500;
+      border: 1.5px solid var(--color-stone);
+      color: var(--color-ink-light);
+      background: var(--color-white);
+      transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+      user-select: none;
+    }
+
+    .pill-label:hover {
+      border-color: var(--color-forest);
+      color: var(--color-forest);
+    }
+
+    .hosting-pill input:focus-visible + .pill-label {
+      outline: 2px solid var(--color-forest);
+      outline-offset: 2px;
+    }
+
+    .hosting-pill input:checked + .pill-label {
+      background: var(--color-forest);
+      border-color: var(--color-forest);
+      color: var(--color-cream);
+    }
+  </style>
+
+  <script>
+    const PLANS: Record<string, string> = {
+      starter: 'Starter (£9 a month)',
+      growth: 'Growth (£22 a month)',
+      business: 'Business (£45 a month)',
+    };
+    const BILLING: Record<string, string> = {
+      monthly: 'monthly',
+      yearly: 'yearly (two months free)',
+    };
+
+    // contact.php marks anything with a link in it as possible spam, so the
+    // site goes in as a bare domain.
+    const bareSite = (s: string) => s.trim().replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/$/, '');
+
+    function initHostingForm() {
+      const form = document.getElementById('hosting-form') as HTMLFormElement | null;
+      const status = document.getElementById('hosting-status');
+      const button = document.getElementById('hosting-submit') as HTMLButtonElement | null;
+      if (!form || !status || !button) return;
+      const loadedAt = Date.now();
+
+      // A plan card's button picks that plan before jumping to the form.
+      document.querySelectorAll<HTMLAnchorElement>('a[data-plan]').forEach((a) => {
+        a.addEventListener('click', () => {
+          const radio = form.querySelector<HTMLInputElement>(`input[name="plan"][value="${a.dataset.plan}"]`);
+          if (radio) radio.checked = true;
+        });
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const name = String(data.get('name') ?? '').trim();
+        const email = String(data.get('email') ?? '').trim();
+        const site = bareSite(String(data.get('site') ?? ''));
+        if (!name || !email || !site) {
+          status.style.color = '#b44d4d';
+          status.textContent = 'Add your website, name and email and we will take it from there.';
+          return;
+        }
+        const plan = PLANS[String(data.get('plan'))] ?? 'not chosen';
+        const billing = BILLING[String(data.get('billing'))] ?? 'monthly';
+        const current = String(data.get('current_host') ?? '').trim();
+        const notes = String(data.get('notes') ?? '').trim();
+
+        const body = new FormData();
+        body.set('name', name);
+        body.set('email', email);
+        body.set('website', String(data.get('website') ?? ''));
+        body.append('services[]', 'Hosting');
+        body.set(
+          'message',
+          `Hosting sign-up\n\nPlan: ${plan}\nBilling: ${billing}\nSite: ${site}\nHosted with now: ${current || 'not given'}` +
+            (notes ? `\n\nNotes: ${notes}` : ''),
+        );
+        body.set('elapsed_ms', String(Date.now() - loadedAt));
+        for (const key of ['gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) {
+          const value = sessionStorage.getItem('oakfox_' + key);
+          if (value) body.set(key, value);
+        }
+
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        try {
+          const res = await fetch('/api/contact.php', { method: 'POST', body });
+          const result = await res.json().catch(() => ({}));
+          if (res.ok && result.success) {
+            status.style.color = '#1A5C12';
+            status.textContent = `Thanks, ${name}. We'll reply within 24 hours with a date for the move.`;
+            window.oakfoxTrack?.('hosting');
+            if (window.gtag && window.__awConversionIds?.contact) {
+              window.gtag('event', 'conversion', { send_to: window.__awConversionIds.contact });
+            }
+            form.reset();
+          } else {
+            status.style.color = '#b44d4d';
+            status.textContent = result.error || 'Something went wrong. Please email nathan@oakfox.co.uk instead.';
+          }
+        } catch {
+          status.style.color = '#b44d4d';
+          status.textContent = 'Network error. Please email nathan@oakfox.co.uk instead.';
+        }
+        button.disabled = false;
+        button.textContent = 'Sign up for hosting';
+      });
+    }
+
+    document.addEventListener('astro:page-load', initHostingForm);
+  </script>
 </BaseLayout>
