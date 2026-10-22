@@ -79,6 +79,13 @@ const staticPages: PageEntry[] = [
     badge: 'Development',
   },
   {
+    slug: 'services/accessibility',
+    eyebrow: 'Service · Accessibility',
+    title: 'Accessibility audits and fixes.',
+    subtitle: 'Our own tool, A11yMate, plus manual testing. No overlays.',
+    badge: 'Accessibility',
+  },
+  {
     slug: 'services/copywriting',
     eyebrow: 'Service · Copywriting',
     title: 'Words that mean something. Not just fill space.',

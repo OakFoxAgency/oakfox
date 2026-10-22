@@ -34,6 +34,10 @@ Website design for independent brands. Includes: information architecture, user 
 URL: https://oakfox.co.uk/services/development
 Fast, accessible, green web builds. Static-first architecture using Astro, React or Next.js where complexity warrants, headless CMS (Sanity, Contentful, Storyblok), verified renewable-powered hosting. Targets 95+ Lighthouse performance and green Core Web Vitals. Typical engagement: £2,500–£20,000+.
 
+### Accessibility (audits and fixes)
+URL: https://oakfox.co.uk/services/accessibility
+Website accessibility audits and fixes for UK and EU businesses: a whole-site audit with OakFox's own tool A11yMate (https://a11ymate.co.uk) plus manual testing (keyboard, screen reader, zoom and reflow, colour), a prioritised plain-English report, the fixes made in the site (WordPress and other platforms), an accessibility statement and a re-test. No overlays and no guarantee of compliance. Fixed quote after a free one-page check (https://a11ymate.co.uk/check/).
+
 ### Copywriting
 URL: https://oakfox.co.uk/services/copywriting
 Website copy, campaign copy, brand voice, and editorial work. Every sustainability claim we write is defensible — no greenwashing. Typical engagement: £900–£6,000+ per project.

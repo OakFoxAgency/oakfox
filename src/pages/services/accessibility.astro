@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
+import LocationSignpost from '../../components/LocationSignpost.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+const pageUrl = 'https://oakfox.co.uk/services/accessibility';
+
+const serviceSchema = {
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Accessibility audits and fixes',
+  description: 'Website accessibility audits and fixes for UK and EU businesses. A whole-site audit with our own tool A11yMate plus manual testing, a plain-English report, the fixes made in your site, an accessibility statement and a re-test. No overlays.',
+  provider: { '@id': 'https://oakfox.co.uk/#organization' },
+  areaServed: ['United Kingdom', 'Ireland', 'Europe'],
+  serviceType: 'Website accessibility auditing and remediation',
+  url: pageUrl,
+};
+
+const breadcrumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://oakfox.co.uk/' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://oakfox.co.uk/services' },
+    { '@type': 'ListItem', position: 3, name: 'Accessibility', item: pageUrl },
+  ],
+};
+
+const offerings = [
+  {
+    title: 'A whole-site audit, tools and people',
+    description:
+      'We scan the site with A11yMate, our own accessibility checker, then test by hand against WCAG 2.2 AA: keyboard only, a screen reader, zoom and reflow, and colour and contrast. Tools catch the quick wins; people catch what stops someone finishing a purchase or a form.',
+  },
+  {
+    title: 'A report you can act on',
+    description:
+      'Every problem in plain English, ranked by how much it hurts real people and how easy it is to fix, with the page, the cause and the fix. Written so a manager can decide and a developer can build from it.',
+  },
+  {
+    title: 'The fixes, made in the site',
+    description:
+      'We do the work, not just the report: WordPress themes and plugins, and other platforms and custom builds. Then an accessibility statement that says what works, what does not yet and how to get help.',
+  },
+];
+
+const process = [
+  { title: 'Free check', body: 'Start with the free one-page check from A11yMate. It takes a minute, needs no signup and shows what an automated scan finds on a single page.', link: { label: 'Run the free check', href: 'https://a11ymate.co.uk/check/' } },
+  { title: 'Audit', body: 'A whole-site audit: A11yMate across every template, then manual testing by keyboard, with a screen reader, at 200% and 400% zoom and in different colour settings.' },
+  { title: 'Report', body: 'A prioritised, plain-English report: what is wrong, who it affects, how to fix it and what to do first.' },
+  { title: 'Fix', body: 'We make the fixes in your site, whether it is WordPress or another platform, and tell you about anything that needs a decision from you, such as brand colours.' },
+  { title: 'Statement', body: 'An accessibility statement written for your site: standard met, known gaps, a contact route, and the enforcement procedure that applies to you.' },
+  { title: 'Re-test', body: 'We test the fixes again and report what is resolved and what remains. Nothing is signed off on the strength of a scan alone.' },
+];
+
+const forWho = [
+  'UK and EU businesses selling online: the European Accessibility Act has applied since June 2025 to many consumer-facing services, with limited exemptions for micro-enterprises',
+  'Any UK business serving the public: the Equality Act 2010 requires reasonable adjustments, and an inaccessible website can fall short of that',
+  'Public sector bodies and their suppliers, who must meet WCAG 2.2 AA and publish an accessibility statement',
+  'Anyone who has had a complaint, a tender question or a procurement checklist asking for an accessibility report',
+  'Site owners who want to know where they stand before it becomes a problem',
+];
+
+const faqs = [
+  {
+    q: 'What does an accessibility audit cost?',
+    a: 'It depends on the size of the site and how many different page types it has, so we quote a fixed price once we have seen it. The free one-page check is the starting point: send us the result, or just the site address, and we reply within 24 hours with a fixed quote for the audit, and for the fixes if you want them done.',
+  },
+  {
+    q: 'Do you guarantee compliance?',
+    a: 'No, and be wary of anyone who does. Accessibility is about real people being able to use your site, not a badge. We test against WCAG 2.2 AA and fix what we find, and we tell you plainly what is left. Legal compliance is for a court or regulator to decide, and we are not lawyers.',
+  },
+  {
+    q: 'Do you install an accessibility overlay or widget?',
+    a: 'No. Overlays are a script that sits on top of a site and claims to fix it. They do not fix the underlying code, they can get in the way of people who already use assistive technology, and they have not protected sites from complaints. We fix the site itself.',
+  },
+  {
+    q: 'Why not just run an automated scanner?',
+    a: 'Automated tools, including ours, find only part of the problems. They cannot tell whether alt text is useful, whether a focus order makes sense or whether a form can be completed with a screen reader. That is why people test too.',
+  },
+  {
+    q: 'What is the European Accessibility Act?',
+    a: 'An EU law that has applied since 28 June 2025. It requires many consumer-facing products and services, including e-commerce, banking, e-books and passenger transport, to be accessible. Micro-enterprises providing services (fewer than 10 staff and turnover or balance sheet under €2 million) are exempt for services, but their customers and larger clients may still ask. Check how it applies to you.',
+  },
+  {
+    q: 'Does the Equality Act apply to my website?',
+    a: 'In the UK, the Equality Act 2010 requires service providers to make reasonable adjustments for disabled people, and that covers online services. There is no single legal standard for websites, but WCAG 2.2 AA is the benchmark that is widely used and referred to.',
+  },
+  {
+    q: 'Can you fix WordPress sites, and other platforms?',
+    a: 'Yes. A11yMate is built for WordPress, so that is where we are quickest, but we also fix other platforms, custom builds and static sites. Where a platform or theme limits what can be fixed, we say so in the report.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'It depends on the size of the site and what we find. We give you the timeline with the quote, before you commit.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': `${pageUrl}#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Website Accessibility Audits and Fixes, UK"
+  description="OakFox audits websites for accessibility and fixes them, using our own tool A11yMate plus manual testing. For UK and EU businesses. No overlays, no promises of guaranteed compliance."
+  schema={[serviceSchema, breadcrumbs, faqSchema]}
+>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Accessibility audits and fixes."
+    accent="audits fixes"
+    intro="We find what stops people using your website, tell you in plain English, and fix it. Our own tool, A11yMate, does the scanning; people do the testing. No overlays, and no promise of guaranteed compliance."
+    primary={{ label: 'Run the free check', href: 'https://a11ymate.co.uk/check/' }}
+    secondary={{ label: 'Ask for a quote', href: '/contact/' }}
+  >
+    <div slot="aside" class="rounded-2xl bg-moss p-8 md:p-10">
+      <h2 class="text-2xl md:text-3xl font-semibold tracking-tight leading-[1.15]">Our own tool: A11yMate</h2>
+      <p class="mt-4 text-base text-ink/75 leading-relaxed">
+        We built <a href="https://a11ymate.co.uk" class="text-forest underline underline-offset-4 hover:text-forest-dark transition-colors">A11yMate</a>, an accessibility checker for WordPress, because we needed it for our own audits. It does the repeatable scanning so our time goes on the manual testing that tools cannot do.
+      </p>
+      <p class="mt-4 text-[15px] text-ink/65">Automated checks find only part of the problems. We say so up front.</p>
+    </div>
+  </PageHero>
+
+  <Pillars title="What you get" items={offerings} />
+
+  <ProcessSteps title="How an accessibility project runs" steps={process} />
+
+  <FitList title="Who this is for" items={forWho} />
+
+  <FaqList title="Accessibility questions we hear a lot" items={faqs}>
+    The fixes start in the build: see how we handle <a href="/services/web-design/" class="text-forest underline underline-offset-4">accessible web design</a> and <a href="/services/development/" class="text-forest underline underline-offset-4">development</a>.
+  </FaqList>
+
+  <LocationSignpost service="Accessibility" keyword="website accessibility" />
+
+  <CtaBlock
+    title="Start with the free check."
+    text="Run A11yMate's free one-page check, then send us the result or just your site address. We reply within 24 hours with a fixed quote for the audit."
+    primary={{ label: 'Ask for a quote', href: '/contact/' }}
+    secondary={{ label: 'Run the free check', href: 'https://a11ymate.co.uk/check/' }}
+  />
+</BaseLayout>

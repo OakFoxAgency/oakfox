@@ -23,6 +23,7 @@
 - **[Branding](https://oakfox.co.uk/services/branding)** — sustainable brand identity, naming, voice, and guidelines.
 - **[Web Design](https://oakfox.co.uk/services/web-design)** — accessible, considered website design and design systems.
 - **[Development](https://oakfox.co.uk/services/development)** — fast, static-first web builds on verified renewable-powered hosting.
+- **[Accessibility](https://oakfox.co.uk/services/accessibility)** — website accessibility audits and fixes (WCAG 2.2 AA) using our own tool A11yMate (https://a11ymate.co.uk) plus manual testing. No overlays.
 - **[Copywriting](https://oakfox.co.uk/services/copywriting)** — website copy, campaign copy, brand voice.
 - **[Marketing](https://oakfox.co.uk/services/marketing)** — strategy, content, email, organic social, SEO — no greenwashing.
 - **[Green Web Hosting](https://oakfox.co.uk/services/green-web-hosting)** — managed, renewable-powered UK hosting with free migration.
