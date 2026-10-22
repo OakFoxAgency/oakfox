@@ -645,7 +645,7 @@ const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
   /* Grade ladder: a chip, a bar as long as the band's upper limit, a meaning. */
   .ladder-row {
     display: grid;
-    grid-template-columns: 3.25rem 1fr;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
     gap: 0.35rem 1.25rem;
     align-items: center;
   }
@@ -667,7 +667,8 @@ const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
   .ladder-measure { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
   .ladder-bar {
     display: block;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-width: 0.5rem;
     height: 0.625rem;
     width: calc(var(--w) * 0.72);
     border-radius: 999px;

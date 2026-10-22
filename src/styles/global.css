@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* A grid with no column rule (most of ours set columns only from md: or lg:) gets one implicit auto column, which
+   grows to fit its widest unbreakable child (an input, a button, a long word) and makes the page wider than a phone:
+   the footer's newsletter form did that at 360px. One column that can shrink instead; any grid-cols-* utility, or a
+   component's own grid-template-columns, still wins. */
+@layer base {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* Fallbacks sized to Schibsted Grotesk, so nothing moves when it swaps in.
    size-adjust is measured on the hero's own copy (Schibsted at 400 against
    Arial, and at 600 against Arial Bold, which is what headings fall back to);

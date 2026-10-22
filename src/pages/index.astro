@@ -246,6 +246,10 @@ const quoteWords = splitWords(`“${testimonials[0].quote}”`);
   @media (max-width: 1023px) {
     .hero-title .whitespace-nowrap { white-space: normal; }
   }
+  /* "Sustainable web design" is about 313px at the 2.6rem minimum, wider than a 320px phone's content box. */
+  @media (max-width: 359px) {
+    .hero-title { font-size: 2.2rem; }
+  }
 
   /* ---------- Work (horizontal) ---------- */
   .hwork-track {
