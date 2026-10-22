@@ -70,10 +70,10 @@ const breadcrumbs = {
         {posts.map((post) => (
           <li class="border-b border-stone">
             <a href={`/blog/${post.id}/`} class="post-row group grid md:grid-cols-12 gap-2 md:gap-8 py-6 md:py-8 items-baseline">
-              <time class="md:col-span-2 text-[15px] text-ink/60 figures" datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>
+              <time class="md:col-span-2 text-[15px] text-ink/65 figures" datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>
               <span class="md:col-span-6">
                 <span class="block text-xl md:text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">{post.data.title}</span>
-                <span class="mt-1 block text-[14px] text-ink/55">{post.data.category}</span>
+                <span class="mt-1 block text-[14px] text-ink/65">{post.data.category}</span>
               </span>
               <span class="md:col-span-4 flex items-baseline justify-between gap-6 text-[15px] text-ink/65 leading-relaxed">
                 <span class="line-clamp-2">{post.data.description}</span>

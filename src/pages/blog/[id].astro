@@ -120,7 +120,7 @@ if (post.data.howto) {
 >
   <article>
     <header data-scene="hero" class="max-w-[1400px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14">
-      <a href="/blog/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/60 hover:text-forest transition-colors">
+      <a href="/blog/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/65 hover:text-forest transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
         Journal
       </a>
@@ -133,22 +133,22 @@ if (post.data.howto) {
         <p data-hero-paragraph class="lg:col-span-7 text-xl md:text-2xl text-ink/70 leading-relaxed">{post.data.description}</p>
         <dl class="lg:col-span-5 grid grid-cols-2 gap-x-8 gap-y-4 text-[15px]">
           <div>
-            <dt class="text-[13px] text-ink/55">Published</dt>
+            <dt class="text-[13px] text-ink/65">Published</dt>
             <dd class="mt-0.5 font-medium text-ink"><time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time></dd>
           </div>
           {post.data.updated ? (
             <div>
-              <dt class="text-[13px] text-ink/55">Updated</dt>
+              <dt class="text-[13px] text-ink/65">Updated</dt>
               <dd class="mt-0.5 font-medium text-ink"><time datetime={post.data.updated.toISOString()}>{fmt(post.data.updated)}</time></dd>
             </div>
           ) : (
             <div>
-              <dt class="text-[13px] text-ink/55">Topic</dt>
+              <dt class="text-[13px] text-ink/65">Topic</dt>
               <dd class="mt-0.5 font-medium text-ink">{post.data.category}</dd>
             </div>
           )}
           <div>
-            <dt class="text-[13px] text-ink/55">Written by</dt>
+            <dt class="text-[13px] text-ink/65">Written by</dt>
             <dd class="mt-0.5 font-medium text-ink"><a href="/about/" class="hover:text-forest underline decoration-ink/20 underline-offset-4">{post.data.author}</a></dd>
           </div>
           {post.data.tags.length > 0 && (
@@ -260,3 +260,14 @@ if (post.data.howto) {
   .prose-oak :global(thead th) { font-weight: 600; }
   .prose-oak :global(code) { font-weight: 500; }
 </style>
+
+<script>
+  // Tables scroll sideways on narrow screens, so keyboard users must be able to focus them.
+  document.querySelectorAll<HTMLElement>('.prose-oak table').forEach((t) => {
+    if (t.scrollWidth > t.clientWidth) {
+      t.tabIndex = 0;
+      t.setAttribute('role', 'region');
+      t.setAttribute('aria-label', 'Table (scrolls sideways)');
+    }
+  });
+</script>

@@ -86,7 +86,7 @@ const breadcrumbs = {
                   <Img src={item.data.thumbnail} alt={item.data.title} loading="eager" class="w-full h-full object-cover object-top" />
                 </div>
                 <div class="lg:col-span-4 lg:pb-2">
-                  <p class="label text-ink/60">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
+                  <p class="label text-ink/65">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
                   <h2 class="mt-3 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05] group-hover:text-forest transition-colors">{item.data.title}</h2>
                   <p class="mt-4 text-lg text-ink/70 leading-relaxed">{item.data.description}</p>
                   <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
@@ -100,7 +100,7 @@ const breadcrumbs = {
                 <div class="img-wrap rounded-2xl bg-moss aspect-[16/10]">
                   <Img src={item.data.thumbnail} alt={item.data.title} class="w-full h-full object-cover object-top" />
                 </div>
-                <p class="mt-5 label text-ink/60">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
+                <p class="mt-5 label text-ink/65">{categoryNames[item.data.category] ?? item.data.category}, {year(item.data.date)}</p>
                 <h2 class="mt-2 text-2xl md:text-3xl font-semibold tracking-tight group-hover:text-forest transition-colors">{item.data.title}</h2>
                 <p class="mt-2 text-base md:text-lg text-ink/70 leading-relaxed line-clamp-2">{item.data.description}</p>
               </a>

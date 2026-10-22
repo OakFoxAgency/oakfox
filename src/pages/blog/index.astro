@@ -74,10 +74,10 @@ const breadcrumbs = {
           id="blog-search"
           type="search"
           placeholder="Search the journal"
-          class="w-full pl-12 pr-5 py-3.5 rounded-full border border-ink/15 bg-white text-[15px] text-ink placeholder:text-ink/50 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/15 transition-all"
+          class="w-full pl-12 pr-5 py-3.5 rounded-full border border-ink/15 bg-white text-[15px] text-ink placeholder:text-ink/65 focus:outline-none focus:border-forest focus:ring-2 focus:ring-forest/15 transition-all"
           aria-label="Search the journal"
         />
-        <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/55" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/65" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="7" />
           <path d="M21 21l-4.3-4.3" stroke-linecap="round" />
         </svg>
@@ -90,7 +90,7 @@ const breadcrumbs = {
                 href={`/blog/tags/${tag}/`}
                 class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-stone bg-cream-light text-[14px] text-ink/80 hover:border-forest hover:text-forest transition-colors"
               >
-                {tag} <span class="text-ink/45 figures">{count}</span>
+                {tag} <span class="text-ink/65 figures">{count}</span>
               </a>
             </li>
           ))}
@@ -109,7 +109,7 @@ const breadcrumbs = {
             {...searchData(lead)}
           >
             <div class="lg:col-span-8">
-              <p class="text-[14px] text-cream/65">Latest, {date(lead.data.date)}</p>
+              <p class="text-[14px] text-cream/80">Latest, {date(lead.data.date)}</p>
               <h2 class="mt-4 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.08] text-cream">{lead.data.title}</h2>
             </div>
             <div class="lg:col-span-4 flex flex-col justify-end">
@@ -129,12 +129,12 @@ const breadcrumbs = {
                   class="blog-card post-row group grid md:grid-cols-12 gap-2 md:gap-8 py-6 md:py-8 items-baseline"
                   {...searchData(post)}
                 >
-                  <span class="md:col-span-2 text-[15px] text-ink/60">
+                  <span class="md:col-span-2 text-[15px] text-ink/65">
                     <time class="figures" datetime={post.data.date.toISOString()}>{date(post.data.date)}</time>
                   </span>
                   <span class="md:col-span-6">
                     <span class="block text-xl md:text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">{post.data.title}</span>
-                    <span class="mt-1 block text-[14px] text-ink/55">{post.data.category}</span>
+                    <span class="mt-1 block text-[14px] text-ink/65">{post.data.category}</span>
                   </span>
                   <span class="md:col-span-4 flex items-baseline justify-between gap-6 text-[15px] text-ink/65 leading-relaxed">
                     <span class="line-clamp-2">{post.data.description}</span>

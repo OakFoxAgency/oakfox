@@ -6,7 +6,7 @@ interface Props {
   class?: string;
 }
 const { tone = 'dark', class: className = '' } = Astro.props;
-const muted = tone === 'dark' ? 'text-cream/55' : 'text-ink/55';
+const muted = tone === 'dark' ? 'text-cream/55' : 'text-ink/65';
 const metrics = [
   { key: 'lcp', label: 'Largest paint' },
   { key: 'js', label: 'JavaScript' },

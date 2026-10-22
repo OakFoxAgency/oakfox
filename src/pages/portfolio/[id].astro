@@ -94,7 +94,7 @@ const breadcrumbs = {
   <article>
     <!-- Header: title and summary, then the work itself, full width. -->
     <header data-scene="hero" class="max-w-[1400px] mx-auto px-6 md:px-10 pt-28 md:pt-36">
-      <a href="/portfolio/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/60 hover:text-forest transition-colors">
+      <a href="/portfolio/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/65 hover:text-forest transition-colors">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
         All work
       </a>
@@ -116,24 +116,24 @@ const breadcrumbs = {
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
       <dl class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-6 border-y border-stone py-7">
         <div>
-          <dt class="text-[13px] text-ink/55">Type of work</dt>
+          <dt class="text-[13px] text-ink/65">Type of work</dt>
           <dd class="mt-1 text-[15px] font-medium text-ink">
             {relatedService ? <a href={relatedService.href} class="hover:text-forest underline decoration-ink/20 underline-offset-4">{categoryNames[item.data.category]}</a> : categoryNames[item.data.category]}
           </dd>
         </div>
         <div>
-          <dt class="text-[13px] text-ink/55">Year</dt>
+          <dt class="text-[13px] text-ink/65">Year</dt>
           <dd class="mt-1 text-[15px] font-medium text-ink figures">{year}</dd>
         </div>
         {item.data.client && (
           <div>
-            <dt class="text-[13px] text-ink/55">Client</dt>
+            <dt class="text-[13px] text-ink/65">Client</dt>
             <dd class="mt-1 text-[15px] font-medium text-ink">{item.data.client}</dd>
           </div>
         )}
         {item.data.tags.length > 0 && (
           <div class={item.data.client ? '' : 'md:col-span-2'}>
-            <dt class="text-[13px] text-ink/55">What we did</dt>
+            <dt class="text-[13px] text-ink/65">What we did</dt>
             <dd class="mt-2 flex flex-wrap gap-1.5">
               {item.data.tags.map((tag: string) => (
                 <span class="px-2.5 py-1 rounded-full bg-moss text-[13px] text-ink/80">{tag}</span>
@@ -181,7 +181,7 @@ const breadcrumbs = {
         <div class="lg:sticky lg:top-28 space-y-6">
           {relatedService && (
             <div class="rounded-2xl border border-stone bg-cream-light p-6">
-              <p class="text-[13px] text-ink/55">The service behind it</p>
+              <p class="text-[13px] text-ink/65">The service behind it</p>
               <a href={relatedService.href} class="group mt-2 inline-flex items-center gap-2 text-lg font-semibold text-ink hover:text-forest transition-colors">
                 {relatedService.label}
                 <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
@@ -207,7 +207,7 @@ const breadcrumbs = {
             <div class="img-wrap rounded-2xl bg-moss aspect-[16/10]">
               <Img src={entry.data.thumbnail} alt={entry.data.title} class="w-full h-full object-cover object-top" />
             </div>
-            <p class="mt-5 text-[13px] text-ink/55">{label}</p>
+            <p class="mt-5 text-[13px] text-ink/65">{label}</p>
             <h3 class="mt-1 text-2xl md:text-3xl font-semibold tracking-tight group-hover:text-forest transition-colors">{entry.data.title}</h3>
           </a>
         ))}
