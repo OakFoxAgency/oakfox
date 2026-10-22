@@ -478,6 +478,23 @@ const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
         </div>
       </div>
 
+      <!-- Accessibility: the same address through A11yMate's free one-page check, on a11ymate.co.uk.
+           Clicks are counted as the 'a11y' event, against 'audit' (results shown), in the dashboard. -->
+      <div id="a11y-card" class="mt-6 rounded-2xl border border-stone bg-white/70 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+        <img src="/images/a11ymate/robot-head.svg" alt="" width="56" height="56" class="shrink-0" loading="lazy" />
+        <div class="flex-1">
+          <h3 class="headline text-[20px] md:text-[22px] text-ink leading-tight">Now check <span data-plan-host>your site</span> for accessibility.</h3>
+          <p class="mt-2 text-[14px] text-ink/70 leading-relaxed max-w-2xl">
+            The same page through A11yMate, our free accessibility checker: contrast, text size,
+            headings, links, forms and more against WCAG 2.2, explained in plain English. Free,
+            and nothing is stored.
+          </p>
+        </div>
+        <a id="a11y-link" href="https://a11ymate.co.uk/check/" target="_blank" rel="noopener" class="btn-outline shrink-0">
+          Check accessibility<span class="sr-only"> (opens a11ymate.co.uk in a new tab)</span>
+        </a>
+      </div>
+
       <p class="mt-6 text-[13px] text-ink/65 leading-relaxed max-w-3xl">
         Page weight is measured by OakFox's own crawler: your page plus the
         assets an initial view loads (lazy-loaded media excluded); real-browser
@@ -1036,6 +1053,7 @@ const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
     ].join('\n');
     plan.shownAt = Date.now();
     document.querySelectorAll('[data-plan-host]').forEach((node) => { node.textContent = plan.host; });
+    el<HTMLAnchorElement>('a11y-link').href = `https://a11ymate.co.uk/check/?url=${encodeURIComponent(url.href)}`;
     resetPlanForm();
 
     status.textContent = '';
@@ -1161,6 +1179,11 @@ const eOrF = (ratings.E ?? 0) + (ratings.F ?? 0);
 
     document.getElementById('fresh-btn')?.addEventListener('click', () => {
       if (lastAuditedUrl) runAudit(lastAuditedUrl, true);
+    });
+
+    // Measured against 'audit': how many people who see a carbon result go on to check accessibility.
+    document.getElementById('a11y-link')?.addEventListener('click', () => {
+      window.oakfoxTrack?.('a11y');
     });
 
     const planForm = document.getElementById('plan-form') as HTMLFormElement | null;

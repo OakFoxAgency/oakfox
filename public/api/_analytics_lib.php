@@ -7,7 +7,7 @@
 // IP. Raw IPs are never written. Data lives in ./data/analytics/ (deny-all
 // .htaccess inherited from ./data/) as one JSON line per hit, one file a month.
 
-const ANALYTICS_EVENTS = ['contact', 'newsletter', 'booking', 'audit', 'plan', 'hosting'];
+const ANALYTICS_EVENTS = ['contact', 'newsletter', 'booking', 'audit', 'plan', 'hosting', 'a11y'];
 
 function analytics_dir(): string {
     $dir = __DIR__ . '/data/analytics';
