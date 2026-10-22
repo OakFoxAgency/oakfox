@@ -36,7 +36,7 @@ Fast, accessible, green web builds. Static-first architecture using Astro, React
 
 ### Accessibility (audits and fixes)
 URL: https://oakfox.co.uk/services/accessibility
-Website accessibility audits and fixes for UK and EU businesses: a whole-site audit with OakFox's own tool A11yMate (https://a11ymate.co.uk) plus manual testing (keyboard, screen reader, zoom and reflow, colour), a prioritised plain-English report, the fixes made in the site (WordPress and other platforms), an accessibility statement and a re-test. No overlays and no guarantee of compliance. Fixed quote after a free one-page check (https://a11ymate.co.uk/check/).
+Website accessibility audits and fixes for UK and EU businesses: a whole-site audit with OakFox's own tool A11yMate (https://a11ymate.co.uk) plus manual testing (keyboard, screen reader, zoom and reflow, colour), a prioritised plain-English report, the fixes made in the site (WordPress sites today; other platforms coming soon), an accessibility statement and a re-test. No overlays and no guarantee of compliance. Fixed quote after a free one-page check (https://a11ymate.co.uk/check/).
 
 ### Copywriting
 URL: https://oakfox.co.uk/services/copywriting
