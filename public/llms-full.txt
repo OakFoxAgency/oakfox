@@ -114,6 +114,7 @@ We decline work in sectors we cannot support in good faith — typically fossil 
 
 ## Selected Case Studies
 
+- **A11yMate** — an accessibility checker and fixer for WordPress, designed and built in-house: whole-site audit, plain-English fixes, an editor assistant, safe fixes and a free page checker. No overlay and no compliance badge. OakFox's own product, behind its accessibility service. https://oakfox.co.uk/portfolio/a11ymate
 - **CubTrack** — Full product design, development, and marketing for a baby and toddler tracking app used by thousands of families. OakFox's first in-house product. https://oakfox.co.uk/portfolio/cubtrack
 - **TrailFox** — Brand, UX, and a cross-platform iOS + Android app designed and built in-house: an outdoor activity app that suggests the right activity for kids based on energy and place, with a shared family nature journal. OakFox's second in-house product. https://oakfox.co.uk/portfolio/trailfox
 - **Jennifer Lane** — Website refresh for the award-winning author and green witch, timed to coincide with a book launch. https://oakfox.co.uk/portfolio/jennifer-lane

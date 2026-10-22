@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 312" class="amr" role="img" aria-label="A11yMate robot">
+  <style>
+    .amr .ol { stroke: #13304A; stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+    .amr .eyes { transform-box: fill-box; transform-origin: center;  }
+    .amr .smile { transform-box: fill-box; transform-origin: 50% 0;  }
+    @keyframes amr-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.12); } }
+    @keyframes amr-smile { 0%, 4%, 30%, 100% { transform: none; } 10%, 24% { transform: scale(1.16, 1.5); } }
+    @media (prefers-reduced-motion: reduce) { .amr * {  } }
+  </style>
+  <!-- legs and feet -->
+  <path d="M98 262 L97 290 M142 262 L143 290" stroke="#13304A" stroke-width="30" stroke-linecap="round"/>
+  <path d="M98 262 L97 290 M142 262 L143 290" stroke="#3DBE6E" stroke-width="16" stroke-linecap="round"/>
+  <path class="ol" d="M77 304 Q77 285 96 285 Q115 285 115 304 Z M125 304 Q125 285 144 285 Q163 285 163 304 Z" fill="#3DBE6E"/>
+  <!-- left arm -->
+  <path d="M86 204 L61 246" stroke="#13304A" stroke-width="30" stroke-linecap="round"/>
+  <path d="M86 204 L61 246" stroke="#3DBE6E" stroke-width="16" stroke-linecap="round"/>
+  <circle class="ol" cx="57" cy="252" r="16" fill="#3DBE6E"/>
+  <!-- right arm -->
+  <g transform="translate(154 204)">
+    <g>
+      <path d="M0 0 L25 42" stroke="#13304A" stroke-width="30" stroke-linecap="round"/>
+      <path d="M0 0 L25 42" stroke="#3DBE6E" stroke-width="16" stroke-linecap="round"/>
+      <circle class="ol" cx="29" cy="48" r="16" fill="#3DBE6E"/>
+    </g>
+  </g>
+  <!-- body with the focus-ring target -->
+  <ellipse class="ol" cx="120" cy="222" rx="48" ry="54" fill="#fff"/>
+  <circle cx="120" cy="226" r="17" fill="none" stroke="#13304A" stroke-width="6"/>
+  <circle cx="120" cy="226" r="7.5" fill="#3DBE6E"/>
+  <!-- antenna -->
+  <path d="M160 56 L160 30" stroke="#13304A" stroke-width="7" stroke-linecap="round"/>
+  <circle class="ol" cx="160" cy="21" r="10" fill="#3DBE6E"/>
+  <!-- ears -->
+  <rect class="ol" x="37" y="82" width="26" height="50" rx="13" fill="#3DBE6E"/>
+  <rect class="ol" x="177" y="82" width="26" height="50" rx="13" fill="#3DBE6E"/>
+  <!-- head, visor, eyes, smile -->
+  <ellipse class="ol" cx="120" cy="106" rx="72" ry="64" fill="#fff"/>
+  <rect x="66" y="72" width="108" height="56" rx="28" fill="#13304A"/>
+  <rect x="84" y="79" width="72" height="9" rx="4.5" fill="#2E4D6B"/>
+  <g class="eyes">
+    <ellipse cx="102" cy="102" rx="8.5" ry="12" fill="#fff"/>
+    <ellipse cx="138" cy="102" rx="8.5" ry="12" fill="#fff"/>
+  </g>
+  <path class="smile" d="M104 143 Q120 157 136 143" fill="none" stroke="#13304A" stroke-width="7" stroke-linecap="round"/>
+</svg>
