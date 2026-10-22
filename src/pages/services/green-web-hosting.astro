@@ -27,7 +27,8 @@ const breadcrumbs = {
 // Prices confirmed by Nathan 21 Oct 2026 (£9.99 / £22.99 / £45.99, no VAT:
 // OakFox isn't VAT-registered). Yearly is ten months' price, "two months
 // free", kept as strings so the pence are exact. Backups match the hosting
-// box: WHM keeps 30 daily, 4 weekly and 3 monthly copies.
+// box: WHM keeps 14 daily, 4 weekly and 3 monthly copies (cut from 30 daily on
+// 22 Oct 2026 to fit the disk).
 const plans = [
   {
     id: 'starter',
@@ -58,7 +59,7 @@ const plans = [
       '30 GB SSD storage',
       'Unmetered UK bandwidth',
       'Free SSL certificates (all sites)',
-      'Daily backups (30-day retention)',
+      'Daily backups (14 days), plus weekly copies kept a month',
       'Free migration from your current host',
       'Priority email support, same business day',
       'Quarterly performance + uptime check-in',
@@ -77,7 +78,7 @@ const plans = [
       '100 GB SSD storage',
       'Unmetered UK bandwidth',
       'Free SSL certificates (all sites)',
-      'Daily backups (30-day retention), plus monthly copies kept 3 months',
+      'Daily backups (14 days), plus weekly copies kept a month and monthly copies kept 3 months',
       'Free migration from your current host',
       'Phone + email support, 4-hour response SLA',
       'Monthly performance + uptime check-in',
