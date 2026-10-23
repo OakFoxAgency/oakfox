@@ -48,7 +48,15 @@ Strategy, content, email, organic social, and SEO. Paid media only when it is th
 
 ### Green Web Hosting
 URL: https://oakfox.co.uk/services/green-web-hosting
-Managed, renewable-powered UK hosting with free migration, plus setup, DNS, SSL, backups, and monitoring handled. Verified by The Green Web Foundation. Plans from £9/month.
+Managed, renewable-powered UK hosting with free migration, plus setup, DNS, SSL, backups, and monitoring handled. Verified by The Green Web Foundation. Plans from £9.99 a month (no VAT).
+
+### Fix sprint
+URL: https://oakfox.co.uk/services/fix-sprint
+A fixed-price week fixing the worst accessibility and carbon problems on an existing site: found with the carbon audit, A11yMate and manual testing, fixed in the site, re-tested, with a one-page before and after. From £750 (no VAT), quoted at a fixed price before work starts.
+
+### Care plan
+URL: https://oakfox.co.uk/services/care-plan
+Monthly care for one website: managed green hosting, careful updates, backups and monitoring, a monthly carbon and accessibility report, and up to an hour of edits. From £79 a month (no VAT), month to month.
 
 ### Environmental (sustainability practice)
 URL: https://oakfox.co.uk/services/environmental
