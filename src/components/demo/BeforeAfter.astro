@@ -1,6 +1,9 @@
 ---
 // Environmental demo: a measured before and after, the bars growing to their
-// real lengths. Default figures: The Magpie's Tale, OakFox rater, 6 Oct 2026.
+// real lengths. Default figures: Jennifer Lane's homepage through the OakFox
+// rater's crawler. Before: the old WordPress site as the Internet Archive kept
+// it on 13 Feb 2026 (6,891,952 bytes, 0.83 g, F). After: live, 23 Oct 2026
+// (279,095 bytes, 0.034 g, A+). Both on green hosting.
 interface Reading {
   kb: number;
   grade: string;
@@ -13,22 +16,23 @@ interface Props {
   class?: string;
 }
 const {
-  before = { kb: 422, grade: 'A' },
-  after = { kb: 272, grade: 'A+' },
+  before = { kb: 6730, grade: 'F' },
+  after = { kb: 273, grade: 'A+' },
   beforeLabel = 'Before',
   afterLabel = 'After',
   class: className = '',
 } = Astro.props;
 const afterWidth = `${Math.round((after.kb / before.kb) * 100)}%`;
+const size = (kb: number) => (kb >= 1024 ? `${(kb / 1024).toFixed(1)} MB` : `${kb} KB`);
 ---
 
 <div data-demo class={`before-after space-y-4 ${className}`} aria-hidden="true">
   <div>
-    <div class="flex justify-between text-[13px] text-ink/65"><span>{beforeLabel}</span><span class="figures">{before.kb} KB, grade {before.grade}</span></div>
+    <div class="flex justify-between text-[13px] text-ink/65"><span>{beforeLabel}</span><span class="figures">{size(before.kb)}, grade {before.grade}</span></div>
     <div class="mt-1.5 h-3 rounded-full bg-stone/60"><span class="bar block h-full rounded-full bg-[#2E6B1E]" style="--w: 100%"></span></div>
   </div>
   <div>
-    <div class="flex justify-between text-[13px] text-ink/65"><span>{afterLabel}</span><span class="figures">{after.kb} KB, grade {after.grade}</span></div>
+    <div class="flex justify-between text-[13px] text-ink/65"><span>{afterLabel}</span><span class="figures">{size(after.kb)}, grade {after.grade}</span></div>
     <div class="mt-1.5 h-3 rounded-full bg-stone/60"><span class="bar block h-full rounded-full bg-forest" style={`--w: ${afterWidth}`}></span></div>
   </div>
 </div>
