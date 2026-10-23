@@ -35,6 +35,23 @@ const practices = [
     tone: 'ink',
   },
 ];
+
+const offers = [
+  {
+    name: 'Fix sprint',
+    price: 'From £750',
+    description: 'A week fixing the worst accessibility and carbon problems on the site you already have, re-tested, with a before and after.',
+    href: '/services/fix-sprint/',
+    cta: 'See the fix sprint',
+  },
+  {
+    name: 'Care plan',
+    price: 'From £79 a month',
+    description: 'Managed green hosting, careful updates, a monthly carbon and accessibility report, and an hour of edits, for one website.',
+    href: '/services/care-plan/',
+    cta: 'See the care plan',
+  },
+];
 ---
 
 <BaseLayout
@@ -52,6 +69,29 @@ const practices = [
     <div class="max-w-[1400px] mx-auto px-6 md:px-10">
       <h2 class="headline text-4xl md:text-5xl max-w-[18ch]">Six services, each one shown working.</h2>
       <div class="mt-10 md:mt-14"><ServicesBento /></div>
+    </div>
+  </section>
+
+  <!-- The two fixed-price offers (from 23 Oct 2026). -->
+  <section class="py-16 md:py-24 border-t border-stone">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <h2 class="headline text-4xl md:text-5xl max-w-[20ch]">Two fixed prices to start with.</h2>
+      <div class="mt-10 md:mt-14 grid md:grid-cols-2 gap-4 md:gap-5">
+        {offers.map((o) => (
+          <a href={o.href} class="reveal group flex flex-col justify-between rounded-2xl border border-stone bg-cream-light p-8 md:p-10 transition-transform duration-300 hover:-translate-y-0.5">
+            <div>
+              <p class="text-[15px] font-medium text-ink/65">{o.name}</p>
+              <p class="mt-2 text-4xl md:text-5xl font-semibold tracking-tight">{o.price}</p>
+              <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[44ch]">{o.description}</p>
+            </div>
+            <span class="mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
+              {o.cta}
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+      <p class="mt-6 text-[15px] text-ink/65">No VAT to add on either.</p>
     </div>
   </section>
 

@@ -201,6 +201,16 @@ const input =
       copy: 'Copywriting',
       marketing: 'Marketing',
       'carbon-audit': 'Development',
+      'fix-sprint': 'Development',
+      'care-plan': 'Hosting',
+    };
+
+    // The fixed-price offers: tick the nearest service and start the message.
+    const offerCopy: Record<string, string> = {
+      'fix-sprint':
+        "Hi, I'd like a quote for a fix sprint.\n\nMy site: \nWhat it's built with (if you know): \nAnything you've noticed or been told about it: ",
+      'care-plan':
+        "Hi, I'd like to know more about a care plan.\n\nMy site: \nWhat it's built with (if you know): \nWhere it's hosted now: ",
     };
 
     const hostingPlanCopy: Record<string, { message: string }> = {
@@ -237,6 +247,8 @@ const input =
       if (service) {
         const pillLabel = serviceSlugToPill[service.toLowerCase()];
         if (pillLabel) tickPillByLabel(pillLabel);
+        const offer = offerCopy[service.toLowerCase()];
+        if (offer && message && !message.value) message.value = offer;
       }
 
       const plan = params.get('plan');

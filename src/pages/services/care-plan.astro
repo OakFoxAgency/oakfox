@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+// Monthly care for one site (decided by Nathan 23 Oct 2026: from £79 a month, no VAT, OakFox isn't
+// VAT-registered). The hosting inside it is the Starter plan on /services/green-web-hosting/.
+const pageUrl = 'https://oakfox.co.uk/services/care-plan';
+
+const serviceSchema = {
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Website care plan',
+  description: 'Monthly care for one website: managed green hosting, updates, a monthly carbon and accessibility report, and an hour of edits. From £79 a month.',
+  provider: { '@id': 'https://oakfox.co.uk/#organization' },
+  areaServed: 'United Kingdom',
+  serviceType: 'Website maintenance and hosting',
+  url: pageUrl,
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'GBP',
+    price: '79',
+    priceSpecification: { '@type': 'UnitPriceSpecification', price: '79', minPrice: 79, priceCurrency: 'GBP', unitText: 'MONTH' },
+    url: pageUrl,
+  },
+};
+
+const breadcrumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://oakfox.co.uk/' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://oakfox.co.uk/services' },
+    { '@type': 'ListItem', position: 3, name: 'Care plan', item: pageUrl },
+  ],
+};
+
+const offerings = [
+  {
+    title: 'Green hosting, managed',
+    description:
+      'Your site on our renewable-powered UK hosting, with SSL, daily backups kept for 14 days and monitoring. We move it from your current host for free.',
+  },
+  {
+    title: 'Updates, done carefully',
+    description:
+      'Your site\'s software, theme and plugins kept up to date, with a backup taken first and a check afterwards. If an update breaks something, we put it back.',
+  },
+  {
+    title: 'A report every month',
+    description:
+      'Your carbon grade and page weight, an A11yMate accessibility check and your uptime, in a short email that says what changed and anything worth doing next.',
+  },
+  {
+    title: 'An hour of edits',
+    description:
+      'Up to an hour a month of changes: new text and photos, a new page, a price list, a small fix. Just email us what you need.',
+  },
+];
+
+const process = [
+  { title: 'Tell us about the site', body: 'Send the address and where it is hosted now. We look it over and confirm the monthly price.' },
+  { title: 'Move and check', body: 'We move the site onto our green hosting for free, then run a first carbon and accessibility check as your starting point.', link: { label: 'About our hosting', href: '/services/green-web-hosting/' } },
+  { title: 'Every month', body: 'Updates, backups, monitoring, your report and your hour of edits, without you having to ask.' },
+  { title: 'Bigger jobs', body: 'Anything beyond the hour, such as a fix sprint or a new section, is quoted at a fixed price first.', link: { label: 'See the fix sprint', href: '/services/fix-sprint/' } },
+];
+
+const forWho = [
+  'A small business that wants its website looked after, not just hosted',
+  'Sites that need the odd change every month and no one in-house to make it',
+  'Anyone who has had a fix sprint and wants the site to stay fast and accessible',
+  'WordPress and hand-built sites. Tell us what yours runs on and we confirm what is included',
+];
+
+const faqs = [
+  {
+    q: 'What does £79 a month cover?',
+    a: 'One website: managed green hosting, updates, backups, monitoring, a monthly carbon and accessibility report, and up to an hour of edits. Bigger or busier sites, or online shops, may cost more, and we confirm the price before you start. There is no VAT to add.',
+  },
+  {
+    q: 'How is this different from your hosting plans?',
+    a: 'The hosting plans look after the server: storage, SSL, backups and support. The care plan adds looking after the site itself: the updates, the monthly report, and an hour of our time for changes every month.',
+  },
+  {
+    q: 'Do unused edit hours roll over?',
+    a: 'No. The hour is there each month so small changes never pile up. If you have a bigger job, we quote it separately.',
+  },
+  {
+    q: 'Is there a contract?',
+    a: 'No long contract. It runs month to month, and you can stop with a month\'s notice. If you leave, we help move your site wherever you want it.',
+  },
+  {
+    q: 'What if my site has problems already?',
+    a: 'The first report will show them. Small things go into your monthly hour; bigger ones we suggest fixing with a fix sprint first, so the care plan starts from a good place.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': `${pageUrl}#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Website Care Plan from £79 a Month: Hosting, Updates, Reports"
+  description="Monthly care for your website from £79: managed green hosting, careful updates, a monthly carbon and accessibility report, and an hour of edits. No VAT to add, no long contract."
+  schema={[serviceSchema, breadcrumbs, faqSchema]}
+>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="Your website, looked after every month."
+    accent="looked after"
+    intro="Hosting, updates, a monthly carbon and accessibility report, and an hour of changes, for one website. You run the business; we keep the site fast, safe and easy to use."
+    primary={{ label: 'Ask about a care plan', href: '/contact/?service=care-plan' }}
+    secondary={{ label: 'Compare hosting plans', href: '/services/green-web-hosting/' }}
+  >
+    <div slot="aside" class="rounded-2xl bg-moss p-8 md:p-10">
+      <p class="text-[15px] font-medium text-ink/65">Care plan</p>
+      <p class="mt-2 text-5xl md:text-6xl font-semibold tracking-tight">From £79 <span class="whitespace-nowrap text-2xl md:text-3xl font-medium text-ink/65">a month</span></p>
+      <p class="mt-2 text-base text-ink/65">One website. No VAT to add, no long contract.</p>
+      <ul class="mt-6 space-y-2 text-base text-ink/80 leading-relaxed">
+        <li>Managed green hosting</li>
+        <li>Updates, backups and monitoring</li>
+        <li>A monthly carbon and accessibility report</li>
+        <li>An hour of edits every month</li>
+      </ul>
+    </div>
+  </PageHero>
+
+  <Pillars title="What's included" items={offerings} />
+
+  <ProcessSteps title="How it works" steps={process} />
+
+  <FitList title="Who this is for" items={forWho} />
+
+  <FaqList title="Care plan questions" items={faqs}>
+    Just want hosting? Our <a href="/services/green-web-hosting/" class="text-forest underline underline-offset-4">green hosting plans</a> start at £9.99 a month.
+  </FaqList>
+
+  <CtaBlock
+    title="Hand the website over."
+    text="Send us the address and where it is hosted now. We reply within 24 hours with your monthly price and what is included."
+    primary={{ label: 'Ask about a care plan', href: '/contact/?service=care-plan' }}
+    secondary={{ label: 'Run the carbon audit', href: '/website-carbon-audit/' }}
+  />
+</BaseLayout>

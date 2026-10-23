@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Pillars from '../../components/Pillars.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import FitList from '../../components/FitList.astro';
+import FaqList from '../../components/FaqList.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+// The fixed-price first step after a free health check (decided by Nathan 23 Oct 2026: from £750, no VAT,
+// OakFox isn't VAT-registered). Audit letters and the A11yMate checker point here.
+const pageUrl = 'https://oakfox.co.uk/services/fix-sprint';
+
+const serviceSchema = {
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Website fix sprint',
+  description: 'A fixed-price week fixing the worst accessibility and carbon problems on an existing website, with a re-test and a before-and-after report. From £750.',
+  provider: { '@id': 'https://oakfox.co.uk/#organization' },
+  areaServed: 'United Kingdom',
+  serviceType: 'Website accessibility and performance fixes',
+  url: pageUrl,
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'GBP',
+    price: '750',
+    priceSpecification: { '@type': 'PriceSpecification', minPrice: 750, priceCurrency: 'GBP' },
+    url: pageUrl,
+  },
+};
+
+const breadcrumbs = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://oakfox.co.uk/' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://oakfox.co.uk/services' },
+    { '@type': 'ListItem', position: 3, name: 'Fix sprint', item: pageUrl },
+  ],
+};
+
+const offerings = [
+  {
+    title: 'The worst problems, found properly',
+    description:
+      'We run the carbon audit and A11yMate across your main pages, then test by hand with a keyboard and a screen reader. You get a short, ranked list of what hurts visitors most, and we agree it with you before any work starts.',
+  },
+  {
+    title: 'A week of fixes, made in the site',
+    description:
+      'Heavy images resized and converted, fonts trimmed, unused scripts and plugins removed, caching switched on. Menus and forms that work with a keyboard, a visible focus outline, readable contrast, proper headings, labels and alt text.',
+  },
+  {
+    title: 'A before and after you can show',
+    description:
+      'We re-run the same tests and send a one-page result: page weight and carbon grade before and after, the accessibility problems fixed, and a plain list of anything left, so you know exactly where you stand.',
+  },
+];
+
+const process = [
+  { title: 'Free health check', body: 'Run the carbon audit and the free A11yMate check on your homepage, or just send us your address and we will run them for you.', link: { label: 'Run the carbon audit', href: '/website-carbon-audit/' } },
+  { title: 'Fixed quote', body: 'We look at the site and reply within 24 hours with a fixed price and the list of what we would fix. From £750 for a typical small business site.' },
+  { title: 'Agree the list', body: 'You choose what goes in. Anything that changes how the site looks, such as brand colours with poor contrast, we show you first.' },
+  { title: 'The sprint', body: 'Five working days on your site. We work on a copy or out of hours where we can, so visitors are not disturbed.' },
+  { title: 'Re-test and report', body: 'The same tests again, and a one-page before and after. Nothing is signed off on the strength of a scan alone.' },
+  { title: 'Keep it that way', body: 'Optional: a care plan keeps the site updated, checked and fixed every month, from £79.', link: { label: 'See the care plan', href: '/services/care-plan/' } },
+];
+
+const forWho = [
+  'A site that scored D to F on the carbon audit, or badly on the accessibility check, and you want it sorted without a rebuild',
+  'Someone has complained that they could not use your site, or a tender or client checklist has asked about accessibility',
+  'You sell to EU customers and want to know where you stand under the European Accessibility Act',
+  'Your site is slow on phones and you suspect it is costing you enquiries',
+  'WordPress and hand-built sites. On hosted builders such as Wix, Squarespace or Shopify some fixes are out of anyone\'s reach, and we tell you which before you pay',
+];
+
+const faqs = [
+  {
+    q: 'What does the £750 cover?',
+    a: 'Five working days on a typical small business site: the agreed list of accessibility and carbon fixes, a re-test, and the before and after report. Bigger sites, online shops with many templates, or sites that need more than a week are quoted at a fixed price before you commit. There is no VAT to add.',
+  },
+  {
+    q: 'Will my site look different?',
+    a: 'Mostly not. Most fixes are invisible: lighter images, cleaner code, labels a screen reader can announce. Where a fix changes how something looks, such as a colour with too little contrast, we show you the change and agree it first.',
+  },
+  {
+    q: 'Do you guarantee compliance?',
+    a: 'No, and be wary of anyone who does. We fix the problems that hurt real people most, test against WCAG 2.2 AA, and tell you plainly what is left. Legal compliance is for a court or regulator to decide.',
+  },
+  {
+    q: 'Do I have to move my hosting to you?',
+    a: 'No. We work on the site where it is. If your host is part of the problem, we say so, and our green hosting is there if you want it.',
+  },
+  {
+    q: 'What if you find more than a week of work?',
+    a: 'We tell you at the quote stage, not halfway through. You can pick the most important week of work now and leave the rest, or we quote for all of it. Sometimes a rebuild is the better answer, and we will say that too.',
+  },
+  {
+    q: 'Is this an accessibility overlay?',
+    a: 'No. Overlays are a script on top of a site that claims to fix it. We change the site itself, so the fixes work for everyone, including people who already use assistive technology.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  '@id': `${pageUrl}#faq`,
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Website Fix Sprint from £750: Accessibility and Carbon"
+  description="A fixed-price week fixing the worst accessibility and carbon problems on your existing website, then a re-test and a before and after. From £750, no VAT to add. Based in Ormskirk, working UK-wide."
+  schema={[serviceSchema, breadcrumbs, faqSchema]}
+>
+  <PageHero
+    back={{ label: 'Services', href: '/services/' }}
+    title="A week fixing what holds your site back."
+    accent="fixing"
+    intro="A fixed-price sprint on the site you already have. We fix the accessibility and carbon problems that hurt visitors most, test again, and show you the before and after."
+    primary={{ label: 'Get a fixed quote', href: '/contact/?service=fix-sprint' }}
+    secondary={{ label: 'Run the free health check', href: '/website-carbon-audit/' }}
+  >
+    <div slot="aside" class="rounded-2xl bg-moss p-8 md:p-10">
+      <p class="text-[15px] font-medium text-ink/65">Fix sprint</p>
+      <p class="mt-2 text-5xl md:text-6xl font-semibold tracking-tight">From £750</p>
+      <p class="mt-2 text-base text-ink/65">Fixed price, agreed before we start. No VAT to add.</p>
+      <ul class="mt-6 space-y-2 text-base text-ink/80 leading-relaxed">
+        <li>Five working days on your site</li>
+        <li>Accessibility and carbon fixes, ranked</li>
+        <li>Re-tested by hand, not just scanned</li>
+        <li>A one-page before and after</li>
+      </ul>
+    </div>
+  </PageHero>
+
+  <Pillars title="What you get" items={offerings} />
+
+  <ProcessSteps title="How a fix sprint runs" steps={process} />
+
+  <FitList title="Who this is for" items={forWho} />
+
+  <FaqList title="Fix sprint questions" items={faqs}>
+    Want the full picture first? See our <a href="/services/accessibility/" class="text-forest underline underline-offset-4">accessibility audits</a>, or how we build <a href="/services/web-design/" class="text-forest underline underline-offset-4">new sites</a> that start out light and accessible.
+  </FaqList>
+
+  <CtaBlock
+    title="Start with the free health check."
+    text="Run the carbon audit on your homepage, or send us the address. We reply within 24 hours with a fixed price and the list of what we would fix."
+    primary={{ label: 'Get a fixed quote', href: '/contact/?service=fix-sprint' }}
+    secondary={{ label: 'Run the carbon audit', href: '/website-carbon-audit/' }}
+  />
+</BaseLayout>

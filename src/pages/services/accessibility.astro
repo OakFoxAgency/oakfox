@@ -68,7 +68,7 @@ const forWho = [
 const faqs = [
   {
     q: 'What does an accessibility audit cost?',
-    a: 'It depends on the size of the site and how many different page types it has, so we quote a fixed price once we have seen it. The free one-page check is the starting point: send us the result, or just the site address, and we reply within 24 hours with a fixed quote for the audit, and for the fixes if you want them done.',
+    a: 'It depends on the size of the site and how many different page types it has, so we quote a fixed price once we have seen it. The free one-page check is the starting point: send us the result, or just the site address, and we reply within 24 hours with a fixed quote for the audit, and for the fixes if you want them done. If you mainly want the worst problems fixed on a small site, a fix sprint does that in a week, from £750.',
   },
   {
     q: 'Do you guarantee compliance?',
@@ -92,7 +92,7 @@ const faqs = [
   },
   {
     q: 'Can you fix sites that are not on WordPress?',
-    a: 'Not yet. A11yMate is built for WordPress, and that is where we fix sites today. Other platforms are coming soon: ask us and we will let you know. Where a theme or plugin limits what can be fixed, we say so in the report.',
+    a: 'Mostly we fix WordPress sites, where A11yMate runs, and hand-built sites we can edit directly. On hosted builders such as Wix, Squarespace or Shopify some fixes are out of anyone\'s reach, and we tell you which before you pay. Where a theme or plugin limits what can be fixed, we say so in the report.',
   },
   {
     q: 'How long does it take?',
@@ -140,7 +140,7 @@ const faqSchema = {
   <FitList title="Who this is for" items={forWho} />
 
   <FaqList title="Accessibility questions we hear a lot" items={faqs}>
-    The fixes start in the build: see how we handle <a href="/services/web-design/" class="text-forest underline underline-offset-4">accessible web design</a> and <a href="/services/development/" class="text-forest underline underline-offset-4">development</a>.
+    Want it fixed at a fixed price? See the <a href="/services/fix-sprint/" class="text-forest underline underline-offset-4">fix sprint</a>, from £750. The fixes start in the build: see how we handle <a href="/services/web-design/" class="text-forest underline underline-offset-4">accessible web design</a> and <a href="/services/development/" class="text-forest underline underline-offset-4">development</a>.
   </FaqList>
 
   <LocationSignpost service="Accessibility" keyword="website accessibility" />
