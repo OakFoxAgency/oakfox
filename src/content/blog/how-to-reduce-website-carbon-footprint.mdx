@@ -1,0 +1,117 @@
+---
+title: "How to Reduce Your Website's Carbon Footprint: 9 Changes, Ranked by Impact"
+description: "Reduce your website's carbon footprint: 9 ranked, measured changes from our audits of UK small-business sites. Start with hosting, images and fonts."
+date: 2026-11-02
+category: "Sustainability"
+author: "OakFox"
+tags: ["sustainability", "performance", "web design", "green hosting", "carbon"]
+draft: false
+faq:
+  - q: "What's the biggest single thing you can do to reduce a website's carbon footprint?"
+    a: "Move to verified green hosting. The Sustainable Web Design Model (v4) zeroes out the data-centre share of your page's emissions when the hosting is on a verified renewable provider, which on a typical UK small-business site is roughly a third of the total. It's a one-day change, usually at the same price or cheaper. Everything else on this list cuts the other two-thirds (network and user device)."
+  - q: "How much CO2 does a typical UK small business website produce per visit?"
+    a: "In our 2026 audit of 100 UK small-business homepages, the median emitted 0.24 g of CO2e per view (a D rating on the digital-carbon scale), the lightest 0.003 g and the heaviest 2.8 g: a nine-hundred-fold spread for pages doing broadly the same job. Images alone accounted for 60.5% of every byte transferred across the sample."
+  - q: "Does using WebP or AVIF really reduce emissions?"
+    a: "Yes, because images are 60.5% of bytes on the average small-business homepage (OakFox 100-site audit) and emissions scale with bytes. web.dev notes that AVIF is typically around half the file size of JPEG at the same perceptual quality, with WebP a close second and widely supported. The quickest wins also include sizing images to how they're actually displayed and using the lazy-loading attribute."
+  - q: "How do I measure my website's carbon footprint?"
+    a: "Three good tools: our free Website Carbon Audit gives you grams of CO2e per view, page weight, and a hosting check in one pass. Website Carbon Calculator uses the Sustainable Web Design Model v4 (updated July 2025) for a single-URL benchmark. PageSpeed Insights tells you which of the changes a browser can still see need fixing. Run one before any change, and the same one after."
+  - q: "Do green hosts actually run on renewables?"
+    a: "The ones on The Green Web Foundation's verified directory do: it checks the host's power sourcing against evidence rather than claims. In our audit, 63% of UK small-business sites passed the check, but over half of those passes were the site's CDN (Cloudflare, Google Cloud) being detected in front of the real host. Verify your actual origin, not just what a visitor's browser connects to first."
+---
+
+Cutting a website's carbon footprint comes down to moving fewer bytes to each visitor, serving them from renewable-powered infrastructure, and running less code on the device at the other end. In our audit of [100 UK small-business homepages](/blog/we-audited-100-uk-small-business-websites/), the median page emitted 0.24 g of CO2e per view, 44% rated E or F, and the heaviest was nine hundred times dirtier than the lightest. These nine changes, ranked by how many grams per view they saved on real builds and under the [Sustainable Web Design Model](https://sustainablewebdesign.org/estimating-digital-emissions/), are the shortest route to a cleaner page.
+
+## 1. Move to verified green hosting
+
+The biggest single lever, because it changes the grid-intensity multiplier that sits under every other number. The Sustainable Web Design Model (v4) multiplies data-centre energy by `(1 - Green Hosting Factor)`, which zeros out the data-centre share of your emissions when the host is on The Green Web Foundation's verified list.
+
+In practice that's a 25-40% cut on a typical page: data centres are one leg of the three-legged stool and the network and user device still run on the grid. It's still the largest single-move win, and it's a one-day change with no re-engineering.
+
+How to do it:
+
+- Check your current host on the [Green Web Foundation directory](https://www.thegreenwebfoundation.org/green-web-check/).
+- If it fails, move. Cloudflare Pages (free), Netlify, Vercel and UK-based Krystal all pass.
+- If you'd rather not touch it, our [managed green web hosting](/services/green-web-hosting/) handles the migration and keeps it on verified renewable infrastructure.
+
+## 2. Resize and reformat your images
+
+Images were 60.5% of all bytes in our 100-site audit, and 44 of those 99 sites shipped more than 1 MB of imagery on the homepage alone. If one change halves the weight of a page, this is it.
+
+The compounding wins:
+
+- **Modern formats.** Export AVIF with a WebP fallback, JPEG last. [web.dev's image learn module](https://web.dev/learn/images) explains how a `<picture>` element lets the browser pick the first format it supports without downloading the others. AVIF is typically around half the file size of JPEG at the same perceptual quality.
+- **Size for how they're displayed.** Stop serving a 4,000-pixel-wide hero to a 390-pixel-wide phone.
+- **Responsive `srcset`.** Let the browser pick the smallest file that will do.
+- **Width and height on every `<img>` and `<source>`.** No layout shift, no byte cost.
+
+On [The Magpie's Tale](/portfolio/the-magpies-tale/), the independent bookshop site we built in Southport, every illustration is a hand-drawn image saved as WebP: 17 to 65 KB each. The site is rated A+ at 0.034 g of CO2e per view, cleaner than 96% of pages tested.
+
+## 3. Drop autoplaying hero videos
+
+Video and audio were 15.7% of all bytes in our study, almost entirely in the heaviest handful of sites. Every page over 8 MB in our sample had an autoplaying hero video on it. It's the single most expensive design choice on the modern web.
+
+If you need the motion, in order of preference:
+
+- A looping CSS animation or SVG, not video.
+- A static poster image with a play button that fetches the file only on click.
+- If it must autoplay, export it at the dimensions it will play at (a phone does not need 1080p), compress hard, mute it, and lazy-load below the fold.
+
+## 4. Lazy-load everything below the fold
+
+Native lazy-loading is one attribute: `loading="lazy"` on an image tag (and the same on an inline frame). The browser defers the request until the image is near the viewport, which means a visitor who leaves without scrolling never downloads it.
+
+Set it on every image that isn't visible in the first screen. Leave it off the hero image so Largest Contentful Paint stays fast.
+
+## 5. Subset your web fonts
+
+Fonts were 9.6% of bytes in our audit, and 43 of 99 sites loaded more than 200 KB of font files, several more than their HTML, CSS and JavaScript combined. All usually for text that would read identically in a system font.
+
+Cuts, in order:
+
+- **Subset to the characters you actually need.** A UK English site has no use for Cyrillic, Vietnamese or Latin Extended.
+- **Variable fonts** replace three or four static weight files with one.
+- **`font-display: swap`** shows a system font until the custom one is ready, so a slow font doesn't block the text.
+- **Self-host.** Then `preconnect` to the font domain so the handshake happens early.
+
+## 6. Reduce JavaScript
+
+JavaScript was 10.2% of bytes, but it is the most expensive 10%: every kilobyte takes bandwidth to download, CPU to parse, memory to hold and battery to execute, multiplied across every visitor's device.
+
+- **Pre-render HTML** with Astro, 11ty or Hugo instead of shipping a single-page framework for a marketing site that doesn't need one.
+- **Audit with Chrome DevTools' Coverage panel.** Delete the libraries that run on one page in ten.
+- **Defer non-critical scripts** (analytics, chat widgets, embeds) until after the main content paints. Google Tag Manager alone ships 50 to 80 KB before it loads anything useful.
+
+## 7. Enable gzip or Brotli compression on text
+
+HTML, CSS and JavaScript compress by 60 to 80% in transit when the server turns gzip or Brotli on. It's a configuration setting, not a code change, and on modern hosts it is usually on by default. On older cPanel setups it isn't.
+
+Check: run your site through [PageSpeed Insights](https://pagespeed.web.dev/). It flags "Enable text compression" against every uncompressed asset. On a WordPress site, your host's control panel or a one-line `.htaccess` entry fixes it in minutes.
+
+## 8. Purge your unused CSS
+
+A production CSS file should be small. Tailwind's compiled output on an OakFox marketing site typically comes out at 5 to 15 KB gzipped because unused classes are purged. If your site's production CSS is larger than its HTML, something has gone wrong.
+
+- Run PurgeCSS, or your framework's built-in equivalent, as part of the build.
+- Delete legacy stylesheets left over from previous themes.
+- Avoid full icon fonts when an inline SVG does the same job for a tenth of the weight.
+
+## 9. Cut the third-party scripts you don't need
+
+Analytics, cookie banners, chat widgets, map embeds, tag managers: all third-party, all count as your page's emissions.
+
+- Swap Google Analytics for cookie-free analytics (which also removes the banner).
+- Load chat widgets only when a visitor opens them, not on every page.
+- Embed maps as a static image with a "View on Google Maps" link, not live iframes.
+- Delete one script a month until something visibly breaks.
+
+## Measure, then re-measure
+
+The hard part of sustainable web design is believing a change worked. Baseline before you start:
+
+- Our [free Website Carbon Audit](/website-carbon-audit/) returns page weight, g CO2e per view, a hosting check and an A+ to F grade, in one pass.
+- The [Website Carbon Calculator](https://www.websitecarbon.com/how-does-it-work/) uses the Sustainable Web Design Model v4 (updated July 2025) for a single-URL benchmark.
+- [PageSpeed Insights](https://pagespeed.web.dev/) flags the issues a browser can still see.
+
+Pick the top one or two from this list that apply to your site, ship the change, run the audit again. The ones that moved the number are the ones to keep; the ones that didn't would otherwise have burned a weekend for nothing.
+
+If you want us to measure for you, the [free carbon audit](/website-carbon-audit/) is the quickest way in.
