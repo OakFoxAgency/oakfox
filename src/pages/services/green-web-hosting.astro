@@ -20,7 +20,7 @@ const breadcrumbs = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://oakfox.co.uk/' },
     { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://oakfox.co.uk/services' },
-    { '@type': 'ListItem', position: 3, name: 'Green Web Hosting', item: pageUrl },
+    { '@type': 'ListItem', position: 3, name: 'Managed Green Hosting', item: pageUrl },
   ],
 };
 
@@ -90,19 +90,19 @@ const plans = [
 ];
 
 // Machine-readable pricing so answer engines and rich results can surface
-// "managed green web hosting UK from £9.99/month" with structured Offer data.
+// "managed green hosting UK from £9.99/month" with structured Offer data.
 const serviceSchema = {
   '@type': 'Service',
   '@id': `${pageUrl}#service`,
-  name: 'Managed Green Web Hosting',
-  description: 'Managed green web hosting for UK businesses: renewable-powered infrastructure, hands-on support and free migrations. OakFox handles setup, monitoring and maintenance on top of verified green hosting.',
+  name: 'Managed Green Hosting',
+  description: 'Managed green hosting for UK businesses: renewable-powered infrastructure, hands-on support and free migrations. OakFox handles setup, monitoring and maintenance on top of verified green hosting.',
   provider: { '@id': 'https://oakfox.co.uk/#organization' },
   areaServed: ['United Kingdom', 'England', 'Scotland', 'Wales', 'Northern Ireland'],
   serviceType: 'Web hosting',
   url: pageUrl,
   offers: plans.map((p) => ({
     '@type': 'Offer',
-    name: `${p.name}: Managed Green Web Hosting`,
+    name: `${p.name}: Managed Green Hosting`,
     description: p.summary,
     price: String(p.price),
     priceCurrency: 'GBP',
@@ -393,7 +393,7 @@ const fieldLabel = 'block text-[15px] font-semibold text-ink mb-2';
     explains why the two labels aren't the same thing.
   </FaqList>
 
-  <LocationSignpost service="Green web hosting" keyword="green web hosting" />
+  <LocationSignpost service="Managed green hosting" keyword="managed green hosting" />
 
   <AuditCta />
 
