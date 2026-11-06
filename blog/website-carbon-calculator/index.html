@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light only"><meta name="description" content="Website carbon calculators often grade the same page differently. Here's what they actually measure, why the numbers diverge, and which to trust in 2026."><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.j56hQv-j.js"></script><script>
+  (() => {
+    if (window.oakfoxTrack || location.hostname !== 'oakfox.co.uk' || navigator.webdriver) return;
+    const qs = new URLSearchParams(location.search);
+    let ref = '';
+    try { ref = new URL(document.referrer).hostname; } catch (e) {}
+    const internal = ref === location.hostname;
+    // Where the visit came from, sent with every view and event in this tab.
+    const entry = {
+      r: internal ? '' : ref.replace(/^www\./, ''),
+      us: qs.get('utm_source') || '',
+      um: qs.get('utm_medium') || '',
+      uc: qs.get('utm_campaign') || '',
+    };
+    let landing = !internal;
+    const send = (hit) => {
+      try {
+        navigator.sendBeacon('/api/hit.php', JSON.stringify({ ...entry, ...hit, p: location.pathname, w: innerWidth }));
+      } catch (e) {}
+    };
+    window.oakfoxTrack = (name) => send({ k: 'ev', e: name });
+    // ClientRouter fires astro:page-load on the first load and after every soft navigation.
+    document.addEventListener('astro:page-load', () => {
+      send({ k: 'pv', en: landing ? 1 : 0 });
+      landing = false;
+    });
+  })();
+</script><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://oakfox.co.uk/blog/website-carbon-calculator/"><link rel="alternate" type="application/rss+xml" title="OakFox Journal" href="/rss.xml"><link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt"><link rel="preload" href="/_astro/schibsted-grotesk-latin-wght-normal.Bb8VGrTG.woff2" as="font" type="font/woff2" crossorigin><title>Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust | OakFox</title><meta property="og:type" content="article"><meta property="og:title" content="Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust | OakFox"><meta property="og:description" content="Website carbon calculators often grade the same page differently. Here's what they actually measure, why the numbers diverge, and which to trust in 2026."><meta property="og:url" content="https://oakfox.co.uk/blog/website-carbon-calculator/"><meta property="og:site_name" content="OakFox"><meta property="og:image" content="https://oakfox.co.uk/og/blog/website-carbon-calculator.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust | OakFox"><meta name="twitter:description" content="Website carbon calculators often grade the same page differently. Here's what they actually measure, why the numbers diverge, and which to trust in 2026."><meta name="twitter:image" content="https://oakfox.co.uk/og/blog/website-carbon-calculator.png"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://oakfox.co.uk/#organization","name":"OakFox","alternateName":["Oak Fox","Oak and Fox","Oak & Fox"],"legalName":"OakFox Limited","url":"https://oakfox.co.uk","logo":"https://oakfox.co.uk/images/site/logo.png","image":"https://oakfox.co.uk/images/site/logo.png","description":"Sustainable design, development, marketing and consultancy studio based in West Lancashire, UK.","foundingDate":"2025","telephone":"+44 1704 773233","founder":{"@type":"Person","@id":"https://oakfox.co.uk/about#nathan","name":"Nathan James Entwistle","jobTitle":"Founder & Designer","worksFor":{"@id":"https://oakfox.co.uk/#organization"}},"address":{"@type":"PostalAddress","streetAddress":"Martland Mill, Mart Ln","addressLocality":"Burscough","addressRegion":"Lancashire","postalCode":"L40 0SD","addressCountry":"GB"},"areaServed":["United Kingdom","Ireland","Europe"],"knowsAbout":["Sustainable brand identity","Web design and development","Green web hosting","Marketing strategy","Copywriting","Website accessibility audits"],"identifier":{"@type":"PropertyValue","propertyID":"UK Companies House","value":"17118912"},"sameAs":["https://find-and-update.company-information.service.gov.uk/company/17118912","https://www.instagram.com/oak.fox/","https://share.google/3ktdz3XLvsqlNCqeE"]},{"@type":["LocalBusiness","ProfessionalService"],"@id":"https://oakfox.co.uk/#localbusiness","name":"OakFox","url":"https://oakfox.co.uk","image":"https://oakfox.co.uk/images/site/logo.png","telephone":"+44 1704 773233","priceRange":"££","address":{"@type":"PostalAddress","streetAddress":"Martland Mill, Mart Ln","addressLocality":"Burscough","addressRegion":"Lancashire","postalCode":"L40 0SD","addressCountry":"GB"},"parentOrganization":{"@id":"https://oakfox.co.uk/#organization"},"areaServed":["West Lancashire","Lancashire","Merseyside","Greater Manchester","United Kingdom"],"geo":{"@type":"GeoCoordinates","latitude":53.6041979,"longitude":-2.8431106},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"16:30"},"sameAs":["https://share.google/3ktdz3XLvsqlNCqeE","https://www.instagram.com/oak.fox/"]},{"@type":"WebSite","@id":"https://oakfox.co.uk/#website","url":"https://oakfox.co.uk","name":"OakFox","description":"Sustainable design, development, marketing and consultancy.","publisher":{"@id":"https://oakfox.co.uk/#organization"},"inLanguage":"en-GB"},{"@type":"BlogPosting","@id":"https://oakfox.co.uk/blog/website-carbon-calculator#article","headline":"Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust","description":"Website carbon calculators often grade the same page differently. Here's what they actually measure, why the numbers diverge, and which to trust in 2026.","datePublished":"2026-11-06T00:00:00.000Z","dateModified":"2026-11-06T00:00:00.000Z","inLanguage":"en-GB","url":"https://oakfox.co.uk/blog/website-carbon-calculator","mainEntityOfPage":"https://oakfox.co.uk/blog/website-carbon-calculator","articleSection":"Sustainability","keywords":"sustainability, measurement, web design, tools","author":{"@id":"https://oakfox.co.uk/#organization"},"publisher":{"@id":"https://oakfox.co.uk/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://oakfox.co.uk/"},{"@type":"ListItem","position":2,"name":"Journal","item":"https://oakfox.co.uk/blog"},{"@type":"ListItem","position":3,"name":"Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust","item":"https://oakfox.co.uk/blog/website-carbon-calculator"}]},{"@type":"FAQPage","@id":"https://oakfox.co.uk/blog/website-carbon-calculator#faq","mainEntity":[{"@type":"Question","name":"What is a website carbon calculator?","acceptedAnswer":{"@type":"Answer","text":"It's a tool that fetches a web page, measures how many bytes a first-time visit transfers, and multiplies that by published energy and grid-intensity factors to estimate CO₂e per view. The output is usually two numbers: grams of CO₂e per visit and a letter grade. The tool checks your host against the Green Web Foundation directory to decide whether the hosting component counts as renewable."}},{"@type":"Question","name":"Which website carbon calculator is most accurate?","acceptedAnswer":{"@type":"Answer","text":"There isn't a single right answer, because no calculator measures real electricity use. The ones to trust are the ones that show their workings: the model they use (most now use the Sustainable Web Design Model v4, via CO2.js), the data transfer they measured, the grid intensity they applied, and the date of the test. Our audit does all four on one card."}},{"@type":"Question","name":"Why do two calculators give different grams of CO₂ for the same page?","acceptedAnswer":{"@type":"Answer","text":"Three honest reasons. They crawl differently (a real-browser fetch sees lazy-loaded images and font subsets that a lighter scraper misses). They use different model versions (SWDM v3 and v4 give different answers, and the older OneByte model gives different ones again). And they may be showing a cached result from a previous test, when the page was lighter or heavier."}},{"@type":"Question","name":"Does a carbon calculator check my hosting?","acceptedAnswer":{"@type":"Answer","text":"The better ones do, by looking your domain up in the Green Web Foundation's green web check directory. That changes the hosting component of the estimate, not the whole number: hosting is roughly a fifth of the model's energy total, with networks and the visitor's device accounting for the rest. Switching to verified green hosting improves the grade, but it doesn't make a heavy page light."}},{"@type":"Question","name":"What is a good website carbon score?","acceptedAnswer":{"@type":"Answer","text":"On the published Sustainable Web Design Model, anything under about 0.3 g of CO₂e per page view beats the global average, and a page under 0.1 g sits comfortably in the top tier of the web. A good benchmark for a UK small business homepage is under 0.25 g per view and a total page weight under 1 MB. Our 100-site UK study showed the median was heavier than both."}},{"@type":"Question","name":"How often should I re-run the calculator?","acceptedAnswer":{"@type":"Answer","text":"Treat each result as a reading of the page on the day it was taken. Re-run the tool after any redesign, after a batch of new imagery, and whenever you add a new third-party embed or font. Between changes, once a quarter is plenty. A grade that was true in April tells you nothing about the homepage you launched in October."}}]}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.BC2UscEr.css">
+<style>summary[data-astro-cid-z65bj42f]::-webkit-details-marker{display:none}summary[data-astro-cid-z65bj42f]:hover span[data-astro-cid-z65bj42f]:first-child{color:var(--color-forest)}.plus[data-astro-cid-z65bj42f]:before,.plus[data-astro-cid-z65bj42f]:after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--color-forest);transition:transform .3s cubic-bezier(.16,1,.3,1)}.plus[data-astro-cid-z65bj42f]:after{transform:rotate(90deg)}.faq[data-astro-cid-z65bj42f][open] .plus[data-astro-cid-z65bj42f]:after{transform:rotate(0)}
+.article-title[data-astro-cid-gsbvazvt]{font-size:clamp(2.4rem,5vw,4.75rem);font-weight:600;letter-spacing:-.035em;line-height:1.03}.prose-oak[data-astro-cid-gsbvazvt]{--tw-prose-body: color-mix(in oklab, var(--color-ink) 82%, transparent);--tw-prose-headings: var(--color-ink);--tw-prose-links: var(--color-forest);--tw-prose-bold: var(--color-ink);--tw-prose-bullets: var(--color-forest);--tw-prose-counters: var(--color-forest);--tw-prose-quotes: var(--color-ink);--tw-prose-quote-borders: var(--color-forest);--tw-prose-hr: var(--color-stone);--tw-prose-th-borders: var(--color-stone);--tw-prose-td-borders: var(--color-stone);font-size:1.1875rem;line-height:1.7}.prose-oak[data-astro-cid-gsbvazvt] h2{font-size:2rem;font-weight:600;letter-spacing:-.025em;line-height:1.15;margin-top:2.4em;scroll-margin-top:7rem}.prose-oak[data-astro-cid-gsbvazvt] h3{font-size:1.4rem;font-weight:600;letter-spacing:-.015em;scroll-margin-top:7rem}.prose-oak[data-astro-cid-gsbvazvt] h4{font-weight:600}.prose-oak[data-astro-cid-gsbvazvt] a{text-underline-offset:4px;text-decoration-thickness:1px;overflow-wrap:anywhere}.prose-oak[data-astro-cid-gsbvazvt] a:hover{color:var(--color-forest-dark)}.prose-oak[data-astro-cid-gsbvazvt] blockquote{font-style:normal;font-weight:500;font-size:1.3em;line-height:1.45;padding-left:1.25em}.prose-oak[data-astro-cid-gsbvazvt] blockquote p:before,.prose-oak[data-astro-cid-gsbvazvt] blockquote p:after{content:none}.prose-oak[data-astro-cid-gsbvazvt] img{border-radius:1rem}.prose-oak[data-astro-cid-gsbvazvt] table{font-size:.875em;display:block;max-width:100%;overflow-x:auto}.prose-oak[data-astro-cid-gsbvazvt] thead th{font-weight:600}.prose-oak[data-astro-cid-gsbvazvt] code{font-weight:500}
+</style></head> <body class="bg-cream min-h-screen flex flex-col" data-astro-cid-37fxchfa> <header id="site-header" class="fixed top-0 left-0 right-0 z-50" data-astro-cid-3ef6ksr2> <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-5 flex items-center justify-between" data-astro-cid-3ef6ksr2> <a href="/" class="flex items-center gap-2.5" data-astro-cid-3ef6ksr2> <picture><source srcset="/images/site/logo-header.webp" type="image/webp"><img src="/images/site/logo-header.png" alt="OakFox" class="logo-img h-12 w-auto transition-all duration-500 ease-out" loading="eager" decoding="async" width="150" height="168"></picture> </a> <!-- Desktop nav --> <nav aria-label="Main" class="hidden md:flex items-center gap-10" data-astro-cid-3ef6ksr2> <a href="/portfolio/" class="text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Work </a><div class="relative nav-dropdown" data-astro-cid-3ef6ksr2> <a href="/services/" class="inline-flex items-center gap-1 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest py-2 text-ink/70" data-astro-cid-3ef6ksr2> Services <svg class="w-3 h-3 transition-transform duration-300 nav-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" data-astro-cid-3ef6ksr2> <path d="M3 4.5L6 7.5L9 4.5" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-3ef6ksr2></path> </svg> </a> <div class="nav-dropdown-panel absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible transition-all duration-300 min-w-[220px]" data-astro-cid-3ef6ksr2> <div class="bg-cream border border-stone/60 rounded-md shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] py-2.5" data-astro-cid-3ef6ksr2> <a href="/services/branding/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Branding </a><a href="/services/environmental/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Environmental </a><a href="/services/web-design/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Web Design </a><a href="/services/development/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Development </a><a href="/services/green-web-hosting/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Managed Green Hosting </a><a href="/services/accessibility/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Accessibility </a><a href="/services/copywriting/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Copywriting </a><a href="/services/marketing/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Marketing </a><a href="/website-carbon-audit/" class="block px-5 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/75" data-astro-cid-3ef6ksr2> Free Carbon Audit </a> </div> </div> </div><a href="/about/" class="text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Studio </a><a href="/blog/" class="text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-forest" data-astro-cid-3ef6ksr2> Journal </a><a href="/website-carbon-audit/" class="text-[13px] font-medium tracking-wide transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Free Audit </a> </nav> <div class="hidden md:flex items-center gap-2" data-astro-cid-3ef6ksr2> <a href="/book/" class="inline-flex items-center text-[14px] font-medium text-ink/75 hover:text-forest transition-colors duration-300 px-3 py-2" data-astro-cid-3ef6ksr2>
+Book a call
+</a> <a href="/contact/" class="inline-flex items-center text-[14px] font-medium bg-forest text-cream hover:bg-forest-dark transition-colors duration-300 px-4 py-2 rounded-full" data-astro-cid-3ef6ksr2>
+Start a project
+</a> </div> <!-- Mobile toggle --> <button id="mobile-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Toggle menu" data-astro-cid-3ef6ksr2> <span class="w-5 h-0.5 bg-ink block" data-astro-cid-3ef6ksr2></span> <span class="w-5 h-0.5 bg-ink block" data-astro-cid-3ef6ksr2></span> </button> </div> </header> <!--
+  Mobile overlay + panel live OUTSIDE <header> on purpose: the scrolled header
+  applies `backdrop-filter`, which creates a containing block for fixed
+  descendants and would clip the slide-out to the toolbar height.
+--> <div id="mobile-overlay" class="hidden fixed inset-0 bg-ink/40 z-[60]" data-astro-cid-3ef6ksr2></div> <nav id="mobile-nav" aria-label="Mobile" class="fixed top-0 right-0 h-full w-72 bg-cream z-[70] transform translate-x-full transition-transform duration-500 overflow-y-auto" data-astro-cid-3ef6ksr2> <div class="p-8 pt-24 flex flex-col gap-5 h-full" data-astro-cid-3ef6ksr2> <div data-astro-cid-3ef6ksr2> <a href="/portfolio/" class="text-2xl font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink" data-astro-cid-3ef6ksr2> Work </a>  </div><div data-astro-cid-3ef6ksr2> <a href="/services/" class="text-2xl font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink" data-astro-cid-3ef6ksr2> Services </a> <div class="mt-3 ml-1 flex flex-col gap-2.5 border-l border-stone pl-4" data-astro-cid-3ef6ksr2> <a href="/services/branding/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Branding </a><a href="/services/environmental/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Environmental </a><a href="/services/web-design/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Web Design </a><a href="/services/development/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Development </a><a href="/services/green-web-hosting/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Managed Green Hosting </a><a href="/services/accessibility/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Accessibility </a><a href="/services/copywriting/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Copywriting </a><a href="/services/marketing/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Marketing </a><a href="/website-carbon-audit/" class="text-[15px] font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink/70" data-astro-cid-3ef6ksr2> Free Carbon Audit </a> </div> </div><div data-astro-cid-3ef6ksr2> <a href="/about/" class="text-2xl font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink" data-astro-cid-3ef6ksr2> Studio </a>  </div><div data-astro-cid-3ef6ksr2> <a href="/blog/" class="text-2xl font-medium tracking-tight transition-colors duration-300 hover:text-forest text-forest" data-astro-cid-3ef6ksr2> Journal </a>  </div><div data-astro-cid-3ef6ksr2> <a href="/website-carbon-audit/" class="text-2xl font-medium tracking-tight transition-colors duration-300 hover:text-forest text-ink" data-astro-cid-3ef6ksr2> Free Audit </a>  </div> <a href="/contact/" class="text-2xl font-medium tracking-tight text-ink hover:text-forest transition-colors duration-300" data-astro-cid-3ef6ksr2>
+Contact
+</a> <div class="mt-auto text-[11px] font-mono uppercase tracking-widest text-gray" data-astro-cid-3ef6ksr2>
+West Lancashire, UK
+</div> </div> </nav> <main class="flex-1" data-astro-cid-37fxchfa>  <article data-astro-cid-gsbvazvt> <header data-scene="hero" class="max-w-[1400px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14" data-astro-cid-gsbvazvt> <a href="/blog/" class="inline-flex items-center gap-2 mb-6 text-[14px] font-medium text-ink/65 hover:text-forest transition-colors" data-astro-cid-gsbvazvt> <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" data-astro-cid-gsbvazvt><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-gsbvazvt></path></svg>
+Journal
+</a> <h1 class="headline article-title text-ink max-w-[22ch]" data-astro-cid-gsbvazvt> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Website</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Carbon</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Calculator:</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>How</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>They</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Work,</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Why</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>They</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Disagree,</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>and</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Which</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>to</span></span> <span class="split-word" data-astro-cid-gsbvazvt><span data-astro-cid-gsbvazvt>Trust</span></span> </h1> <div class="mt-8 grid lg:grid-cols-12 gap-y-6 lg:gap-x-16 items-start" data-astro-cid-gsbvazvt> <p data-hero-paragraph class="lg:col-span-7 text-xl md:text-2xl text-ink/70 leading-relaxed" data-astro-cid-gsbvazvt>Website carbon calculators often grade the same page differently. Here&#39;s what they actually measure, why the numbers diverge, and which to trust in 2026.</p> <dl class="lg:col-span-5 grid grid-cols-2 gap-x-8 gap-y-4 text-[15px]" data-astro-cid-gsbvazvt> <div data-astro-cid-gsbvazvt> <dt class="text-[13px] text-ink/65" data-astro-cid-gsbvazvt>Published</dt> <dd class="mt-0.5 font-medium text-ink" data-astro-cid-gsbvazvt><time datetime="2026-11-06T00:00:00.000Z" data-astro-cid-gsbvazvt>6 November 2026</time></dd> </div> <div data-astro-cid-gsbvazvt> <dt class="text-[13px] text-ink/65" data-astro-cid-gsbvazvt>Topic</dt> <dd class="mt-0.5 font-medium text-ink" data-astro-cid-gsbvazvt>Sustainability</dd> </div> <div data-astro-cid-gsbvazvt> <dt class="text-[13px] text-ink/65" data-astro-cid-gsbvazvt>Written by</dt> <dd class="mt-0.5 font-medium text-ink" data-astro-cid-gsbvazvt><a href="/about/" class="hover:text-forest underline decoration-ink/20 underline-offset-4" data-astro-cid-gsbvazvt>OakFox</a></dd> </div> <div class="col-span-2" data-astro-cid-gsbvazvt> <dt class="sr-only" data-astro-cid-gsbvazvt>Tags</dt> <dd class="flex flex-wrap gap-1.5" data-astro-cid-gsbvazvt> <a href="/blog/tags/sustainability/" class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors" data-astro-cid-gsbvazvt>sustainability</a><a href="/blog/tags/measurement/" class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors" data-astro-cid-gsbvazvt>measurement</a><a href="/blog/tags/web design/" class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors" data-astro-cid-gsbvazvt>web design</a><a href="/blog/tags/tools/" class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors" data-astro-cid-gsbvazvt>tools</a> </dd> </div> </dl> </div> </header> <div class="max-w-[1400px] mx-auto px-6 md:px-10 pb-16 md:pb-24" data-astro-cid-gsbvazvt> <div class="border-t border-stone pt-12 md:pt-16 grid lg:grid-cols-12 gap-12 lg:gap-16" data-astro-cid-gsbvazvt> <nav class="hidden lg:block lg:col-span-3" aria-label="In this article" data-astro-cid-gsbvazvt> <div class="sticky top-28" data-astro-cid-gsbvazvt> <p class="text-[14px] font-semibold text-ink" data-astro-cid-gsbvazvt>In this article</p> <ol class="mt-4 space-y-2.5 border-l border-stone" data-astro-cid-gsbvazvt> <li data-astro-cid-gsbvazvt> <a href="#what-a-carbon-calculator-actually-measures" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>What a Carbon Calculator Actually Measures</a> </li><li data-astro-cid-gsbvazvt> <a href="#the-shared-baseline-the-sustainable-web-design-model-v4" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>The Shared Baseline: the Sustainable Web Design Model v4</a> </li><li data-astro-cid-gsbvazvt> <a href="#why-the-same-page-gets-different-grams" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>Why the Same Page Gets Different Grams</a> </li><li data-astro-cid-gsbvazvt> <a href="#which-calculators-you-can-trust" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>Which Calculators You Can Trust</a> </li><li data-astro-cid-gsbvazvt> <a href="#how-our-audit-fits-in" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>How Our Audit Fits In</a> </li><li data-astro-cid-gsbvazvt> <a href="#what-to-take-away" class="block -ml-px border-l border-transparent pl-4 text-[14px] leading-snug text-ink/65 hover:text-forest hover:border-forest transition-colors" data-astro-cid-gsbvazvt>What to Take Away</a> </li> </ol> </div> </nav> <div class="min-w-0 lg:col-span-8 lg:col-start-5" data-astro-cid-gsbvazvt> <div class="prose-oak prose prose-lg max-w-[68ch]" data-astro-cid-gsbvazvt> <p>A website carbon calculator takes your URL, works out how many bytes a first-time visit loads, and multiplies that by a set of published energy and grid factors to produce an estimated CO₂e per view and a letter grade. Different tools can give the same page different answers, because they crawl differently, use different versions of the underlying model, and often cache their results for days or longer.</p>
+<p>If you’ve been comparing calculators and getting confused, you’re not doing anything wrong. The tools disagree for reasons that are easy to see once you know where to look. Here is how they work under the hood, why the numbers diverge, and what to look for in a result you can actually act on.</p>
+<h2 id="what-a-carbon-calculator-actually-measures">What a Carbon Calculator Actually Measures</h2>
+<p>None of the public calculators measure electricity. What they measure is <strong>data transfer</strong> (the kilobytes a visit downloads) and what they estimate is the energy that moving and loading those bytes would have used.</p>
+<p>The input is a URL. The engine fetches the page the way a browser would, tallies the bytes of HTML, CSS, JavaScript, images, fonts and media, and hands the total to a model. The model turns bytes into kilowatt-hours using published energy intensities for three parts of the system: the data centre, the network and the visitor’s device. Then it multiplies those kilowatt-hours by a grid carbon intensity to get grams of CO₂e per view.</p>
+<p>The output is a number of grams and, usually, a letter grade. That is the whole chain. Which is why the first and biggest lever in any carbon score is the page’s own weight.</p>
+<h2 id="the-shared-baseline-the-sustainable-web-design-model-v4">The Shared Baseline: the Sustainable Web Design Model v4</h2>
+<p>Nearly every serious public calculator now uses the same open methodology, so comparing them is less of a wild west than it looks. The <a href="https://sustainablewebdesign.org/estimating-digital-emissions/">Sustainable Web Design Model (SWDM)</a> is maintained by a working group of green-web practitioners, and its current release is version 4.</p>
+<p>Version 4 splits the energy of a page view across three segments:</p>
+<ul>
+<li><strong>Data centre:</strong> 22% of the total energy, at roughly 0.055 kWh per gigabyte transferred (operational), plus an embodied share for the hardware itself.</li>
+<li><strong>Network:</strong> 24% of the total, at 0.059 kWh per gigabyte.</li>
+<li><strong>User device:</strong> 54% of the total, at 0.080 kWh per gigabyte in operational energy, plus a substantial embodied share for the device.</li>
+</ul>
+<p>It then multiplies the energy by a grid carbon intensity. The model’s default uses the global average from Ember’s Data Explorer (494 g of CO₂e per kWh), and calculators can swap in a regional figure if the visitor’s location is known. First-time visitors are charged the full page; returning visitors are adjusted down by a cache ratio, on the assumption that their browser still has most of the assets.</p>
+<p>If a calculator tells you it uses “CO2.js” or “the Sustainable Web Design Model v4”, those are the numbers it’s running on. <a href="https://developers.thegreenwebfoundation.org/co2js/models/overview/">The Green Web Foundation’s CO2.js library</a>, which sits inside most calculators, uses SWDM v4 as the default.</p>
+<p>So in principle, two calculators should give the same page the same answer. In practice, they don’t. Here’s why.</p>
+<h2 id="why-the-same-page-gets-different-grams">Why the Same Page Gets Different Grams</h2>
+<h3 id="1-they-dont-measure-the-same-bytes">1. They Don’t Measure the Same Bytes</h3>
+<p>The crawler makes the biggest difference, and it’s where most of the disagreement lives.</p>
+<p>A heavier, browser-style crawler executes JavaScript, respects lazy-loading cues, picks a sensibly sized image from each <code>srcset</code>, and only downloads the font subsets a page would ask for in that viewport. A lighter crawler grabs the HTML, trusts the raw file sizes, and stops. For an image-heavy site, the difference between those two approaches can be half the result.</p>
+<p>The cap matters too. A calculator that measures only the first forty assets will miss the tail of a photo gallery. A calculator that renders the page might charge for an embedded video a less thorough crawler never notices. Neither is wrong on its own terms, but they’re answering slightly different questions.</p>
+<h3 id="2-they-may-not-be-using-the-same-model-version">2. They May Not Be Using the Same Model Version</h3>
+<p>The Sustainable Web Design Model has shifted its numbers between releases, and the older OneByte model (still an option in CO2.js) treats the system more narrowly, counting data centre and network but leaving the visitor’s device out. <a href="https://developers.thegreenwebfoundation.org/co2js/models/overview/">CO2.js initialises with SWDM v4 by default</a>, but a calculator can opt into SWDM v3 or OneByte with a one-line config change.</p>
+<p>If one tool is on SWDM v4 and another on a legacy model, the grams will differ even on an identical byte count.</p>
+<h3 id="3-one-of-them-might-be-showing-you-a-cached-result">3. One of Them Might Be Showing You a Cached Result</h3>
+<p>Crawling is the expensive part of running a free tool, so almost every public calculator caches its results. Our own does, for an hour. Others keep results for weeks or months, which means a page that got an A in April could still be showing that A long after a redesign pushed it into F territory.</p>
+<p>The fix is simple: find the date-tested stamp on any result before you trust it, and re-run a tool rather than trust the first grade it hands you.</p>
+<h3 id="4-the-hosting-lookup-can-disagree-too">4. The Hosting Lookup Can Disagree Too</h3>
+<p>Most calculators now check your domain against <a href="https://www.thegreenwebfoundation.org/green-web-check/">the Green Web Foundation’s green web directory</a>. If your host is verified renewable, the hosting component of the estimate is scaled down. That changes the result, but it won’t halve a heavy page: hosting is roughly a fifth of the energy total in SWDM v4, with networks and the visitor’s device accounting for the rest. A page can be hosted green and still grade poorly if it weighs 3 MB.</p>
+<p>Occasionally a host that is renewable isn’t in the directory yet, and that absence shows up as a worse grade than the site deserves. If a result surprises you, check the directory lookup directly before you draw conclusions about the model.</p>
+<h2 id="which-calculators-you-can-trust">Which Calculators You Can Trust</h2>
+<p>The honest test is methodology transparency. A calculator worth using should answer these without you having to email anyone:</p>
+<ul>
+<li><strong>What model is it using, and at what version?</strong> (SWDM v4 is the current public standard.)</li>
+<li><strong>What data transfer did it measure for your page, and what cap?</strong></li>
+<li><strong>What grid intensity did it apply to your result?</strong></li>
+<li><strong>When was the test actually run?</strong> (The timestamp, not “today”.)</li>
+<li><strong>Did it check hosting against the Green Web Foundation directory?</strong></li>
+</ul>
+<p>If all five answers are on the result page, you can read the number the way you read a weighing scale: a measurement of the page that existed at that moment, with its workings on display. If any of them is missing, you’re being asked to trust the output without seeing the inputs, and no model, however good, earns that.</p>
+<p>The <a href="https://www.w3.org/TR/web-sustainability-guidelines/">W3C Web Sustainability Guidelines</a>, published in draft in October 2026, deliberately stop short of endorsing any one calculator. They recommend data-driven decisions and note openly that “data gaps exist across the Internet stack”. That’s a reasonable stance: the right question isn’t which tool is correct, it’s which tool is honest about how it got there.</p>
+<h2 id="how-our-audit-fits-in">How Our Audit Fits In</h2>
+<p><a href="/website-carbon-audit/">OakFox’s free audit</a> is built on the same open stack as the rest. It measures a first-time visit from a real-browser crawler, runs the bytes through CO2.js v4 on SWDM v4, and checks hosting against the Green Web Foundation directory. The result card shows the grade, the grams, the page weight, the hosting check, and the test date on one screen. There’s no email gate and no signup.</p>
+<p>We built it because <a href="/blog/we-audited-100-uk-small-business-websites/">we needed data for our own research</a>. The median UK small-business homepage in our 100-site study came in heavier than a megabyte, and the biggest single lever in every bad grade was imagery. If your grade in any public calculator surprised you, the first thing worth comparing is the page weight; the second is the test date.</p>
+<h2 id="what-to-take-away">What to Take Away</h2>
+<p>A website carbon calculator is a useful instrument, not an oracle. The model it runs on is public, the numbers are reproducible, and the score it hands you is a reading of the page on the day it was taken. Expect calculators to disagree by tens of per cent on image-heavy sites, because their crawlers see different bytes. Expect bigger disagreements when one is showing a cached result from before a redesign. And expect hosting to move the result a little, not transform it.</p>
+<p>If you want a reading of your own site that shows every input, use <a href="/website-carbon-audit/">our free audit</a>. If you want to understand what the number is telling you after that, our note on <a href="/blog/website-carbon-rating-measurement-not-badge/">why ratings drift between measurements</a> is the companion piece, and <a href="/blog/how-to-reduce-website-carbon-footprint/">the nine changes ranked by impact</a> is where to start if the grade you got was lower than you’d like.</p> </div> </div> </div> </div> </article> <section class="py-16 md:py-24 border-t border-stone" data-astro-cid-z65bj42f> <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16" data-astro-cid-z65bj42f> <div class="lg:col-span-4" data-astro-cid-z65bj42f> <h2 class="headline text-4xl md:text-5xl" data-astro-cid-z65bj42f>Common questions</h2> <div class="mt-6 text-base text-ink/70 leading-relaxed max-w-[36ch]" data-astro-cid-z65bj42f></div> </div> <div class="lg:col-span-8 border-t border-stone" data-astro-cid-z65bj42f> <details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>What is a website carbon calculator?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>It&#39;s a tool that fetches a web page, measures how many bytes a first-time visit transfers, and multiplies that by published energy and grid-intensity factors to estimate CO₂e per view. The output is usually two numbers: grams of CO₂e per visit and a letter grade. The tool checks your host against the Green Web Foundation directory to decide whether the hosting component counts as renewable.</p> </details><details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>Which website carbon calculator is most accurate?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>There isn&#39;t a single right answer, because no calculator measures real electricity use. The ones to trust are the ones that show their workings: the model they use (most now use the Sustainable Web Design Model v4, via CO2.js), the data transfer they measured, the grid intensity they applied, and the date of the test. Our audit does all four on one card.</p> </details><details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>Why do two calculators give different grams of CO₂ for the same page?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>Three honest reasons. They crawl differently (a real-browser fetch sees lazy-loaded images and font subsets that a lighter scraper misses). They use different model versions (SWDM v3 and v4 give different answers, and the older OneByte model gives different ones again). And they may be showing a cached result from a previous test, when the page was lighter or heavier.</p> </details><details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>Does a carbon calculator check my hosting?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>The better ones do, by looking your domain up in the Green Web Foundation&#39;s green web check directory. That changes the hosting component of the estimate, not the whole number: hosting is roughly a fifth of the model&#39;s energy total, with networks and the visitor&#39;s device accounting for the rest. Switching to verified green hosting improves the grade, but it doesn&#39;t make a heavy page light.</p> </details><details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>What is a good website carbon score?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>On the published Sustainable Web Design Model, anything under about 0.3 g of CO₂e per page view beats the global average, and a page under 0.1 g sits comfortably in the top tier of the web. A good benchmark for a UK small business homepage is under 0.25 g per view and a total page weight under 1 MB. Our 100-site UK study showed the median was heavier than both.</p> </details><details class="faq border-b border-stone" data-astro-cid-z65bj42f> <summary class="flex items-start justify-between gap-6 py-6 cursor-pointer list-none" data-astro-cid-z65bj42f> <span class="text-lg md:text-xl font-semibold tracking-tight text-ink" data-astro-cid-z65bj42f>How often should I re-run the calculator?</span> <span class="plus shrink-0 mt-1.5 w-5 h-5 relative" aria-hidden="true" data-astro-cid-z65bj42f></span> </summary> <p class="pb-7 -mt-1 text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[68ch]" data-astro-cid-z65bj42f>Treat each result as a reading of the page on the day it was taken. Re-run the tool after any redesign, after a batch of new imagery, and whenever you add a new third-party embed or font. Between changes, once a quarter is plenty. A grade that was true in April tells you nothing about the homepage you launched in October.</p> </details> </div> </div> </section><section class="py-12 md:py-16"> <div class="max-w-[1400px] mx-auto px-6 md:px-10"> <div class="rounded-2xl bg-ink text-cream p-7 md:p-12 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"> <div class="lg:col-span-6"> <h2 class="headline text-3xl md:text-5xl text-cream">How green is your website?</h2> <p class="mt-4 text-lg text-cream/80 leading-relaxed max-w-[46ch]">Get an A+ to F grade in seconds, with page weight, CO₂ per visit and a verified green hosting check.</p> </div> <form action="/website-carbon-audit/" method="get" class="lg:col-span-6"> <label for="audit-cta-url" class="block text-[15px] font-semibold">Your website address</label> <div class="mt-3 flex flex-col sm:flex-row gap-3"> <input id="audit-cta-url" name="url" type="text" inputmode="url" autocomplete="url" spellcheck="false" placeholder="yourwebsite.co.uk" required class="flex-1 min-w-0 bg-cream/[0.06] border border-cream/20 rounded-full px-5 py-3.5 text-[15px] text-cream placeholder:text-cream/50 focus:outline-none focus:border-leaf transition-colors duration-300"> <button type="submit" class="btn-light">Get my grade</button> </div> <p class="mt-3 text-[13px] text-cream/80">
+Free, instant, and no email needed.
+<a href="/website-carbon-audit/" class="underline underline-offset-4 hover:text-cream transition-colors">How it works</a> </p> </form> </div> </div> </section> <section class="py-16 md:py-24 border-t border-stone"> <div class="max-w-[1400px] mx-auto px-6 md:px-10"> <h2 class="headline text-4xl md:text-5xl">Related reading</h2> <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[56ch]">More from the journal on the same subjects.</p> <ul class="mt-10 md:mt-12 grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-3"> <li class="reveal"> <a href="/blog/website-carbon-rating-measurement-not-badge/" class="group flex h-full flex-col rounded-2xl bg-moss p-7 md:p-9 transition-transform duration-300 hover:-translate-y-0.5"> <span class="text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">A Website Carbon Rating Is a Measurement, Not a Badge</span> <span class="mt-3 text-base text-ink/70 leading-relaxed">A UK consultancy&#39;s site tested A in winter and F by summer - and nobody lied. Why carbon ratings drift, why cached results linger, and how often to re-test your own site.</span> <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
+Read it
+<svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path></svg> </span> </a> </li><li class="reveal"> <a href="/blog/how-to-reduce-website-carbon-footprint/" class="group flex h-full flex-col rounded-2xl bg-moss p-7 md:p-9 transition-transform duration-300 hover:-translate-y-0.5"> <span class="text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">How to Reduce Your Website&#39;s Carbon Footprint: 9 Changes, Ranked by Impact</span> <span class="mt-3 text-base text-ink/70 leading-relaxed">Reduce your website&#39;s carbon footprint: 9 ranked, measured changes from our audits of UK small-business sites. Start with hosting, images and fonts.</span> <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
+Read it
+<svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path></svg> </span> </a> </li><li class="reveal"> <a href="/blog/what-is-green-web-design-and-cost/" class="group flex h-full flex-col rounded-2xl bg-moss p-7 md:p-9 transition-transform duration-300 hover:-translate-y-0.5"> <span class="text-2xl font-semibold tracking-tight text-ink group-hover:text-forest transition-colors">What Is Green Web Design - and What Does It Cost in the UK?</span> <span class="mt-3 text-base text-ink/70 leading-relaxed">Green web design is a build discipline, not a visual style: image pipelines, static-first architecture, font restraint, verified hosting. What it involves, what it costs in the UK, and why the premium is roughly zero.</span> <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-forest">
+Read it
+<svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path></svg> </span> </a> </li> </ul> </div> </section><section class="pb-16 md:pb-24 pt-4" data-astro-cid-gsbvazvt> <div class="max-w-[1400px] mx-auto px-6 md:px-10" data-astro-cid-gsbvazvt> <div class="newsletter-section rounded-2xl bg-cream-light border border-stone p-7 md:p-12 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center" data-astro-cid-bfbmamsi> <div class="lg:col-span-6" data-astro-cid-bfbmamsi> <h2 class="headline text-ink text-3xl md:text-5xl" data-astro-cid-bfbmamsi>Studio Notes: a short letter, no noise.</h2> <p class="mt-4 text-lg text-ink/70 leading-relaxed max-w-[46ch]" data-astro-cid-bfbmamsi>
+Occasional notes on sustainable design, new work from the studio and
+        things we're learning. No sales, no weekly blasts, and one click to leave.
+</p> </div>  <form class="newsletter-form lg:col-span-6" novalidate data-astro-cid-bfbmamsi> <label for="newsletter-email" class="block text-[15px] font-semibold text-ink mb-3" data-astro-cid-bfbmamsi>Your email</label> <div class="flex gap-2 flex-col sm:flex-row" data-astro-cid-bfbmamsi> <input id="newsletter-email" type="email" name="email" required placeholder="you@example.com" autocomplete="email" class="newsletter-input flex-1 " data-astro-cid-bfbmamsi> <button type="submit" class="newsletter-submit " data-astro-cid-bfbmamsi>
+Subscribe
+</button> </div> <!-- honeypot --> <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="newsletter-hp" data-astro-cid-bfbmamsi> <!-- Cloudflare Turnstile: only becomes visible if it needs a click --> <div class="newsletter-turnstile" data-theme="light" data-astro-cid-bfbmamsi></div> <p class="newsletter-status" role="status" aria-live="polite" data-astro-cid-bfbmamsi></p> </form> </div> <script data-astro-rerun>
+  // data-astro-rerun: ClientRouter skips an inline script it has already run,
+  // so without it the footer form on every page after the first is left
+  // unbound and submits as a plain GET (a jump to /?email=…, nothing sent).
+  // Wrapped so a second copy of this script on the page can redeclare its consts.
+  (() => {
+    const TURNSTILE_SITE_KEY = '0x4AAAAAAFCIIA08No2XUxq6';
+
+    // Turnstile loads on first focus, not with the page: most visitors never
+    // touch the form, so they never download Cloudflare's script.
+    const loadTurnstile = () =>
+      (window.oakfoxTurnstile ??= new Promise((resolve, reject) => {
+        window.oakfoxTurnstileReady = () => resolve(window.turnstile);
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=oakfoxTurnstileReady';
+        s.onerror = () => {
+          window.oakfoxTurnstile = null;
+          reject(new Error('Turnstile failed to load'));
+        };
+        document.head.appendChild(s);
+      }));
+
+    document.querySelectorAll('form.newsletter-form').forEach((form) => {
+      // This inline script is emitted once per component instance, so a page with
+      // two signups runs it twice — bind each form once or it posts twice.
+      if (form.dataset.bound) return;
+      form.dataset.bound = '1';
+      const status = form.querySelector('.newsletter-status');
+      const btn = form.querySelector('button[type=submit]');
+      const input = form.querySelector('input[name=email]');
+      const box = form.querySelector('.newsletter-turnstile');
+
+      let widget = null; // Promise<widget id>
+      let token = '';
+      let onToken = null;
+      const startTurnstile = () =>
+        (widget ??= loadTurnstile()
+          .then((ts) =>
+            ts.render(box, {
+              sitekey: TURNSTILE_SITE_KEY,
+              theme: box.dataset.theme,
+              appearance: 'interaction-only',
+              callback: (t) => {
+                token = t;
+                onToken?.(t);
+              },
+              'expired-callback': () => (token = ''),
+              'error-callback': () => (token = ''),
+            }),
+          )
+          .catch((err) => {
+            widget = null;
+            throw err;
+          }));
+      const getToken = async () => {
+        await startTurnstile();
+        if (token) return token;
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            onToken = null;
+            reject(new Error('Turnstile timed out'));
+          }, 30000);
+          onToken = (t) => {
+            clearTimeout(timer);
+            onToken = null;
+            resolve(t);
+          };
+        });
+      };
+      input.addEventListener('focus', () => startTurnstile().catch(() => {}), { once: true });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!(input.value && input.checkValidity())) {
+          status.textContent = 'Please enter a valid email.';
+          status.dataset.state = 'error';
+          return;
+        }
+        btn.disabled = true;
+        const originalLabel = btn.textContent;
+        btn.textContent = 'Sending…';
+        status.textContent = '';
+        status.dataset.state = '';
+        let turnstileToken;
+        try {
+          turnstileToken = await getToken();
+        } catch {
+          status.textContent = "Couldn't load the spam check. Try again, or email nathan@oakfox.co.uk.";
+          status.dataset.state = 'error';
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          return;
+        }
+        try {
+          const body = new FormData(form);
+          body.set('cf-turnstile-response', turnstileToken);
+          const res = await fetch('/api/newsletter.php', { method: 'POST', body });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            status.textContent = data.message || "Check your inbox to confirm.";
+            status.dataset.state = 'ok';
+            window.oakfoxTrack?.('newsletter');
+            form.reset();
+          } else {
+            status.textContent = data.error || 'Something went wrong. Try again in a moment.';
+            status.dataset.state = 'error';
+          }
+        } catch {
+          status.textContent = 'Network error. Try again in a moment.';
+          status.dataset.state = 'error';
+        } finally {
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          // Tokens are single-use: fetch a fresh one for any further submit.
+          token = '';
+          widget.then((id) => window.turnstile.reset(id));
+        }
+      });
+    });
+  })();
+</script> </div> </section> <section class="bg-forest text-cream"> <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-24 md:py-36"> <h2 class="headline text-cream text-[length:clamp(2.75rem,5.6vw,5.25rem)] max-w-[18ch]">Working on something similar?</h2> <div class="mt-10 grid lg:grid-cols-12 gap-10 items-end"> <div class="lg:col-span-6"> <p class="text-xl text-cream/80 leading-relaxed">We work with independent businesses and established brands across the UK, Ireland and Europe, on branding, web, marketing and environmental consultancy. Send a few lines and we&#39;ll reply within 24 hours.</p> <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4"> <a href="/contact/" class="btn-light">Start a project</a> <a href="/book/" class="link-line text-[15px] font-medium text-cream">Book a call</a> </div> </div> <p class="lg:col-span-5 lg:col-start-8 text-[15px] text-cream/80 leading-relaxed">
+We work with businesses in
+<a href="/locations/ormskirk/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Ormskirk</a>, <a href="/locations/burscough/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Burscough</a>, <a href="/locations/southport/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Southport</a>, <a href="/locations/preston/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Preston</a> and <a href="/locations/manchester/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Manchester</a>, across <a href="/locations/lancashire/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">Lancashire</a>
+and <a href="/locations/" class="underline decoration-cream/30 underline-offset-4 hover:text-cream hover:decoration-cream">elsewhere in the UK</a>.
+</p> </div> </div> </section>  </main> <footer class="bg-ink text-cream/80"> <div class="max-w-[1400px] mx-auto px-6 md:px-10 py-16 md:py-20"> <!-- Logo --> <a href="/" class="inline-block mb-12 md:mb-16"> <picture><source srcset="/images/site/logolight.webp" type="image/webp"><img src="/images/site/logolight.png" alt="OakFox" class="h-14 md:h-20 w-auto" loading="lazy" decoding="async"></picture> </a> <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-start"> <!-- Tagline + address --> <div class="md:col-span-4"> <p class="text-[13px] text-cream/55 leading-relaxed max-w-xs">
+Sustainable design, development, marketing and consultancy.
+          West Lancashire, UK.
+</p> <p class="mt-4 text-[12px] text-cream/55 leading-relaxed max-w-xs">
+Home to <a href="https://ecoscribe.co.uk" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">EcoScribe</a>, our automation venture for ecologists and environmental consultancies.
+</p> <p class="mt-3 text-[12px] text-cream/55 leading-relaxed max-w-xs">
+Makers of the family apps <a href="https://cubtrack.co.uk" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">CubTrack</a> and <a href="https://trailfoxapp.co.uk" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">TrailFox</a>, and <a href="https://granddadscamera.co.uk" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">Granddad’s Camera</a>, a British wildlife photography game.
+</p> <p class="mt-3 text-[12px] text-cream/55 leading-relaxed max-w-xs">
+Makers of <a href="https://a11ymate.co.uk" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">A11yMate</a>, the accessibility checker for WordPress behind our <a href="/services/accessibility/" class="text-cream/70 hover:text-cream underline underline-offset-4 transition-colors">accessibility audits</a>.
+</p> <address class="mt-5 not-italic text-[12px] text-cream/55 leading-relaxed"> <div>Martland Mill, Mart Ln</div> <div>Burscough, Ormskirk L40 0SD</div> <a href="tel:+441704773233" class="mt-2 inline-block hover:text-cream transition-colors duration-300">
+01704 773233
+</a> </address> <div class="mt-8 flex flex-wrap items-center gap-4"> <a href="/website-carbon-audit/?url=oakfox.co.uk" aria-label="Carbon rating A+: re-run the audit on oakfox.co.uk" class="opacity-80 hover:opacity-100 transition-opacity duration-300"> <img src="/badge/carbon-a-plus-dark.svg" alt="Carbon rating A+, measured by oakfox.co.uk" width="200" height="56" loading="lazy" decoding="async" class="h-10 w-auto"> </a> <a href="https://www.thegreenwebfoundation.org/green-web-check/?url=oakfox.co.uk" target="_blank" rel="noopener noreferrer" aria-label="Verified green hosting by The Green Web Foundation" class="opacity-80 hover:opacity-100 transition-opacity duration-300"> <img src="/images/site/greenweb-krystal.png" alt="Green Web Foundation: verified green hosting" width="200" height="95" loading="lazy" decoding="async" class="h-10 w-auto"> </a> <img src="/images/site/SME-Committed-Badge-2026.svg" alt="SME Climate Hub: committed 2026" loading="lazy" decoding="async" class="h-10 w-auto"> </div> </div> <!-- Services column --> <div class="md:col-span-2 md:col-start-5"> <p class="text-[14px] font-semibold text-cream mb-4">Services</p> <nav aria-label="Footer services" class="flex flex-col gap-2.5"> <a href="/services/branding/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Branding </a><a href="/services/web-design/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Web Design </a><a href="/services/development/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Development </a><a href="/services/accessibility/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Accessibility </a><a href="/services/copywriting/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Copywriting </a><a href="/services/marketing/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Marketing </a><a href="/services/environmental/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Environmental </a><a href="/services/fix-sprint/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Fix Sprint </a><a href="/services/care-plan/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Care Plan </a><a href="/website-carbon-audit/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Free Carbon Audit </a> </nav> </div> <!-- Locations column --> <div class="md:col-span-2"> <p class="text-[14px] font-semibold text-cream mb-4"> <a href="/locations/" class="hover:text-cream/70 transition-colors">Locations</a> </p> <nav aria-label="Footer locations" class="flex flex-col gap-2.5"> <a href="/locations/ormskirk/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Ormskirk </a><a href="/locations/burscough/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Burscough </a><a href="/locations/southport/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Southport </a><a href="/locations/preston/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Preston </a><a href="/locations/manchester/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Manchester </a><a href="/locations/lancashire/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Lancashire </a> </nav> </div> <!-- Studio + newsletter --> <div class="md:col-span-4 md:col-start-9"> <p class="text-[14px] font-semibold text-cream mb-4">Studio</p> <nav aria-label="Footer studio" class="flex flex-col gap-2.5 mb-8"> <a href="/portfolio/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Work </a><a href="/about/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Studio </a><a href="/blog/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Journal </a><a href="/faq/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> FAQ </a><a href="/contact/" class="text-[13px] text-cream/55 hover:text-cream transition-colors duration-300"> Contact </a> </nav> <div class="newsletter-footer" data-astro-cid-bfbmamsi>   <p class="text-[14px] font-semibold text-cream mb-4" data-astro-cid-bfbmamsi>Studio Notes</p> <p class="text-[13px] text-cream/80 leading-relaxed mb-4 max-w-xs" data-astro-cid-bfbmamsi>
+Short, occasional letter on sustainable design.
+</p>  <form class="newsletter-form " novalidate data-astro-cid-bfbmamsi>  <div class="flex gap-2 max-w-md" data-astro-cid-bfbmamsi> <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" class="newsletter-input flex-1 newsletter-input-footer" data-astro-cid-bfbmamsi> <button type="submit" class="newsletter-submit newsletter-submit-footer" data-astro-cid-bfbmamsi>
+Subscribe
+</button> </div> <!-- honeypot --> <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="newsletter-hp" data-astro-cid-bfbmamsi> <!-- Cloudflare Turnstile: only becomes visible if it needs a click --> <div class="newsletter-turnstile" data-theme="dark" data-astro-cid-bfbmamsi></div> <p class="newsletter-status" role="status" aria-live="polite" data-astro-cid-bfbmamsi></p> </form> </div> <script data-astro-rerun>
+  // data-astro-rerun: ClientRouter skips an inline script it has already run,
+  // so without it the footer form on every page after the first is left
+  // unbound and submits as a plain GET (a jump to /?email=…, nothing sent).
+  // Wrapped so a second copy of this script on the page can redeclare its consts.
+  (() => {
+    const TURNSTILE_SITE_KEY = '0x4AAAAAAFCIIA08No2XUxq6';
+
+    // Turnstile loads on first focus, not with the page: most visitors never
+    // touch the form, so they never download Cloudflare's script.
+    const loadTurnstile = () =>
+      (window.oakfoxTurnstile ??= new Promise((resolve, reject) => {
+        window.oakfoxTurnstileReady = () => resolve(window.turnstile);
+        const s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=oakfoxTurnstileReady';
+        s.onerror = () => {
+          window.oakfoxTurnstile = null;
+          reject(new Error('Turnstile failed to load'));
+        };
+        document.head.appendChild(s);
+      }));
+
+    document.querySelectorAll('form.newsletter-form').forEach((form) => {
+      // This inline script is emitted once per component instance, so a page with
+      // two signups runs it twice — bind each form once or it posts twice.
+      if (form.dataset.bound) return;
+      form.dataset.bound = '1';
+      const status = form.querySelector('.newsletter-status');
+      const btn = form.querySelector('button[type=submit]');
+      const input = form.querySelector('input[name=email]');
+      const box = form.querySelector('.newsletter-turnstile');
+
+      let widget = null; // Promise<widget id>
+      let token = '';
+      let onToken = null;
+      const startTurnstile = () =>
+        (widget ??= loadTurnstile()
+          .then((ts) =>
+            ts.render(box, {
+              sitekey: TURNSTILE_SITE_KEY,
+              theme: box.dataset.theme,
+              appearance: 'interaction-only',
+              callback: (t) => {
+                token = t;
+                onToken?.(t);
+              },
+              'expired-callback': () => (token = ''),
+              'error-callback': () => (token = ''),
+            }),
+          )
+          .catch((err) => {
+            widget = null;
+            throw err;
+          }));
+      const getToken = async () => {
+        await startTurnstile();
+        if (token) return token;
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            onToken = null;
+            reject(new Error('Turnstile timed out'));
+          }, 30000);
+          onToken = (t) => {
+            clearTimeout(timer);
+            onToken = null;
+            resolve(t);
+          };
+        });
+      };
+      input.addEventListener('focus', () => startTurnstile().catch(() => {}), { once: true });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!(input.value && input.checkValidity())) {
+          status.textContent = 'Please enter a valid email.';
+          status.dataset.state = 'error';
+          return;
+        }
+        btn.disabled = true;
+        const originalLabel = btn.textContent;
+        btn.textContent = 'Sending…';
+        status.textContent = '';
+        status.dataset.state = '';
+        let turnstileToken;
+        try {
+          turnstileToken = await getToken();
+        } catch {
+          status.textContent = "Couldn't load the spam check. Try again, or email nathan@oakfox.co.uk.";
+          status.dataset.state = 'error';
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          return;
+        }
+        try {
+          const body = new FormData(form);
+          body.set('cf-turnstile-response', turnstileToken);
+          const res = await fetch('/api/newsletter.php', { method: 'POST', body });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            status.textContent = data.message || "Check your inbox to confirm.";
+            status.dataset.state = 'ok';
+            window.oakfoxTrack?.('newsletter');
+            form.reset();
+          } else {
+            status.textContent = data.error || 'Something went wrong. Try again in a moment.';
+            status.dataset.state = 'error';
+          }
+        } catch {
+          status.textContent = 'Network error. Try again in a moment.';
+          status.dataset.state = 'error';
+        } finally {
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          // Tokens are single-use: fetch a fresh one for any further submit.
+          token = '';
+          widget.then((id) => window.turnstile.reset(id));
+        }
+      });
+    });
+  })();
+</script> </div> </div> <div class="border-t border-cream/10 mt-14 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"> <p class="text-[11px] text-cream/55">
+&copy; OakFox 2026 </p> <div class="flex items-center gap-5"> <button type="button" id="footer-cookies" class="text-[11px] text-cream/55 hover:text-cream/70 transition-colors duration-300">
+Cookies
+</button> <p class="text-[11px] text-cream/55">
+A registered company in England
+</p> </div> </div> </div> </footer> <script>
+  document.getElementById('footer-cookies')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('oakfox:show-consent'));
+  });
+</script> <div id="consent-banner" class="fixed z-[210] bottom-4 left-4 right-4 md:bottom-5 md:left-1/2 md:right-auto md:w-[min(64rem,calc(100vw-3rem))] md:-translate-x-1/2 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out" aria-live="polite" aria-label="Cookie consent"> <!-- A card on phones; on larger screens a slim bar along the bottom, so it
+       never sits over the hero's buttons. --> <div class="bg-cream-light border border-stone rounded-2xl shadow-[0_12px_40px_rgba(22,26,20,0.14)] p-5 md:py-3.5 md:px-5 md:flex md:items-center md:gap-6"> <div class="text-[14px] font-semibold text-ink mb-2 md:hidden">Cookies</div> <p class="text-ink/80 text-sm leading-relaxed mb-4 md:mb-0 md:flex-1">
+We count visits anonymously, without cookies. With your OK, we'll also use a single
+      analytics cookie to understand how people find and use the site. No ads, no cross-site
+      tracking. You can change your mind any time.
+</p> <div class="flex gap-2 md:shrink-0"> <button id="consent-accept" type="button" class="flex-1 bg-forest text-cream text-sm font-medium py-2.5 px-5 rounded-full hover:bg-forest-dark transition-colors">
+Accept
+</button> <button id="consent-decline" type="button" class="flex-1 text-ink text-sm font-medium py-2.5 px-5 rounded-full border border-stone hover:bg-stone/30 transition-colors">
+Decline
+</button> </div> </div> </div> <script>(function(){const GA_ID = "G-3EWKKEHGJ8";
+const AW_ID = "";
+const AW_CONTACT_CONVERSION = "";
+const AW_BOOKING_CONVERSION = "";
+
+  (function () {
+    const KEY = 'oakfox-consent';
+    const banner = document.getElementById('consent-banner');
+    const accept = document.getElementById('consent-accept');
+    const decline = document.getElementById('consent-decline');
+
+    function loadGA() {
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', GA_ID, { anonymize_ip: true });
+      if (AW_ID) window.gtag('config', AW_ID);
+    }
+
+    if (AW_ID) {
+      window.__awConversionIds = {
+        contact: AW_CONTACT_CONVERSION,
+        booking: AW_BOOKING_CONVERSION,
+      };
+    }
+
+    function hide() {
+      banner.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      banner.classList.remove('opacity-100', 'translate-y-0');
+    }
+
+    function show() {
+      banner.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      banner.classList.add('opacity-100', 'translate-y-0');
+    }
+
+    const stored = localStorage.getItem(KEY);
+    if (stored === 'accepted') {
+      loadGA();
+    } else if (stored !== 'declined') {
+      setTimeout(show, 600);
+    }
+
+    accept?.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'accepted');
+      hide();
+      loadGA();
+    });
+
+    decline?.addEventListener('click', () => {
+      localStorage.setItem(KEY, 'declined');
+      hide();
+    });
+
+    window.addEventListener('oakfox:show-consent', () => {
+      localStorage.removeItem(KEY);
+      show();
+    });
+  })();
+})();</script> <script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_0_lang.bWFr2uKS.js"></script> <script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_1_lang.CMGMOJ9i.js"></script> </body> </html>  <script type="module">document.querySelectorAll(".prose-oak table").forEach(e=>{e.scrollWidth>e.clientWidth&&(e.tabIndex=0,e.setAttribute("role","region"),e.setAttribute("aria-label","Table (scrolls sideways)"))});</script>
