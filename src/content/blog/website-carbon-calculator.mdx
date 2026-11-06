@@ -1,0 +1,104 @@
+---
+title: "Website Carbon Calculator: How They Work, Why They Disagree, and Which to Trust"
+description: "Website carbon calculators often grade the same page differently. Here's what they actually measure, why the numbers diverge, and which to trust in 2026."
+date: 2026-11-06
+category: "Sustainability"
+author: "OakFox"
+tags: ["sustainability", "measurement", "web design", "tools"]
+draft: false
+faq:
+  - q: "What is a website carbon calculator?"
+    a: "It's a tool that fetches a web page, measures how many bytes a first-time visit transfers, and multiplies that by published energy and grid-intensity factors to estimate CO₂e per view. The output is usually two numbers: grams of CO₂e per visit and a letter grade. The tool checks your host against the Green Web Foundation directory to decide whether the hosting component counts as renewable."
+  - q: "Which website carbon calculator is most accurate?"
+    a: "There isn't a single right answer, because no calculator measures real electricity use. The ones to trust are the ones that show their workings: the model they use (most now use the Sustainable Web Design Model v4, via CO2.js), the data transfer they measured, the grid intensity they applied, and the date of the test. Our audit does all four on one card."
+  - q: "Why do two calculators give different grams of CO₂ for the same page?"
+    a: "Three honest reasons. They crawl differently (a real-browser fetch sees lazy-loaded images and font subsets that a lighter scraper misses). They use different model versions (SWDM v3 and v4 give different answers, and the older OneByte model gives different ones again). And they may be showing a cached result from a previous test, when the page was lighter or heavier."
+  - q: "Does a carbon calculator check my hosting?"
+    a: "The better ones do, by looking your domain up in the Green Web Foundation's green web check directory. That changes the hosting component of the estimate, not the whole number: hosting is roughly a fifth of the model's energy total, with networks and the visitor's device accounting for the rest. Switching to verified green hosting improves the grade, but it doesn't make a heavy page light."
+  - q: "What is a good website carbon score?"
+    a: "On the published Sustainable Web Design Model, anything under about 0.3 g of CO₂e per page view beats the global average, and a page under 0.1 g sits comfortably in the top tier of the web. A good benchmark for a UK small business homepage is under 0.25 g per view and a total page weight under 1 MB. Our 100-site UK study showed the median was heavier than both."
+  - q: "How often should I re-run the calculator?"
+    a: "Treat each result as a reading of the page on the day it was taken. Re-run the tool after any redesign, after a batch of new imagery, and whenever you add a new third-party embed or font. Between changes, once a quarter is plenty. A grade that was true in April tells you nothing about the homepage you launched in October."
+---
+
+A website carbon calculator takes your URL, works out how many bytes a first-time visit loads, and multiplies that by a set of published energy and grid factors to produce an estimated CO₂e per view and a letter grade. Different tools can give the same page different answers, because they crawl differently, use different versions of the underlying model, and often cache their results for days or longer.
+
+If you've been comparing calculators and getting confused, you're not doing anything wrong. The tools disagree for reasons that are easy to see once you know where to look. Here is how they work under the hood, why the numbers diverge, and what to look for in a result you can actually act on.
+
+## What a Carbon Calculator Actually Measures
+
+None of the public calculators measure electricity. What they measure is **data transfer** (the kilobytes a visit downloads) and what they estimate is the energy that moving and loading those bytes would have used.
+
+The input is a URL. The engine fetches the page the way a browser would, tallies the bytes of HTML, CSS, JavaScript, images, fonts and media, and hands the total to a model. The model turns bytes into kilowatt-hours using published energy intensities for three parts of the system: the data centre, the network and the visitor's device. Then it multiplies those kilowatt-hours by a grid carbon intensity to get grams of CO₂e per view.
+
+The output is a number of grams and, usually, a letter grade. That is the whole chain. Which is why the first and biggest lever in any carbon score is the page's own weight.
+
+## The Shared Baseline: the Sustainable Web Design Model v4
+
+Nearly every serious public calculator now uses the same open methodology, so comparing them is less of a wild west than it looks. The [Sustainable Web Design Model (SWDM)](https://sustainablewebdesign.org/estimating-digital-emissions/) is maintained by a working group of green-web practitioners, and its current release is version 4.
+
+Version 4 splits the energy of a page view across three segments:
+
+- **Data centre:** 22% of the total energy, at roughly 0.055 kWh per gigabyte transferred (operational), plus an embodied share for the hardware itself.
+- **Network:** 24% of the total, at 0.059 kWh per gigabyte.
+- **User device:** 54% of the total, at 0.080 kWh per gigabyte in operational energy, plus a substantial embodied share for the device.
+
+It then multiplies the energy by a grid carbon intensity. The model's default uses the global average from Ember's Data Explorer (494 g of CO₂e per kWh), and calculators can swap in a regional figure if the visitor's location is known. First-time visitors are charged the full page; returning visitors are adjusted down by a cache ratio, on the assumption that their browser still has most of the assets.
+
+If a calculator tells you it uses "CO2.js" or "the Sustainable Web Design Model v4", those are the numbers it's running on. [The Green Web Foundation's CO2.js library](https://developers.thegreenwebfoundation.org/co2js/models/overview/), which sits inside most calculators, uses SWDM v4 as the default.
+
+So in principle, two calculators should give the same page the same answer. In practice, they don't. Here's why.
+
+## Why the Same Page Gets Different Grams
+
+### 1. They Don't Measure the Same Bytes
+
+The crawler makes the biggest difference, and it's where most of the disagreement lives.
+
+A heavier, browser-style crawler executes JavaScript, respects lazy-loading cues, picks a sensibly sized image from each `srcset`, and only downloads the font subsets a page would ask for in that viewport. A lighter crawler grabs the HTML, trusts the raw file sizes, and stops. For an image-heavy site, the difference between those two approaches can be half the result.
+
+The cap matters too. A calculator that measures only the first forty assets will miss the tail of a photo gallery. A calculator that renders the page might charge for an embedded video a less thorough crawler never notices. Neither is wrong on its own terms, but they're answering slightly different questions.
+
+### 2. They May Not Be Using the Same Model Version
+
+The Sustainable Web Design Model has shifted its numbers between releases, and the older OneByte model (still an option in CO2.js) treats the system more narrowly, counting data centre and network but leaving the visitor's device out. [CO2.js initialises with SWDM v4 by default](https://developers.thegreenwebfoundation.org/co2js/models/overview/), but a calculator can opt into SWDM v3 or OneByte with a one-line config change.
+
+If one tool is on SWDM v4 and another on a legacy model, the grams will differ even on an identical byte count.
+
+### 3. One of Them Might Be Showing You a Cached Result
+
+Crawling is the expensive part of running a free tool, so almost every public calculator caches its results. Our own does, for an hour. Others keep results for weeks or months, which means a page that got an A in April could still be showing that A long after a redesign pushed it into F territory.
+
+The fix is simple: find the date-tested stamp on any result before you trust it, and re-run a tool rather than trust the first grade it hands you.
+
+### 4. The Hosting Lookup Can Disagree Too
+
+Most calculators now check your domain against [the Green Web Foundation's green web directory](https://www.thegreenwebfoundation.org/green-web-check/). If your host is verified renewable, the hosting component of the estimate is scaled down. That changes the result, but it won't halve a heavy page: hosting is roughly a fifth of the energy total in SWDM v4, with networks and the visitor's device accounting for the rest. A page can be hosted green and still grade poorly if it weighs 3 MB.
+
+Occasionally a host that is renewable isn't in the directory yet, and that absence shows up as a worse grade than the site deserves. If a result surprises you, check the directory lookup directly before you draw conclusions about the model.
+
+## Which Calculators You Can Trust
+
+The honest test is methodology transparency. A calculator worth using should answer these without you having to email anyone:
+
+- **What model is it using, and at what version?** (SWDM v4 is the current public standard.)
+- **What data transfer did it measure for your page, and what cap?**
+- **What grid intensity did it apply to your result?**
+- **When was the test actually run?** (The timestamp, not "today".)
+- **Did it check hosting against the Green Web Foundation directory?**
+
+If all five answers are on the result page, you can read the number the way you read a weighing scale: a measurement of the page that existed at that moment, with its workings on display. If any of them is missing, you're being asked to trust the output without seeing the inputs, and no model, however good, earns that.
+
+The [W3C Web Sustainability Guidelines](https://www.w3.org/TR/web-sustainability-guidelines/), published in draft in October 2026, deliberately stop short of endorsing any one calculator. They recommend data-driven decisions and note openly that "data gaps exist across the Internet stack". That's a reasonable stance: the right question isn't which tool is correct, it's which tool is honest about how it got there.
+
+## How Our Audit Fits In
+
+[OakFox's free audit](/website-carbon-audit/) is built on the same open stack as the rest. It measures a first-time visit from a real-browser crawler, runs the bytes through CO2.js v4 on SWDM v4, and checks hosting against the Green Web Foundation directory. The result card shows the grade, the grams, the page weight, the hosting check, and the test date on one screen. There's no email gate and no signup.
+
+We built it because [we needed data for our own research](/blog/we-audited-100-uk-small-business-websites/). The median UK small-business homepage in our 100-site study came in heavier than a megabyte, and the biggest single lever in every bad grade was imagery. If your grade in any public calculator surprised you, the first thing worth comparing is the page weight; the second is the test date.
+
+## What to Take Away
+
+A website carbon calculator is a useful instrument, not an oracle. The model it runs on is public, the numbers are reproducible, and the score it hands you is a reading of the page on the day it was taken. Expect calculators to disagree by tens of per cent on image-heavy sites, because their crawlers see different bytes. Expect bigger disagreements when one is showing a cached result from before a redesign. And expect hosting to move the result a little, not transform it.
+
+If you want a reading of your own site that shows every input, use [our free audit](/website-carbon-audit/). If you want to understand what the number is telling you after that, our note on [why ratings drift between measurements](/blog/website-carbon-rating-measurement-not-badge/) is the companion piece, and [the nine changes ranked by impact](/blog/how-to-reduce-website-carbon-footprint/) is where to start if the grade you got was lower than you'd like.
