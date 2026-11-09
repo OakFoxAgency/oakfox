@@ -25,6 +25,9 @@ RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
 RewriteCond %{REQUEST_URI} !/$
 RewriteRule ^(.*)$ /$1/ [R=301,L]
 
+# --- The sitemap is /sitemap-index.xml; Bingbot still asks for the usual name ---
+RedirectMatch 301 ^/sitemap\.xml$ https://oakfox.co.uk/sitemap-index.xml
+
 # --- Former ecology pages (EcoScribe closed Oct 2026) — keep permanently ---
 RedirectMatch 301 ^/services/environmental/automation/?$        https://oakfox.co.uk/services/environmental/
 RedirectMatch 301 ^/services/environmental/consultancy/?$       https://oakfox.co.uk/services/environmental/
