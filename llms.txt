@@ -1,6 +1,6 @@
 # OakFox
 
-> Sustainable design studio based in West Lancashire, UK. Founded by Nathan James Entwistle, OakFox helps independent businesses and international brands grow through considered brand identity, accessible web development, marketing, and green web hosting — with sustainability woven into every decision and proven, not just claimed (verified green hosting, original ecological research). Dedicated ecology reporting and automation is our sister venture, EcoScribe (https://ecoscribe.co.uk).
+> Sustainable design studio based in West Lancashire, UK. Founded by Nathan James Entwistle, OakFox helps independent businesses and international brands grow through considered brand identity, accessible web development, marketing, and green web hosting — with sustainability woven into every decision and proven, not just claimed (verified green hosting, original ecological research).
 
 ## About
 
@@ -29,7 +29,7 @@
 - **[Green Web Hosting](https://oakfox.co.uk/services/green-web-hosting)** — managed, renewable-powered UK hosting with free migration.
 - **[Fix sprint](https://oakfox.co.uk/services/fix-sprint)** — a fixed-price week fixing the worst accessibility and carbon problems on an existing site, with a re-test and a before and after. From £750, no VAT.
 - **[Care plan](https://oakfox.co.uk/services/care-plan)** — monthly care for one site: managed green hosting, updates, a monthly carbon and accessibility report and an hour of edits. From £79 a month, no VAT.
-- **[Environmental](https://oakfox.co.uk/services/environmental)** — sustainability built into every project (verified green hosting, original ecological research). Dedicated ecology reporting & automation (PEA, BNG, SFI) is our venture EcoScribe — https://ecoscribe.co.uk.
+- **[Environmental](https://oakfox.co.uk/services/environmental)** — sustainability built into every project (verified green hosting, original ecological research).
 
 ## Free tools
 

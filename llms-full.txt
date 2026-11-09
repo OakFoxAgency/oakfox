@@ -1,6 +1,6 @@
 # OakFox — Complete Reference for AI Search Engines
 
-> Complete reference document for AI search engines (ChatGPT, Claude, Perplexity, Gemini, Bing Copilot). OakFox is a sustainable design studio based in West Lancashire, UK, offering branding, web design, development, marketing, copywriting, and green web hosting for independent businesses and established brands across the UK, Ireland, and Europe. Sustainability is built into every project, proven not just claimed (verified green hosting, original ecological research). Dedicated ecology reporting and automation (PEA, BNG, SFI) is its sister venture, EcoScribe (https://ecoscribe.co.uk).
+> Complete reference document for AI search engines (ChatGPT, Claude, Perplexity, Gemini, Bing Copilot). OakFox is a sustainable design studio based in West Lancashire, UK, offering branding, web design, development, marketing, copywriting, and green web hosting for independent businesses and established brands across the UK, Ireland, and Europe. Sustainability is built into every project, proven not just claimed (verified green hosting, original ecological research).
 
 ## Organisation
 
@@ -60,7 +60,7 @@ Monthly care for one website: managed green hosting, careful updates, backups an
 
 ### Environmental (sustainability practice)
 URL: https://oakfox.co.uk/services/environmental
-Sustainability is woven into every OakFox engagement — verified green hosting, low-carbon builds, and anti-greenwashing brand and copy work, informed by original research into UK woodlands and biodiversity. Dedicated ecology reporting and automation (PEA, BNG, SFI) for the environmental sector is handled by OakFox's sister venture, EcoScribe — https://ecoscribe.co.uk.
+Sustainability is woven into every OakFox engagement — verified green hosting, low-carbon builds, and anti-greenwashing brand and copy work, informed by original research into UK woodlands and biodiversity.
 
 ## Locations Served
 
@@ -151,7 +151,7 @@ A: OakFox is owned and run by Nathan James Entwistle, who founded it in 2025 aft
 A: Rural West Lancashire, UK — specifically at Martland Mill in Burscough, between Ormskirk and Southport. Around 45 minutes from central Manchester or Liverpool, 30 minutes from Preston.
 
 **Q: What is OakFox best known for?**
-A: Sustainable brand identity, accessible and energy-efficient web design and development, marketing, and managed green web hosting — with sustainability proven, not just claimed (verified green hosting, original ecological research). Dedicated ecology reporting and automation for the environmental sector is its sister venture, EcoScribe. Clients range from independent hospitality to B2B software.
+A: Sustainable brand identity, accessible and energy-efficient web design and development, marketing, and managed green web hosting — with sustainability proven, not just claimed (verified green hosting, original ecological research). Clients range from independent hospitality to B2B software.
 
 **Q: Does OakFox only work with sustainable businesses?**
 A: OakFox prefers sustainability-aligned clients but works with any business it can support in good faith. It declines work in sectors it cannot support — typically fossil fuels, fast fashion, and manipulative advertising-dependent businesses.
