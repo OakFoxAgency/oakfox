@@ -1,0 +1,93 @@
+---
+title: "The Best Web Hosting in the UK for Small Business: What You Actually Need"
+description: "Shared, managed, VPS or static: the four kinds of UK web hosting, what each one actually costs and does, and how to pick the one that fits your business."
+date: 2026-11-10
+category: "Development"
+author: "OakFox"
+tags: ["web hosting", "small business", "uk", "managed hosting", "infrastructure"]
+draft: false
+faq:
+  - q: "What is web hosting, in plain English?"
+    a: "Web hosting is renting space on a computer that's permanently online so your website is available to visitors around the clock. The host runs the server, keeps it connected, and (depending on the plan) looks after things like backups, security patches and email. Your domain name points at that server, and visitors see your site when they type the address."
+  - q: "How much does web hosting cost for a UK small business?"
+    a: "Prices range from free (static hosts like Cloudflare Pages, for sites built from a code repository) to roughly £10 to £25 a month for managed hosting that includes DNS, SSL, backups and support. Traditional shared cPanel hosting in the UK sits a few pounds a month, but the time cost of managing it yourself often outweighs what you save compared with a managed plan."
+  - q: "Do I need UK-based web hosting?"
+    a: "For a UK audience, yes. A server in the UK means faster page loads for UK visitors, cleaner GDPR arrangements and (depending on the data centre) a lower-carbon electricity grid. International hosts can be cheap but add 50 to 200 milliseconds of latency, which shows up in Core Web Vitals and matters for search rankings. Pick a host with a UK data centre."
+  - q: "What is the difference between shared, managed and VPS hosting?"
+    a: "Shared hosting puts many sites on one server at a low monthly price, but you look after the site yourself. Managed hosting runs on shared or VPS infrastructure, with the host handling DNS, SSL, backups, updates and support for a higher fee. A VPS gives you your own virtual server with full control, which is useful for custom stacks but requires someone who knows how to administer one."
+  - q: "Is free web hosting any good for a business?"
+    a: "Static hosts like Cloudflare Pages and Netlify offer genuinely free tiers that are faster and greener than most paid shared hosting, and we use them for OakFox's own static sites. They only suit sites built from a code repository, and 'free' ignores the time cost of DNS, SSL and the build pipeline. Excellent for a technical owner, costly for a non-technical one."
+  - q: "Do I need green web hosting?"
+    a: "Any UK small business trying to be honest about its carbon footprint should pick a host verified by the Green Web Foundation. The price gap at the entry tier is small, and the greenest option is often also the fastest (static hosts on a global CDN). The foundation's public checker returns a verified-or-not result on any domain in a few seconds."
+---
+
+The best web host for a UK small business isn't the one with the cheapest monthly price. It's the one where, when something goes wrong, the right person knows what to do without it costing you a working day. In practice that means picking between four types of hosting (shared, managed, VPS and static), and then picking a provider within that type. This piece covers what each type actually is, what it costs, and the single question that tells you which is yours.
+
+## The Four Kinds of Web Hosting, in Plain English
+
+Hosting splits four ways. In rough order of complexity and the amount of attention they want from you:
+
+- **Shared hosting.** Your site sits on a server with many other sites, administered through a panel like cPanel. Cheapest conventional hosting. Good for a WordPress brochure site where someone technical can log in once a quarter.
+- **Managed hosting.** Shared or VPS infrastructure underneath, but someone else handles the setup, DNS, SSL, backups, updates and support. You never see a server. Good for a business where the owner isn't technical.
+- **VPS or dedicated hosting.** Your own virtual (or physical) server. Full control, full responsibility. Good if you have a developer and a reason to need it.
+- **Static (or Jamstack) hosting.** Pre-built HTML files served from a global CDN. Often free for small sites, extremely fast. Only works if the site is built that way (no WordPress admin, no live database queries).
+
+The price gap between the cheapest and the most expensive of these isn't vast. The time-cost gap is. That's the gap this guide is really about.
+
+## Shared Hosting: The Default, and When It's Enough
+
+Shared hosting is where most UK small-business sites end up by accident, usually a WordPress install on a cPanel box at a mainstream host. It's cheap, familiar, and mostly works. For a brochure site that updates a few times a year, it's genuinely fine.
+
+The caveats are the ones nobody warns you about at sign-up:
+
+- **The server is tuned for the host, not for you.** We've picked up sites where gzip compression was off by default on the cPanel box and a 281 KB homepage was being served as 83 KB only after we switched it on. Nobody tells you that if nobody's looking.
+- **Backups are your job.** Most shared hosts take backups, but recovering from one tends to involve a support ticket and some anxious hours. A managed plan makes that a two-minute email.
+- **Security patches are your job.** WordPress, its themes and its plugins want updating constantly. On a shared plan with nobody watching, that's how sites end up compromised.
+
+For a site owner or in-house developer who's comfortable logging in monthly, shared hosting is still the right answer for a lot of brochure sites. For anyone else, the time cost quietly adds up to more than the small saving over a managed plan.
+
+## Managed Hosting: When You'd Rather Someone Else Cared
+
+Managed hosting is the version where the operational work stops being yours. The provider owns the hosting account, configures DNS, manages SSL renewal, runs daily backups, applies patches, monitors uptime and answers support requests in plain English.
+
+OakFox's own [managed green hosting](/services/green-web-hosting/) sits at £9.99, £22.99 and £45.99 a month, with yearly billing (ten months' price) available on each tier. The entry plan covers one site, 10 GB SSD, daily backups kept for 14 days, free SSL, free migration from your current host and email support on the next business day. Priority support, more sites and longer backup retention sit on the two tiers above. No VAT is added.
+
+The honest pitch isn't about the server. It's about the hours. The usual annual cost of a self-managed small-business site, once you count DNS fiddling, failed updates, the occasional "why is the site down" and a developer's hour or two to fix each one, is a few hundred pounds of your own time at an internal rate. A managed plan replaces that with a line on your bank statement, which is often cheaper and always more predictable. We lay out the full DIY-versus-managed comparison in [managed green hosting vs DIY](/blog/managed-green-hosting-vs-diy/).
+
+## VPS or Dedicated: When You Genuinely Need the Control
+
+A VPS or dedicated server is the right answer for a small business about one time in twenty. If you're running a custom application, a bespoke e-commerce stack, or you have strict compliance needs that require a specific operating system or firewall setup, yes. Otherwise no.
+
+The reason is simple. A VPS gives you root access and takes away all the guard rails. Everything a shared host does for you (patching the OS, securing SSH, configuring the web server, rotating certificates), you now do yourself or pay someone to do. For most small businesses that cost is larger than the hosting, and the rest of the benefits (performance, isolation, compliance) can be had more cheaply from a managed plan.
+
+If you do need one, pick a UK provider with a track record, keep the stack boring, and don't skip the backups.
+
+## Static Hosting: Fastest, Greenest, Free, But Limited
+
+Static hosting is the plot twist of modern web infrastructure. Platforms like Cloudflare Pages and Netlify serve pre-built HTML files from a global CDN, deliver them in under 100 milliseconds almost anywhere, and charge nothing on their free tiers. The OakFox site you're reading now runs this way. So do most of the sites in our [portfolio](/portfolio/).
+
+The catch is that the site has to be built for it. There's no WordPress admin, no live database, no PHP scripts answering form submissions. Content lives in a code repository, forms post to an API endpoint somewhere else, and anything dynamic (a shop, a booking system) needs a third-party service bolted on. For a developer-led small business, that's a brilliant deal. For a business where the owner wants to log in and update an "About" page in the browser, it's a non-starter without extra tooling.
+
+Static hosting also tends to be the greenest option, because a CDN edge serving a small HTML file uses a fraction of the energy that a shared PHP box does. That ties into what we cover in [how to reduce your website's carbon footprint](/blog/how-to-reduce-website-carbon-footprint/).
+
+## How to Pick: Three Questions
+
+The deciding question isn't "how much?". It's three questions in order:
+
+1. **Can this site be built as static files?** If yes, and your team is technical, start with a static host.
+2. **If not, who looks after it when something breaks?** If the answer is "me, and I know what I'm doing", a shared or VPS plan is fine. If the answer is "not me", a managed plan is almost always cheaper than the alternative.
+3. **Will your audience be in the UK?** If yes, insist on a UK data centre. UK visitors to a US-hosted site lose 50 to 200 milliseconds a page, which Google's own [Core Web Vitals](https://web.dev/articles/vitals) targets (Largest Contentful Paint inside 2.5 seconds, Interaction to Next Paint under 200 milliseconds) are measured against.
+
+If you'd rather see providers lined up side by side before picking, [our green web hosting comparison](/blog/green-web-hosting-uk-compared/) covers six UK-relevant hosts across the shared, managed and static types, with prices and honest caveats.
+
+## The Green Tie-Break
+
+Once you've picked the type and shortlisted providers, there's one more filter worth applying. The [Green Web Foundation](https://www.thegreenwebfoundation.org/green-web-check/) runs a public registry of hosts verified as running on renewable energy, and a 30-second check that returns a verified-or-not result for any domain. For most UK small businesses the greenest option is also price-competitive, often faster, and provable in a way that generic "eco-friendly" marketing isn't.
+
+It also gives you a straight answer to the sustainability question when a supplier form asks for it, without having to invent one.
+
+## So Which One Do You Need?
+
+For most UK small businesses the honest answer is: managed hosting if you're not technical, static hosting if you are. Shared hosting still has a place for WordPress sites with a developer in the loop, and a VPS is almost never the right call for a small business unless a specific technical requirement forces it.
+
+If you'd like us to work out which category you're in, run the [free website carbon audit](/website-carbon-audit/) on your current site. The output includes your current host, its greenness and its measured performance, which is usually enough to tell you whether you'd gain anything by moving. If the answer is yes, [get in touch](/contact/) and we'll handle the migration.
