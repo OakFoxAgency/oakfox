@@ -1,0 +1,128 @@
+---
+title: "We Checked 96 UK Small Business Websites for Accessibility. Every One Failed."
+description: "Original data: we ran automated accessibility checks on 96 UK small-business homepages. Every one failed at least one, and 71% had a critical problem."
+date: 2026-11-11
+category: "Web Design"
+author: "OakFox"
+tags: ["accessibility", "wcag", "uk", "small business", "web design"]
+draft: false
+faq:
+  - q: "How many small business websites fail accessibility checks?"
+    a: "In our November 2026 study, all 96 UK small-business homepages we checked failed at least one automated WCAG 2.2 A or AA check, and 95 had a problem rated critical or serious. The median homepage had 19 distinct problems. Automated checks only catch part of the picture, so the real figures can only be higher."
+  - q: "What is the most common accessibility problem on small business websites?"
+    a: "Low-contrast text. About three in four homepages in our study had text below the WCAG AA minimum of 4.5 to 1, usually pale grey on white or white on a brand colour. After that came missing skip links (68%), skipped heading levels (63%) and links with no readable text (51%)."
+  - q: "Is a fast, lightweight website also an accessible one?"
+    a: "No. We checked the same sites we measured for page weight in July 2026 and found no meaningful link between the two. The lightest third of homepages had a median of 19.5 accessibility problems and the heaviest third had 19. Page weight and accessibility are separate jobs and need separate checks."
+  - q: "Can an automated checker tell me my website is accessible?"
+    a: "No. Automated checks reliably find things like missing link text, skipped headings and low contrast, but they cannot judge whether alt text is accurate, whether a form makes sense when read aloud or whether a keyboard user can finish a booking. A clean automated result means fewer known problems, not an accessible site."
+  - q: "How do I check my own website's accessibility?"
+    a: "Run your homepage through a free checker such as A11yMate's page checker, which is the tool we used for this study. It lists each problem with the element involved and how to fix it. Then try your own site with the keyboard only, using Tab and Enter, and see whether you can reach and use everything."
+---
+
+We ran automated accessibility checks on the homepages of 96 real UK small businesses. Every single one failed at least one check. Seven in ten had a problem we class as critical, the kind that stops someone using part of the page at all, and the typical homepage had 19 separate problems.
+
+These are the same plumbers, dentists, estate agents and salons we [measured for carbon in July](/blog/we-audited-100-uk-small-business-websites/). That let us ask a second question nobody seems to have asked with UK data: are the heavy, wasteful sites also the inaccessible ones? They are not, and that turns out to be the more useful finding.
+
+## How we did it
+
+We went back to the 99 sites from the July study: independent businesses across 18 sectors and 19 UK towns and cities, found the way a customer would find them. Three could no longer be read by the checker, which left 96.
+
+For each one we checked the homepage and up to two inner pages (282 pages in all) with [A11yMate](/portfolio/a11ymate/), the accessibility checker we build. It is the same engine behind A11yMate's [free page checker](https://a11ymate.co.uk/check/), so you can repeat any of this on your own site. It runs 41 checks on the page's code and 10 more in a browser, covering colour contrast, text size, tap targets and how the page behaves at phone width, all against WCAG 2.2 levels A and AA.
+
+Two rules kept us honest. We only counted failures the checker can decide by itself, not the things it flags for a person to review. And where a contrast measurement came out so low that the checker had almost certainly failed to see the real background, we threw it out. That removed about a quarter of the contrast findings and is why our contrast figure is lower than the raw one.
+
+The figures below are for homepages unless we say otherwise.
+
+## The headline numbers
+
+| Measure | Result |
+| --- | --- |
+| Homepages with at least one failure | **96 of 96** |
+| With a critical or serious problem | **95 of 96** |
+| With a critical problem | **68 (71%)** |
+| Median distinct problems per homepage | **19** |
+| Median elements affected | 31 |
+| Most problems on one homepage | 80 |
+| Homepages with fewer than 10 problems | 10 |
+
+Only four homepages scored 90 or more out of 100 on the checker's own scale. The best had a single problem. It belongs to a café.
+
+## What goes wrong most often
+
+| Problem | Homepages affected |
+| --- | --- |
+| Text without enough contrast | **77%** |
+| No skip link | 68% |
+| Heading levels skipped | 63% |
+| Links with no text | 51% |
+| Vague link text ("click here", "read more") | 51% |
+| No main landmark | 48% |
+| Buttons, fields or borders with low contrast | 40% |
+| Linked image with no accessible name | 33% |
+| Links told apart by colour alone | 32% |
+| Page scrolls sideways at phone width | 24% |
+| Tap targets smaller than 24 by 24 pixels | 22% |
+| Pinch zoom switched off | 19% |
+
+Three things stand out.
+
+**Contrast is the big one.** About three in four homepages have text below the AA minimum. It is nearly always the same two patterns: pale grey text on white, and white text on a mid-toned brand colour. Both look tidy to a designer on a good screen and are hard work for anyone with low vision, or anyone reading a phone outdoors.
+
+**Half of all homepages have links a screen reader cannot name.** These are mostly icons: a phone symbol, a social media logo, a basket. To someone who cannot see the icon, the link is announced as "link" and nothing else. A third of sites do the same with linked images, often the logo.
+
+**The basics of structure are missing.** Two thirds have no skip link, so a keyboard user has to tab through the whole menu on every page. Nearly half have no main landmark, and almost two thirds skip heading levels, which breaks the outline that screen reader users navigate by.
+
+None of this is exotic. Every item in that table has a known, usually small, fix.
+
+## A light site is not an accessible site
+
+This was the question we most wanted to answer. In July we found that 44% of these sites rated E or F for carbon, mostly because of oversized images. It would be neat if the bloated sites were also the inaccessible ones, because then one clean-up would solve both.
+
+They are not. There is no meaningful relationship between page weight and accessibility problems in this sample (a rank correlation of 0.10, where 1 would be a perfect match).
+
+| Group | Median page weight | Median problems |
+| --- | --- | --- |
+| Lightest third of sites | 574 KB | 19.5 |
+| Heaviest third of sites | 4,954 KB | 19 |
+
+A site can be fast, lean and unusable with a keyboard. Performance work will not fix your accessibility, and an accessibility pass will not make your pages lighter. They are separate jobs, and both need measuring.
+
+## By sector
+
+Sector groups here are small, between five and nine sites each, so read this as a sketch.
+
+| Sector | Sites | Median problems |
+| --- | --- | --- |
+| Estate agency | 7 | 33 |
+| Legal | 6 | 28.5 |
+| Veterinary | 7 | 22 |
+| Automotive | 7 | 21 |
+| Dental | 7 | 20 |
+| Electrical | 7 | 19 |
+| Landscaping | 9 | 19 |
+| Building | 8 | 17 |
+| Plumbing and heating | 5 | 16 |
+| Physiotherapy | 5 | 14 |
+| Accountancy | 6 | 13 |
+| Hair and beauty | 5 | 13 |
+| Joinery | 7 | 13 |
+
+Estate agents and solicitors come out worst. Their homepages tend to be the busiest, with property carousels, search forms and long menus, and every extra component is another place to get it wrong. The simplest sites, a joiner with a gallery and a phone number, have the least to break.
+
+## What this study cannot tell you
+
+Automated checks find the problems a machine can be sure about. They cannot tell whether alt text describes the picture, whether an error message makes sense or whether a real person using a screen reader can book an appointment. So every number here is a floor. A site with one automated failure is not one fix away from accessible.
+
+Automated contrast checking also makes mistakes. We looked by eye at a random sample of flagged text on ten homepages: seven were plainly real, one was a false alarm and two we could not confirm either way. That is why we say "about three in four" and not a precise figure.
+
+And 96 sites is a sample, not a census.
+
+## See where you stand
+
+Put your own homepage through the [free A11yMate page checker](https://a11ymate.co.uk/check/). It takes a few seconds, runs the same checks we used here and shows you each problem with the element involved and how to fix it.
+
+Then start with the short list that covers most of what we found: darken your grey text, give every icon link a name, add a skip link and a main landmark, and put your headings in order. If your site runs on WordPress, the A11yMate plugin finds these as you write. If you would rather someone went through the whole site properly, including the parts no tool can judge, [that is what our accessibility service is for](/services/accessibility/).
+
+---
+
+*Methodology in brief: the 99 UK small-business sites from our July 2026 carbon study (18 sectors, 19 towns and cities, sampled via search, excluding directories and national chains), rechecked in November 2026; 96 could be reached. Homepage plus up to two inner pages per site, 282 pages. Checked with the A11yMate engine: 41 automated code checks and 10 automated in-browser checks at WCAG 2.2 levels A and AA, run on a copy of each page with its scripts removed, so content drawn by JavaScript is not seen. Only automated failures are counted; text-contrast findings measured below 1.5 to 1 were excluded as unreliable. A "distinct problem" is one rule failing on one kind of element; "elements affected" counts every instance. Figures are for homepages.*
