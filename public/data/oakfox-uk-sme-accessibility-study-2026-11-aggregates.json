@@ -1,0 +1,693 @@
+{
+ "checked": "November 2026",
+ "sites_in_list": 100,
+ "sites_checked": 96,
+ "pages_checked": 282,
+ "rules_run": {
+  "code_automated": 41,
+  "browser_automated": 10
+ },
+ "home": {
+  "sites_with_any_failure": 96,
+  "sites_with_none": 0,
+  "sites_with_critical": 68,
+  "sites_with_serious": 94,
+  "sites_with_critical_or_serious": 95,
+  "median_distinct_problems": 19.0,
+  "mean_distinct_problems": 21.5,
+  "max_distinct_problems": 80,
+  "median_elements_affected": 31.0,
+  "total_elements_affected": 3478,
+  "median_score": 66.0,
+  "score_bands": {
+   "D 60-69": 29,
+   "E below 60": 30,
+   "B 80-89": 13,
+   "C 70-79": 20,
+   "A 90-100": 4
+  },
+  "categories": [
+   {
+    "category": "structure",
+    "sites": 92,
+    "pct": 95.8
+   },
+   {
+    "category": "colour",
+    "sites": 82,
+    "pct": 85.4
+   },
+   {
+    "category": "links",
+    "sites": 78,
+    "pct": 81.2
+   },
+   {
+    "category": "interaction",
+    "sites": 60,
+    "pct": 62.5
+   },
+   {
+    "category": "images",
+    "sites": 49,
+    "pct": 51.0
+   },
+   {
+    "category": "forms",
+    "sites": 48,
+    "pct": 50.0
+   },
+   {
+    "category": "typography",
+    "sites": 21,
+    "pct": 21.9
+   },
+   {
+    "category": "aria",
+    "sites": 19,
+    "pct": 19.8
+   },
+   {
+    "category": "media",
+    "sites": 12,
+    "pct": 12.5
+   }
+  ]
+ },
+ "any_page": {
+  "sites_with_any_failure": 96,
+  "sites_with_critical": 79
+ },
+ "top_rules": [
+  {
+   "rule": "contrast-text",
+   "title": "Text does not have enough contrast",
+   "sc": "1.4.3",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 74,
+   "home_pct": 77.1,
+   "any_page_sites": 80,
+   "any_page_pct": 83.3
+  },
+  {
+   "rule": "skip-link-missing",
+   "title": "No skip link",
+   "sc": "2.4.1",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 65,
+   "home_pct": 67.7,
+   "any_page_sites": 66,
+   "any_page_pct": 68.8
+  },
+  {
+   "rule": "heading-skipped",
+   "title": "Heading levels are skipped",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 60,
+   "home_pct": 62.5,
+   "any_page_sites": 74,
+   "any_page_pct": 77.1
+  },
+  {
+   "rule": "link-empty",
+   "title": "Link has no text",
+   "sc": "2.4.4",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 49,
+   "home_pct": 51.0,
+   "any_page_sites": 52,
+   "any_page_pct": 54.2
+  },
+  {
+   "rule": "link-vague",
+   "title": "Link text is vague",
+   "sc": "2.4.4",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 49,
+   "home_pct": 51.0,
+   "any_page_sites": 50,
+   "any_page_pct": 52.1
+  },
+  {
+   "rule": "landmark-main-missing",
+   "title": "Page has no main landmark",
+   "sc": "2.4.1",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 46,
+   "home_pct": 47.9,
+   "any_page_sites": 48,
+   "any_page_pct": 50.0
+  },
+  {
+   "rule": "landmark-nav-unlabelled",
+   "title": "Several navigation areas share no labels",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "minor",
+   "pass": "server",
+   "home_sites": 44,
+   "home_pct": 45.8,
+   "any_page_sites": 47,
+   "any_page_pct": 49.0
+  },
+  {
+   "rule": "contrast-nontext",
+   "title": "Interface component or border has low contrast",
+   "sc": "1.4.11",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 38,
+   "home_pct": 39.6,
+   "any_page_sites": 56,
+   "any_page_pct": 58.3
+  },
+  {
+   "rule": "img-link-no-name",
+   "title": "Linked image has no accessible name",
+   "sc": "2.4.4",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 32,
+   "home_pct": 33.3,
+   "any_page_sites": 36,
+   "any_page_pct": 37.5
+  },
+  {
+   "rule": "link-colour-only",
+   "title": "Link is only distinguished by colour",
+   "sc": "1.4.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 31,
+   "home_pct": 32.3,
+   "any_page_sites": 33,
+   "any_page_pct": 34.4
+  },
+  {
+   "rule": "input-autocomplete-missing",
+   "title": "Personal details field has no autocomplete",
+   "sc": "1.3.5",
+   "level": "AA",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 31,
+   "home_pct": 32.3,
+   "any_page_sites": 63,
+   "any_page_pct": 65.6
+  },
+  {
+   "rule": "reflow-horizontal-scroll",
+   "title": "Page scrolls sideways at 320px wide",
+   "sc": "1.4.10",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 23,
+   "home_pct": 24.0,
+   "any_page_sites": 27,
+   "any_page_pct": 28.1
+  },
+  {
+   "rule": "target-size-min",
+   "title": "Click target is smaller than 24 by 24 pixels",
+   "sc": "2.5.8",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 21,
+   "home_pct": 21.9,
+   "any_page_sites": 22,
+   "any_page_pct": 22.9
+  },
+  {
+   "rule": "text-too-small",
+   "title": "Text is smaller than 12px",
+   "sc": "1.4.4",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 20,
+   "home_pct": 20.8,
+   "any_page_sites": 21,
+   "any_page_pct": 21.9
+  },
+  {
+   "rule": "input-placeholder-only",
+   "title": "Placeholder is the only label",
+   "sc": "3.3.2",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 19,
+   "home_pct": 19.8,
+   "any_page_sites": 28,
+   "any_page_pct": 29.2
+  },
+  {
+   "rule": "viewport-zoom-disabled",
+   "title": "Pinch zoom is switched off",
+   "sc": "1.4.4",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 18,
+   "home_pct": 18.8,
+   "any_page_sites": 18,
+   "any_page_pct": 18.8
+  },
+  {
+   "rule": "iframe-title-missing",
+   "title": "Frame has no title",
+   "sc": "4.1.2",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 18,
+   "home_pct": 18.8,
+   "any_page_sites": 30,
+   "any_page_pct": 31.2
+  },
+  {
+   "rule": "focus-obscured",
+   "title": "Focused element is hidden behind a sticky header",
+   "sc": "2.4.11",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 18,
+   "home_pct": 18.8,
+   "any_page_sites": 21,
+   "any_page_pct": 21.9
+  },
+  {
+   "rule": "text-spacing-clipped",
+   "title": "Text is cut off when spacing is increased",
+   "sc": "1.4.12",
+   "level": "AA",
+   "severity": "moderate",
+   "pass": "rendered",
+   "home_sites": 18,
+   "home_pct": 18.8,
+   "any_page_sites": 23,
+   "any_page_pct": 24.0
+  },
+  {
+   "rule": "focus-not-visible",
+   "title": "No visible focus indicator",
+   "sc": "2.4.7",
+   "level": "AA",
+   "severity": "serious",
+   "pass": "rendered",
+   "home_sites": 15,
+   "home_pct": 15.6,
+   "any_page_sites": 20,
+   "any_page_pct": 20.8
+  },
+  {
+   "rule": "heading-empty",
+   "title": "Heading is empty",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 15,
+   "home_pct": 15.6,
+   "any_page_sites": 20,
+   "any_page_pct": 20.8
+  },
+  {
+   "rule": "img-alt-missing",
+   "title": "Image has no alt attribute",
+   "sc": "1.1.1",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 14,
+   "home_pct": 14.6,
+   "any_page_sites": 17,
+   "any_page_pct": 17.7
+  },
+  {
+   "rule": "aria-hidden-focusable",
+   "title": "Hidden element can still be focused",
+   "sc": "4.1.2",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 14,
+   "home_pct": 14.6,
+   "any_page_sites": 15,
+   "any_page_pct": 15.6
+  },
+  {
+   "rule": "input-no-label",
+   "title": "Form field has no label",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 13,
+   "home_pct": 13.5,
+   "any_page_sites": 25,
+   "any_page_pct": 26.0
+  },
+  {
+   "rule": "h1-missing",
+   "title": "Page has no main heading (h1)",
+   "sc": "2.4.6",
+   "level": "AA",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 12,
+   "home_pct": 12.5,
+   "any_page_sites": 19,
+   "any_page_pct": 19.8
+  },
+  {
+   "rule": "button-empty",
+   "title": "Button has no name",
+   "sc": "4.1.2",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 11,
+   "home_pct": 11.5,
+   "any_page_sites": 11,
+   "any_page_pct": 11.5
+  },
+  {
+   "rule": "media-autoplay",
+   "title": "Media plays automatically",
+   "sc": "1.4.2",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 11,
+   "home_pct": 11.5,
+   "any_page_sites": 12,
+   "any_page_pct": 12.5
+  },
+  {
+   "rule": "required-not-programmatic",
+   "title": "Required field is only marked visually",
+   "sc": "3.3.2",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 7,
+   "home_pct": 7.3,
+   "any_page_sites": 10,
+   "any_page_pct": 10.4
+  },
+  {
+   "rule": "group-no-fieldset",
+   "title": "Radio or checkbox group has no group label",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 6,
+   "home_pct": 6.2,
+   "any_page_sites": 9,
+   "any_page_pct": 9.4
+  },
+  {
+   "rule": "html-lang-missing",
+   "title": "Page has no language set",
+   "sc": "3.1.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 5,
+   "home_pct": 5.2,
+   "any_page_sites": 5,
+   "any_page_pct": 5.2
+  },
+  {
+   "rule": "img-alt-filename",
+   "title": "Alt text looks like a file name",
+   "sc": "1.1.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 5,
+   "home_pct": 5.2,
+   "any_page_sites": 6,
+   "any_page_pct": 6.2
+  },
+  {
+   "rule": "tabindex-positive",
+   "title": "Positive tabindex changes the tab order",
+   "sc": "2.4.3",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 5,
+   "home_pct": 5.2,
+   "any_page_sites": 7,
+   "any_page_pct": 7.3
+  },
+  {
+   "rule": "aria-ref-missing-id",
+   "title": "Label points at an element that does not exist",
+   "sc": "4.1.2",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 4,
+   "home_pct": 4.2,
+   "any_page_sites": 8,
+   "any_page_pct": 8.3
+  },
+  {
+   "rule": "list-orphan-li",
+   "title": "List item is outside a list",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 4,
+   "home_pct": 4.2,
+   "any_page_sites": 6,
+   "any_page_pct": 6.2
+  },
+  {
+   "rule": "img-alt-long",
+   "title": "Alt text is very long",
+   "sc": "1.1.1",
+   "level": "A",
+   "severity": "minor",
+   "pass": "server",
+   "home_sites": 3,
+   "home_pct": 3.1,
+   "any_page_sites": 3,
+   "any_page_pct": 3.1
+  },
+  {
+   "rule": "table-no-headers",
+   "title": "Data table has no header cells",
+   "sc": "1.3.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 2,
+   "home_pct": 2.1,
+   "any_page_sites": 2,
+   "any_page_pct": 2.1
+  },
+  {
+   "rule": "img-alt-redundant",
+   "title": "Alt text starts with \"image of\" or similar",
+   "sc": "1.1.1",
+   "level": "A",
+   "severity": "minor",
+   "pass": "server",
+   "home_sites": 2,
+   "home_pct": 2.1,
+   "any_page_sites": 3,
+   "any_page_pct": 3.1
+  },
+  {
+   "rule": "video-no-captions",
+   "title": "Video has no captions",
+   "sc": "1.2.2",
+   "level": "A",
+   "severity": "critical",
+   "pass": "server",
+   "home_sites": 2,
+   "home_pct": 2.1,
+   "any_page_sites": 2,
+   "any_page_pct": 2.1
+  },
+  {
+   "rule": "id-duplicate-referenced",
+   "title": "Duplicate id is used by a label or ARIA attribute",
+   "sc": "4.1.2",
+   "level": "A",
+   "severity": "moderate",
+   "pass": "server",
+   "home_sites": 1,
+   "home_pct": 1.0,
+   "any_page_sites": 3,
+   "any_page_pct": 3.1
+  },
+  {
+   "rule": "svg-role-img-no-name",
+   "title": "SVG marked as an image has no name",
+   "sc": "1.1.1",
+   "level": "A",
+   "severity": "serious",
+   "pass": "server",
+   "home_sites": 1,
+   "home_pct": 1.0,
+   "any_page_sites": 1,
+   "any_page_pct": 1.0
+  },
+  {
+   "rule": "letter-spacing-negative",
+   "title": "Tight letter spacing on body text",
+   "sc": "1.4.12",
+   "level": "AA",
+   "severity": "moderate",
+   "pass": "rendered",
+   "home_sites": 1,
+   "home_pct": 1.0,
+   "any_page_sites": 1,
+   "any_page_pct": 1.0
+  }
+ ],
+ "by_sector": [
+  {
+   "name": "estate-agency",
+   "n": 7,
+   "median_issues": 33,
+   "median_score": 52,
+   "with_critical": 6
+  },
+  {
+   "name": "legal",
+   "n": 6,
+   "median_issues": 28.5,
+   "median_score": 56.5,
+   "with_critical": 3
+  },
+  {
+   "name": "veterinary",
+   "n": 7,
+   "median_issues": 22,
+   "median_score": 61,
+   "with_critical": 3
+  },
+  {
+   "name": "automotive",
+   "n": 7,
+   "median_issues": 21,
+   "median_score": 63,
+   "with_critical": 5
+  },
+  {
+   "name": "dental",
+   "n": 7,
+   "median_issues": 20,
+   "median_score": 65,
+   "with_critical": 5
+  },
+  {
+   "name": "electrical",
+   "n": 7,
+   "median_issues": 19,
+   "median_score": 65,
+   "with_critical": 4
+  },
+  {
+   "name": "landscaping",
+   "n": 9,
+   "median_issues": 19,
+   "median_score": 68,
+   "with_critical": 7
+  },
+  {
+   "name": "building",
+   "n": 8,
+   "median_issues": 17.0,
+   "median_score": 71.0,
+   "with_critical": 5
+  },
+  {
+   "name": "plumbing-heating",
+   "n": 5,
+   "median_issues": 16,
+   "median_score": 69,
+   "with_critical": 4
+  },
+  {
+   "name": "physiotherapy",
+   "n": 5,
+   "median_issues": 14,
+   "median_score": 82,
+   "with_critical": 3
+  },
+  {
+   "name": "accountancy",
+   "n": 6,
+   "median_issues": 13.0,
+   "median_score": 77.5,
+   "with_critical": 5
+  },
+  {
+   "name": "hair-beauty",
+   "n": 5,
+   "median_issues": 13,
+   "median_score": 68,
+   "with_critical": 5
+  },
+  {
+   "name": "joinery",
+   "n": 7,
+   "median_issues": 13,
+   "median_score": 74,
+   "with_critical": 4
+  }
+ ],
+ "carbon": {
+  "spearman_weight_vs_problems": 0.103,
+  "spearman_weight_vs_elements": 0.185,
+  "lightest_third": {
+   "n": 32,
+   "median_kb": 574,
+   "median_problems": 19.5,
+   "median_score": 65.0
+  },
+  "heaviest_third": {
+   "n": 32,
+   "median_kb": 4954,
+   "median_problems": 19.0,
+   "median_score": 66.0
+  },
+  "green_host": {
+   "n": 60,
+   "median_problems": 18.5
+  },
+  "not_green_host": {
+   "n": 36,
+   "median_problems": 20.0
+  }
+ },
+ "unreachable": 4
+}

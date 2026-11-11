@@ -6,6 +6,18 @@ category: "Web Design"
 author: "OakFox"
 tags: ["accessibility", "wcag", "uk", "small business", "web design"]
 draft: false
+dataset:
+  name: "UK Small Business Website Accessibility Study, November 2026"
+  description: "Anonymised per-site results from automated accessibility checks on 96 UK small-business homepages across 18 sectors: distinct problems found, elements affected, problems by severity, checker score, and whether each of the 14 most common WCAG 2.2 A and AA failures was present."
+  license: "https://creativecommons.org/licenses/by/4.0/"
+  temporalCoverage: "2026-11"
+  spatialCoverage: "United Kingdom"
+  keywords: ["web accessibility", "WCAG 2.2", "UK small business", "colour contrast", "automated accessibility testing"]
+  distribution:
+    - contentUrl: "https://oakfox.co.uk/data/oakfox-uk-sme-accessibility-study-2026-11.csv"
+      encodingFormat: "text/csv"
+    - contentUrl: "https://oakfox.co.uk/data/oakfox-uk-sme-accessibility-study-2026-11-aggregates.json"
+      encodingFormat: "application/json"
 faq:
   - q: "How many small business websites fail accessibility checks?"
     a: "In our November 2026 study, all 96 UK small-business homepages we checked failed at least one automated WCAG 2.2 A or AA check, and 95 had a problem rated critical or serious. The median homepage had 19 distinct problems. Automated checks only catch part of the picture, so the real figures can only be higher."
@@ -115,7 +127,7 @@ Automated checks find the problems a machine can be sure about. They cannot tell
 
 Automated contrast checking also makes mistakes. We looked by eye at a random sample of flagged text on ten homepages: seven were plainly real, one was a false alarm and two we could not confirm either way. That is why we say "about three in four" and not a precise figure.
 
-And 96 sites is a sample, not a census.
+And 96 sites is a sample, not a census. We have published the anonymised results so you can check our working: the [per-site CSV](https://oakfox.co.uk/data/oakfox-uk-sme-accessibility-study-2026-11.csv) and [JSON aggregates](https://oakfox.co.uk/data/oakfox-uk-sme-accessibility-study-2026-11-aggregates.json) are free to use under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## See where you stand
 
@@ -125,4 +137,4 @@ Then start with the short list that covers most of what we found: darken your gr
 
 ---
 
-*Methodology in brief: the 99 UK small-business sites from our July 2026 carbon study (18 sectors, 19 towns and cities, sampled via search, excluding directories and national chains), rechecked in November 2026; 96 could be reached. Homepage plus up to two inner pages per site, 282 pages. Checked with the A11yMate engine: 41 automated code checks and 10 automated in-browser checks at WCAG 2.2 levels A and AA, run on a copy of each page with its scripts removed, so content drawn by JavaScript is not seen. Only automated failures are counted; text-contrast findings measured below 1.5 to 1 were excluded as unreliable. A "distinct problem" is one rule failing on one kind of element; "elements affected" counts every instance. Figures are for homepages.*
+*Methodology in brief: the 99 UK small-business sites from our July 2026 carbon study (18 sectors, 19 towns and cities, sampled via search, excluding directories and national chains), rechecked in November 2026; 96 could be reached. Homepage plus up to two inner pages per site, 282 pages. Checked with the A11yMate engine: 41 automated code checks and 10 automated in-browser checks at WCAG 2.2 levels A and AA, run on a copy of each page with its scripts removed, so content drawn by JavaScript is not seen. Only automated failures are counted; text-contrast findings measured below 1.5 to 1 were excluded as unreliable. A "distinct problem" is one rule failing on one kind of element; "elements affected" counts every instance. Figures are for homepages. Dataset: CC BY 4.0.*
