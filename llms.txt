@@ -58,6 +58,7 @@
 ## Selected work
 
 - [Website Carbon Audit tool](https://oakfox.co.uk/portfolio/website-carbon-audit-tool): A free public website sustainability checker, designed and built in-house — crawler, co2.js carbon model, green hosting check, and A+ to F rating.
+- [MORE WILD](https://oakfox.co.uk/portfolio/more-wild): A brand identity concept for a conservation charity, built on one idea (make room): a name set at two widths, a display typeface drawn for it (Clearing), a hare picture mark with a sit-to-run animation, brand guidelines and a working Next.js website. A concept, not a real charity.
 - [A11yMate](https://oakfox.co.uk/portfolio/a11ymate): An accessibility checker and fixer for WordPress, designed and built in-house — whole-site audit, plain-English fixes, editor assistant, safe fixes and a free page checker (https://a11ymate.co.uk). OakFox's own product, behind its accessibility audits.
 - [CubTrack](https://oakfox.co.uk/portfolio/cubtrack): Full product design, development, and marketing for a baby and toddler tracking app — OakFox's first in-house product.
 - [TrailFox](https://oakfox.co.uk/portfolio/trailfox): Brand, UX, and a cross-platform iOS + Android outdoor activity app for families — OakFox's second in-house product.
