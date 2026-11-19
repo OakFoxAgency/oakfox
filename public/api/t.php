@@ -18,6 +18,7 @@ const TRACK_SITES = [
     'trailfoxapp.co.uk' => 'trailfox',
     'chesterromans.co.uk' => 'chesterromans',
     'bearlagogaeilge.co.uk' => 'bearlagogaeilge',
+    'howaiisit.co.uk' => 'howaiisit',
 ];
 const TRACK_KEEP_MONTHS = 14;
 
