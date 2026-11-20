@@ -99,6 +99,10 @@ const faqs = [
       : `Yes. ${location.name} is ${location.distance.toLowerCase()}, and we work with clients there on brand identity, website design, development, marketing, copywriting and green web hosting.`,
   },
   {
+    q: `How much does a website cost in ${location.name}?`,
+    a: `Prices are the same wherever you are. Web design typically ranges from £3,500 for a focused landing page to £15,000 or more for a full multi-page site, and custom development from £2,500 for a static marketing site. Managed green hosting is from £9.99 a month and the website care plan from £79 a month, with no VAT to add on either. Every project is quoted once we have heard what you need.`,
+  },
+  {
     q: `How does working with a ${location.name} design studio compare to a London or Manchester agency?`,
     a: `You get the principal on the work, not an account manager passing briefs to a pool of juniors. Costs are typically 30 to 50% lower than equivalent London agencies for the same quality, turnaround is faster because decisions don't pass through several layers, and the person who quoted you is the person you work with from start to finish.`,
   },
@@ -130,8 +134,8 @@ const relatedWork = (location.relatedWork ?? []).map((w) => ({
 ---
 
 <BaseLayout
-  title={`Web Design in ${location.name}: Independent Studio`}
-  description={`Website design, branding and development for ${location.name} businesses from an independent studio in Burscough${isBase || isCounty ? '' : `, ${location.distance.toLowerCase()}`}. You work with the designer, not an account manager.`}
+  title={`Web Designer in ${location.name}: Websites and Branding`}
+  description={`Websites and branding for ${location.name} businesses from an independent studio in Burscough${isBase || isCounty ? '' : `, ${location.distance.replace(/ of the studio$/, '').toLowerCase()}`}. Design from £3,500, hosting from £9.99 a month.`}
   schema={[webPage, placeSchema, serviceArea, breadcrumbs, faqSchema]}
 >
   <PageHero
@@ -164,6 +168,42 @@ const relatedWork = (location.relatedWork ?? []).map((w) => ({
       </ul>
     </div>
   </PageHero>
+
+  <!-- Answer first: who we are, what we do here, what it costs, how to start. Prices are the ones on the service pages. -->
+  <section class="py-16 md:py-24 border-t border-stone" aria-labelledby="who-heading">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-6">
+        <h2 id="who-heading" class="headline text-4xl md:text-5xl">{isBase ? 'Who we are, and what we do' : `Who we are, and what we do in ${location.name}`}</h2>
+        <p class="mt-6 text-lg md:text-xl text-ink/80 leading-relaxed max-w-[54ch]">
+          OakFox is an independent design studio run by Nathan Entwistle from Martland Mill, Burscough.
+          {isBase || isCounty ? '' : ` ${location.name} is ${location.distance.toLowerCase()}.`}
+          We design and build websites and brands for {isCounty ? 'Lancashire' : location.name} businesses, host them on renewable-powered UK hosting and look after them afterwards. You work with the person who does the work.
+        </p>
+        <p class="mt-5 text-lg text-ink/70 leading-relaxed max-w-[54ch]">
+          To start, <a href="/contact/" data-track="location-contact" class="text-forest underline underline-offset-4 hover:text-forest-dark">send a few lines</a> or
+          <a href="/book/" data-track="location-book" class="text-forest underline underline-offset-4 hover:text-forest-dark">book a free thirty-minute call</a>. We reply within 24 hours.
+        </p>
+        <dl class="mt-8 text-[15px] text-ink/75 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2">
+          <dt class="font-semibold text-ink">Studio</dt>
+          <dd>Martland Mill, Mart Lane, Burscough, L40 0SD</dd>
+          <dt class="font-semibold text-ink">Phone</dt>
+          <dd><a href="tel:+441704773233" class="hover:text-forest">01704 773233</a></dd>
+        </dl>
+      </div>
+      <div class="lg:col-span-6 rounded-2xl border border-stone bg-cream-light p-7 md:p-9">
+        <h3 class="text-2xl font-semibold tracking-tight">What it costs</h3>
+        <ul class="mt-5 divide-y divide-ink/10">
+          <li class="py-3 flex justify-between gap-6"><a href="/services/web-design/" class="text-forest underline underline-offset-4">Web design</a><span class="figures text-ink">from £3,500</span></li>
+          <li class="py-3 flex justify-between gap-6"><a href="/services/development/" class="text-forest underline underline-offset-4">Web development</a><span class="figures text-ink">from £2,500</span></li>
+          <li class="py-3 flex justify-between gap-6"><a href="/services/branding/" class="text-forest underline underline-offset-4">Brand identity</a><span class="figures text-ink">from £4,500</span></li>
+          <li class="py-3 flex justify-between gap-6"><a href="/services/marketing/" class="text-forest underline underline-offset-4">Marketing</a><span class="figures text-ink">from £1,500 a month</span></li>
+          <li class="py-3 flex justify-between gap-6"><a href="/services/green-web-hosting/" class="text-forest underline underline-offset-4">Green hosting</a><span class="figures text-ink">from £9.99 a month</span></li>
+          <li class="py-3 flex justify-between gap-6"><a href="/services/care-plan/" class="text-forest underline underline-offset-4">Website care plan</a><span class="figures text-ink">from £79 a month</span></li>
+        </ul>
+        <p class="mt-4 text-[14px] text-ink/65">Hosting and care plan prices have no VAT to add. Every project is quoted after we have heard what you need.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- Local knowledge: the rest of the description, then the checkable notes. -->
   {(rest || location.localNotes) && (

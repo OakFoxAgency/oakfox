@@ -38,8 +38,8 @@ const link = 'underline decoration-cream/30 underline-offset-4 hover:text-cream 
       <div class="lg:col-span-6">
         <p class="text-xl text-cream/80 leading-relaxed">{text}</p>
         <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a href={primary.href} class="btn-light">{primary.label}</a>
-          {secondary && <a href={secondary.href} class="link-line text-[15px] font-medium text-cream">{secondary.label}</a>}
+          <a href={primary.href} data-track="closing-primary" class="btn-light">{primary.label}</a>
+          {secondary && <a href={secondary.href} data-track="closing-book" class="link-line text-[15px] font-medium text-cream">{secondary.label}</a>}
         </div>
       </div>
       {showLocations && (

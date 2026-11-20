@@ -20,8 +20,8 @@ const howItWorks = [
 ---
 
 <BaseLayout
-  title="Book a call"
-  description="Book a free 30-minute initial call with OakFox. Calls run Monday to Friday, starting between 9am and 4pm UK time."
+  title="Book a Free Call with OakFox"
+  description="Book a free 30-minute call with OakFox, the studio that designs and builds your site itself. Weekdays, starting between 9am and 4pm UK time."
   schema={serviceSchema}
 >
   <PageHero
@@ -75,7 +75,7 @@ const howItWorks = [
           <textarea name="notes" rows="4" class="booking-input booking-textarea resize-none" placeholder="A few lines on your project and what you're hoping to do"></textarea>
         </label>
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="booking-hp" />
-        <button type="submit" id="book-submit" class="booking-submit">Confirm booking</button>
+        <button type="submit" id="book-submit" data-track="book-submit" class="booking-submit">Confirm booking</button>
         <p id="book-status" class="text-[14px]" role="status" aria-live="polite"></p>
       </form>
 
@@ -88,6 +88,14 @@ const howItWorks = [
       </div>
     </div>
   </PageHero>
+
+  <section class="pb-16 md:pb-24">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+      <p class="max-w-[62ch] text-lg text-ink/75 leading-relaxed">
+        The call is with Nathan, who designs and builds the sites himself. It is free and runs thirty minutes. Afterwards we send a written quote, shaped around your project, before you commit to anything. Typical starting prices are on the <a href="/contact/#what-you-get" class="text-forest underline underline-offset-4 hover:text-forest-dark">contact page</a>, and most projects take six to fourteen weeks.
+      </p>
+    </div>
+  </section>
 
   <ProcessSteps title="How it works" steps={howItWorks} />
 </BaseLayout>

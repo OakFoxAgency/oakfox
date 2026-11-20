@@ -51,9 +51,9 @@ const accentWords = new Set(accent.split(' ').filter(Boolean));
       )}
       {(primary || secondary) && (
         <div data-hero-cta class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-          {primary && <a href={primary.href} class="btn-primary">{primary.label}</a>}
+          {primary && <a href={primary.href} data-track="hero-primary" class="btn-primary">{primary.label}</a>}
           {secondary && (
-            <a href={secondary.href} class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">{secondary.label}</a>
+            <a href={secondary.href} data-track="hero-secondary" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">{secondary.label}</a>
           )}
         </div>
       )}

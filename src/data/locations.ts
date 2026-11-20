@@ -39,6 +39,13 @@ export const locations: Location[] = [
       'Food and drink producers',
     ],
     nearby: ['Burscough', 'Aughton', 'Skelmersdale', 'Rufford', 'Southport'],
+    relatedWork: [
+      {
+        slug: 'the-magpies-tale',
+        title: "The Magpie's Tale, an independent bookshop",
+        note: 'A low-carbon website for an independent bookshop in Churchtown, Southport, drawn by one of its owners and edited by the owners themselves. The same kind of independent retail work we do for Ormskirk shops.',
+      },
+    ],
     localNotes: [
       "The market runs every Thursday and Saturday, 8am to 4.30pm, across Moor Street, Aughton Street and Church Street (West Lancashire Borough Council).",
       "Ormskirk station is a cross-platform interchange between Merseyrail services to Liverpool Central and Northern services to Preston, so meeting in town without a car is easy.",

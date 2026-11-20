@@ -35,6 +35,14 @@ const contents = headings.filter((h) => h.depth === 2);
 const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const relatedLinks = related.map((r) => ({ href: `/blog/${r.id}/`, title: r.data.title, note: r.data.description }));
 
+// Posts about price get a quote box after the article.
+const quotePosts = [
+  'how-much-does-a-website-cost-uk',
+  'how-much-does-branding-cost-uk',
+  'how-much-does-marketing-cost-small-business-uk',
+  'what-is-green-web-design-and-cost',
+  'web-hosting-uk-small-business',
+];
 const articleUrl = `https://oakfox.co.uk/blog/${post.id}`;
 const articleSchema = {
   '@type': 'BlogPosting',
@@ -185,6 +193,18 @@ if (post.data.howto) {
         <div class="prose-oak prose prose-lg max-w-[68ch]">
           <Content />
         </div>
+        {quotePosts.includes(post.id) && (
+          <aside class="mt-12 max-w-[68ch] rounded-2xl bg-moss p-7 md:p-9" aria-labelledby="quote-box-heading">
+            <h2 id="quote-box-heading" class="text-2xl font-semibold tracking-tight text-ink">Want a price for your project?</h2>
+            <p class="mt-3 text-[17px] text-ink/80 leading-relaxed">
+              Send a few lines about what you need. We reply within 24 hours, talk it through on a free call and send a written quote before you commit to anything.
+            </p>
+            <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href="/book/?from=post-cost" data-track="post-quote-book" class="btn-primary">Book a free call</a>
+              <a href="/contact/?from=post-cost" data-track="post-quote-contact" class="link-line text-[15px] font-medium text-ink hover:text-forest transition-colors">Or send a message</a>
+            </div>
+          </aside>
+        )}
       </div>
     </div>
     </div>
