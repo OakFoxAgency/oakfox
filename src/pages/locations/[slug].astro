@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { testimonialBy } from '../../data/testimonials';
 import PageHero from '../../components/PageHero.astro';
 import FaqList from '../../components/FaqList.astro';
 import JournalLinks from '../../components/JournalLinks.astro';
@@ -126,6 +127,7 @@ const faqSchema = {
   })),
 };
 
+const quote = location.testimonial ? testimonialBy(location.testimonial) : undefined;
 const relatedWork = (location.relatedWork ?? []).map((w) => ({
   href: `/portfolio/${w.slug}/`,
   title: w.title,
@@ -204,6 +206,21 @@ const relatedWork = (location.relatedWork ?? []).map((w) => ({
       </div>
     </div>
   </section>
+
+  <!-- A client in this town, in their own words. -->
+  {quote && (
+    <section class="py-16 md:py-24 border-t border-stone">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+        <h2 class="sr-only">What a client in {location.name} says</h2>
+        <figure class="max-w-[62ch]">
+          <blockquote class="text-2xl md:text-4xl font-semibold tracking-tight leading-[1.2] text-ink">“{quote.quote}”</blockquote>
+          <figcaption class="mt-6 text-[15px]">
+            <span class="font-semibold text-ink">{quote.name}</span><span class="text-ink/65">, {location.name}: {quote.org}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
 
   <!-- Local knowledge: the rest of the description, then the checkable notes. -->
   {(rest || location.localNotes) && (

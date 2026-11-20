@@ -12,6 +12,8 @@ export interface Location {
   nearby: string[];
   /** Portfolio case studies from the sectors that lead this location's economy. */
   relatedWork?: { slug: string; title: string; note: string }[];
+  /** The name of a client in this town whose review may be quoted here (Nathan confirmed Wesley Boyce for Ormskirk, 20 Nov 2026). */
+  testimonial?: string;
   /** Checkable local detail (places, transport, events) shown on the page. Facts only. */
   localNotes?: string[];
 }
@@ -19,6 +21,7 @@ export interface Location {
 export const locations: Location[] = [
   {
     slug: 'ormskirk',
+    testimonial: 'Wesley Boyce',
     name: 'Ormskirk',
     region: 'West Lancashire',
     postcode: 'L39',

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { testimonials } from '../data/testimonials';
 import Img from '../components/Img.astro';
 import { getCollection } from 'astro:content';
 import { isPublished } from '../lib/posts';
@@ -31,20 +32,6 @@ const ratings = study.ratings as Record<string, number>;
 const aOrBetter = (ratings['A+'] ?? 0) + (ratings.A ?? 0);
 const medianMB = (study.weight.medKB / 1000).toFixed(1);
 
-const testimonials = [
-  {
-    quote:
-      'They completely blew past our expectations. The design is beautifully polished, the development is seamless, and their communication throughout the project was first-class.',
-    name: 'Wesley Boyce',
-    org: 'brand identity and website',
-  },
-  {
-    quote:
-      'I absolutely love the look and feel of my new author website. They are so easy to work with and accommodating. I can recommend OakFox 100%.',
-    name: 'Jennifer Lane',
-    org: 'Jennifer Lane Writes',
-  },
-];
 
 const homeSchema = {
   '@type': 'WebPage',
