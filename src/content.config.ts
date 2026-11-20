@@ -8,6 +8,8 @@ const portfolio = defineCollection({
     // Overrides the <title> tag only. The on-page heading still uses `title`,
     // so a case study can read "TrailFox" while search results say what it is.
     seoTitle: z.string().optional(),
+    // Overrides the meta description only; the on-page summary keeps `description`.
+    seoDescription: z.string().optional(),
     description: z.string(),
     category: z.enum(['branding', 'design', 'development', 'marketing', 'consultancy']),
     thumbnail: z.string(),

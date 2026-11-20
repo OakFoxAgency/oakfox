@@ -86,7 +86,7 @@ const breadcrumbs = {
 
 <BaseLayout
   title={item.data.seoTitle ?? item.data.title}
-  description={item.data.description}
+  description={item.data.seoDescription ?? item.data.description}
   image={item.data.thumbnail}
   type="article"
   schema={[projectSchema, breadcrumbs]}
