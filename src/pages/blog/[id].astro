@@ -113,7 +113,7 @@ if (post.data.howto) {
 ---
 
 <BaseLayout
-  title={post.data.title}
+  title={post.data.seoTitle ?? post.data.title}
   description={post.data.description}
   type="article"
   schema={pageSchemas}
@@ -156,7 +156,7 @@ if (post.data.howto) {
               <dt class="sr-only">Tags</dt>
               <dd class="flex flex-wrap gap-1.5">
                 {post.data.tags.map((tag: string) => (
-                  <a href={`/blog/tags/${tag}/`} class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors">{tag}</a>
+                  <a href={`/blog/tags/${encodeURIComponent(tag)}/`} class="px-3 py-1 rounded-full border border-stone bg-cream-light text-[13px] text-ink/75 hover:border-forest hover:text-forest transition-colors">{tag}</a>
                 ))}
               </dd>
             </div>

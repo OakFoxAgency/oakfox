@@ -33,6 +33,8 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    // Overrides the <title> tag only; the on-page heading keeps `title`.
+    seoTitle: z.string().optional(),
     description: z.string(),
     date: z.coerce.date(),
     // optional refresh date — drives schema dateModified without resetting the

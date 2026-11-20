@@ -58,7 +58,7 @@ const breadcrumbs = {
 ---
 
 <BaseLayout
-  title="Journal: Sustainable Branding, Web Design and Marketing"
+  title="Journal: Branding, Web Design and Marketing"
   description="Essays and practical guides from the OakFox studio on sustainable branding, accessible web design, green web development, honest marketing and environmental consultancy."
   schema={[blogSchema, breadcrumbs]}
 >
@@ -87,7 +87,7 @@ const breadcrumbs = {
           {topTags.map(([tag, count]) => (
             <li>
               <a
-                href={`/blog/tags/${tag}/`}
+                href={`/blog/tags/${encodeURIComponent(tag)}/`}
                 class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-stone bg-cream-light text-[14px] text-ink/80 hover:border-forest hover:text-forest transition-colors"
               >
                 {tag} <span class="text-ink/65 figures">{count}</span>
