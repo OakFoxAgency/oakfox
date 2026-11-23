@@ -62,6 +62,11 @@ const offerings = [
     description:
       'Components, patterns and tokens handed over as a working Figma file, so new pages are quicker to build and stay consistent as the site grows.',
   },
+  {
+    title: 'Built by us too, if you want',
+    description:
+      'Design and build can run as one project with OakFox, with development quoted separately from £2,500. If you already have a developer, we hand the design system over to them.',
+  },
 ];
 
 const process = [
@@ -126,7 +131,7 @@ const faqSchema = {
     back={{ label: 'Services', href: '/services/' }}
     title="Websites designed around the people who use them."
     accent="people"
-    intro="OakFox designs websites for small businesses from its studio in Burscough, West Lancashire, from £3,500 for a focused landing page. Information architecture, user experience and visual design for businesses who know a good-looking homepage isn't enough, accessible from the start and handed over as a design system your developers (or ours) can build from."
+    intro="OakFox designs websites for small businesses from its studio in Burscough, West Lancashire, from £3,500 for a focused landing page. Information architecture, user experience and visual design for businesses who know a good-looking homepage isn't enough, accessible from the start. We can build the site too, or hand the design system to your own developers."
   >
     <div slot="aside" class="rounded-2xl border border-stone bg-cream-light p-8 md:p-10">
       <Reflow />
@@ -143,6 +148,7 @@ const faqSchema = {
   <FaqList title="Web design questions we hear a lot" items={faqs}>
     Typical prices, from DIY builders to agencies:
     <a href="/blog/how-much-does-a-website-cost-uk/" class="text-forest underline underline-offset-4">how much a website costs in the UK</a>.
+    Want it built as well? See <a href="/services/development/" class="text-forest underline underline-offset-4">web development</a>.
     Already have a site? Our <a href="/services/accessibility/" class="text-forest underline underline-offset-4">accessibility audits and fixes</a> use <a href="https://a11ymate.co.uk" class="text-forest underline underline-offset-4">A11yMate</a>, our own checker.
   </FaqList>
 
