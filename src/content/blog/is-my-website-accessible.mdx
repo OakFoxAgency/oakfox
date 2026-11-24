@@ -1,0 +1,100 @@
+---
+title: "Is My Website Accessible? A 15-Minute Check Anyone Can Do"
+seoTitle: "Is My Website Accessible? A 15-Minute Check"
+description: "Find out if your website is accessible in 15 minutes: a free checker, then keyboard, zoom, contrast, images, headings and forms, with the WCAG rule for each."
+date: 2026-11-24
+category: "Web Design"
+author: "OakFox"
+tags: ["accessibility", "wcag", "small business", "web design", "uk"]
+draft: false
+faq:
+  - q: "How can I check if my website is accessible?"
+    a: "Run a free automated checker on your homepage first, such as A11yMate's page checker or WebAIM's WAVE. Then spend ten minutes testing by hand: use the site with the keyboard only, zoom to 200%, check text contrast, look at image alt text, check the headings and fill in a form. Those manual checks find problems the tools can't."
+  - q: "What is the best free website accessibility checker?"
+    a: "There isn't one tool that does everything. WAVE from WebAIM is free to use online and as a Chrome, Firefox or Edge extension, and A11yMate's page checker needs no signup and ties each problem to its WCAG 2.2 rule. Use one, fix what it finds, then test by hand, because W3C says tools cannot check every accessibility aspect automatically."
+  - q: "Does an accessibility score of 100 mean my site is accessible?"
+    a: "No. WebAIM says the absence of detected errors does not mean a page is accessible or conformant, and W3C says tools can only assist in judging accessibility, not decide it. A perfect automated score means the checker found nothing it can test for. It can't tell whether your alt text is accurate or a keyboard user can finish a booking."
+  - q: "What WCAG level should a small business website meet?"
+    a: "WCAG 2.2 level AA. It's the standard GOV.UK sets for public sector websites, and it's the yardstick we build every site to. Level A is the bare minimum and AAA is rarely achievable across a whole site. AA covers the things that block people most often, such as contrast, keyboard access, zoom and form labels."
+  - q: "Do UK small businesses have to make their websites accessible?"
+    a: "GOV.UK's guidance says all UK service providers have a legal obligation to make reasonable adjustments under the Equality Act 2010, or the Disability Discrimination Act 1995 in Northern Ireland. The WCAG 2.2 AA regulations apply to public sector bodies, not private firms. This isn't legal advice, but meeting AA is the safest practical answer."
+---
+
+To find out if your website is accessible, run a free automated checker on your homepage, then spend ten minutes testing it by hand: keyboard only, zoomed to 200%, contrast, images, headings and forms. The checker finds the obvious faults in a couple of minutes. The hand checks find the ones that stop real people booking, buying or getting in touch, which a tool can't judge.
+
+You don't need any technical knowledge or paid software. You need a laptop with a keyboard, your phone, and a page of your site you care about (start with the homepage, then your contact or booking page). The rule numbers below are from the Web Content Accessibility Guidelines, WCAG 2.2, at level AA, which is the standard we build every site to.
+
+## Before you start: what this check can and can't tell you
+
+W3C, which writes WCAG, publishes its own [Easy Checks](https://www.w3.org/WAI/test-evaluate/easy-checks/), and it's honest about their limits: "These checks cover just a few accessibility issues and are designed to be quick and easy, rather than exhaustive. A web page could seem to pass these checks, yet still have significant accessibility barriers."
+
+The same goes for automated tools. W3C's guide to [choosing evaluation tools](https://www.w3.org/WAI/test-evaluate/tools/selecting/) says "Tools cannot check all accessibility aspects automatically. Human judgement is required." So treat what follows as a quick screen. If it turns up problems (it almost certainly will), you know where to start. If it doesn't, it's a good sign, not a certificate.
+
+## Minute 0 to 3: run a free automated check
+
+Paste your homepage address into a free checker. Two good ones:
+
+- **A11yMate's [page checker](https://a11ymate.co.uk/check/).** Our own, free with no signup. It lists each problem by severity, ties it to its WCAG 2.2 rule and shows the element on the page. It's the tool we used in [our study of 96 UK small-business homepages](/blog/we-checked-uk-small-business-websites-for-accessibility/).
+- **[WAVE](https://wave.webaim.org/) from WebAIM.** Runs online or as a Chrome, Firefox or Edge extension, and marks problems directly on your page.
+
+Don't be alarmed by the result. WebAIM's [Million report](https://webaim.org/projects/million/) for 2026 found WCAG failures on 95.9% of the top million home pages, with an average of 56.1 errors each. In our own study, every one of the 96 UK small-business homepages failed at least one check, and the median had 19 distinct problems. A long list is normal. What matters is fixing it.
+
+## Minute 3 to 6: put the mouse away
+
+Click in your browser's address bar, then press **Tab** repeatedly to move through the page. **Shift+Tab** goes back, **Enter** follows a link or presses a button.
+
+Check three things:
+
+1. **Can you see where you are?** Something should be clearly outlined or highlighted each time you press Tab. If the highlight vanishes, keyboard users are lost. That's WCAG 2.4.7, Focus Visible.
+2. **Can you reach and use everything?** The menu, the phone number, the booking button, the cookie banner, the contact form. If anything only works with a mouse, that fails WCAG 2.1.1, Keyboard.
+3. **Is there a "Skip to content" link** on the first Tab press? W3C's Easy Checks describe it as "the first interactive element on a page". It saves keyboard and screen reader users from tabbing through the whole menu on every page. It was missing on 68% of the homepages we checked.
+
+## Minute 6 to 7: zoom to 200%
+
+Press **Ctrl** and **+** (or **Cmd** and **+** on a Mac) until the browser says 200%. Under WCAG 1.4.4, Resize Text, text should resize up to 200 percent "without loss of content or functionality". Look for text that overlaps, gets cut off, or menus you can no longer open. Then do the same on your phone: try to pinch-zoom. Some sites switch zoom off on mobile, which is a quick way to lock out anyone with low vision.
+
+## Minute 7 to 9: check the contrast
+
+Pale grey text on white, and white text on a light brand colour, are the most common accessibility failures on the web. WebAIM found low-contrast text on 83.9% of home pages; we found it on about three in four of ours.
+
+WCAG 1.4.3 asks for a contrast ratio of at least **4.5:1** for normal text and **3:1** for large text. Use WebAIM's free [contrast checker](https://webaim.org/resources/contrastchecker/): enter the text colour and background colour as hex codes (your designer or brand guide will have them, or a browser colour picker extension will find them) and it tells you whether each passes. Check your body text, button text and anything written over a photo.
+
+## Minute 9 to 11: images and alt text
+
+Alt text is, in W3C's words, "a short description that conveys the purpose of an image". Screen readers read it out instead of the picture. WebAIM found missing alt text on 53.1% of home pages.
+
+Your automated check from step one will have flagged images with no alt text at all. What it can't do is tell you whether the alt text that is there makes sense. Look at the list it gives you. "IMG_4032.jpg" or "image" is no use; "Our Ormskirk showroom from the street" is. A logo that links home should say the business name. Purely decorative images should have empty alt text, so screen readers skip them.
+
+## Minute 11 to 13: page title and headings
+
+Look at your browser tab. W3C notes that the page title is "the first thing read by screen readers". It should say what the page is and who you are, such as "Boiler servicing in Southport" followed by your business name, not just "Home". That's WCAG 2.4.2, Page Titled.
+
+Then look at the headings. Screen reader users jump between them to find their way, so they work, in W3C's phrase, "like a table of contents". There should be one main heading at the top, then sections under it in order. The checker will flag headings that skip a level (63% of the homepages we checked) or text that's been made big and bold without being marked up as a heading.
+
+## Minute 13 to 15: try a form
+
+Open your contact or booking form and click on each label ("Name", "Email", "Message"). On a properly built form, clicking the label puts the cursor in its box. If it doesn't, the label probably isn't linked to the field, and a screen reader user hears "edit text, blank" with no idea what to type. WCAG 3.3.2, Labels or Instructions, needs labels "when content requires user input". WebAIM found missing form labels on 51% of home pages.
+
+While you're there, submit the form empty. Is it clear which fields are required and what went wrong? Placeholder text that disappears when you start typing is not a label.
+
+Last, on your phone: are the buttons and links big enough to hit without zooming? WCAG 2.2 added 2.5.8, Target Size (Minimum), which asks for targets of at least 24 by 24 CSS pixels, with some exceptions.
+
+## The three fixes that clear most of the list
+
+WebAIM's report found that six kinds of problem make up 96% of all the errors it detected: low-contrast text, missing alt text, missing form labels, empty links, empty buttons and a missing page language. For most small-business sites, the first three are where to start:
+
+1. **Darken the text.** Changing a few colour values in the theme often fixes contrast across the whole site.
+2. **Write real alt text** for every image that carries meaning, and empty alt for the decorative ones.
+3. **Link every form label to its field**, and replace placeholder-only fields with visible labels.
+
+None of these needs a redesign. The keyboard and focus problems can take more work, depending on how the site was built.
+
+## Does my website legally have to be accessible?
+
+GOV.UK's guidance on [accessibility requirements](https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps) sets WCAG 2.2 AA as the standard for public sector websites. Those regulations don't cover private businesses. The same page says that "All UK service providers have a legal obligation to make reasonable adjustments under the Equality Act 2010", or the Disability Discrimination Act 1995 in Northern Ireland. This isn't legal advice, but building to WCAG 2.2 AA is the clearest way to show you've taken that seriously, and it means more customers can actually use your site.
+
+## Want someone to do it for you?
+
+If your fifteen minutes turned up a list you'd rather not tackle alone, our [accessibility service](/services/accessibility/) starts with a free one-page check and a fixed quote. For a small site that mainly needs the worst problems fixed, a [fix sprint](/services/fix-sprint/) does it in a week, from £750, with a re-test and a before and after report.
+
+And while you're looking at your site with fresh eyes, our [free website carbon audit](/website-carbon-audit/) tells you how heavy it is and how much CO2 each visit produces. Accessibility and page weight are separate jobs, but they're often fixed in the same week.
